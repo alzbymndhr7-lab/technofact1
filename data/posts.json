@@ -18,27 +18,6 @@
     "updated": "2026-11-20"
   },
   {
-    "slug": "what-is-an-api",
-    "date": "2026-11-18",
-    "tags": [
-      "api",
-      "backend",
-      "basics"
-    ],
-    "cover": "",
-    "status": "published",
-    "featured": false,
-    "ar": {
-      "title": "ما هو الـ API؟ شرح مبسّط بمثال المطعم",
-      "excerpt": "افهم واجهات البرمجة في خمس دقائق، مع مثال حقيقي بلغة JavaScript."
-    },
-    "en": {
-      "title": "What is an API? Explained with a restaurant",
-      "excerpt": "Understand APIs in five minutes, with a real JavaScript example."
-    },
-    "readMin": 1
-  },
-  {
     "slug": "git-basics",
     "date": "2026-11-15",
     "tags": [
