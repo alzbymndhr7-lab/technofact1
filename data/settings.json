@@ -1,0 +1,17 @@
+{
+  "name_ar": "تكنو فاكت",
+  "name_en": "Techno Fact",
+  "tagline_ar": "حقائق تقنية، برمجة حقيقية — مقالات ومشاريع تشرح التقنية بوضوح.",
+  "tagline_en": "Tech facts, real code — articles and projects that make technology clear.",
+  "about_ar": "أهلاً بك في **تكنو فاكت**. هنا أكتب عن البرمجة وتطوير الويب والتطبيقات، وأشارك المشاريع التي أبنيها خطوة بخطوة.\n\nهدفي أن يكون المحتوى التقني العربي **واضحاً، دقيقاً، وعملياً**.",
+  "about_en": "Welcome to **Techno Fact**. I write about programming, web and app development, and share the projects I build step by step.\n\nMy goal is tech content that is **clear, accurate and practical**.",
+  "email": "",
+  "social": {
+    "github": "",
+    "x": "",
+    "linkedin": "",
+    "youtube": "",
+    "instagram": ""
+  },
+  "accent": "#22d3ee"
+}

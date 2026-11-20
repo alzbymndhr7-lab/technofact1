@@ -1,0 +1,40 @@
+[
+  {
+    "id": "mahami",
+    "url": "",
+    "repo": "",
+    "cover": "",
+    "tags": [
+      "PWA",
+      "JavaScript"
+    ],
+    "featured": true,
+    "ar": {
+      "title": "مهامي",
+      "desc": "تطبيق مهام عربي خفيف يعمل على الهاتف كتطبيق حقيقي، مع تصنيفات ونسبة إنجاز ووضع ليلي."
+    },
+    "en": {
+      "title": "Mahami",
+      "desc": "A lightweight Arabic to-do app that installs on your phone, with categories, progress and dark mode."
+    }
+  },
+  {
+    "id": "engineering-archive",
+    "url": "",
+    "repo": "",
+    "cover": "",
+    "tags": [
+      "Web App",
+      "Archive"
+    ],
+    "featured": false,
+    "ar": {
+      "title": "نظام الأرشيف الهندسي",
+      "desc": "نظام ويب لأرشفة المشاريع الهندسية وتنظيم ملفاتها والبحث فيها بسهولة."
+    },
+    "en": {
+      "title": "Engineering Archive System",
+      "desc": "A web system for archiving engineering projects, organizing their files and searching them easily."
+    }
+  }
+]

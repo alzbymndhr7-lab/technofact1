@@ -1,0 +1,65 @@
+[
+  {
+    "slug": "free-hosting-github-pages",
+    "date": "2026-11-20",
+    "tags": [
+      "web",
+      "github",
+      "hosting"
+    ],
+    "cover": "",
+    "status": "published",
+    "featured": true,
+    "ar": {
+      "title": "كيف تنشر موقعك مجاناً للعالم كله باستخدام GitHub Pages",
+      "excerpt": "دليل عملي لنشر أي موقع ثابت مجاناً وبسرعة عالية في كل دول العالم."
+    },
+    "en": {
+      "title": "How to publish your website worldwide for free with GitHub Pages",
+      "excerpt": "A practical guide to hosting any static website for free, fast, everywhere."
+    },
+    "readMin": 1
+  },
+  {
+    "slug": "what-is-an-api",
+    "date": "2026-11-18",
+    "tags": [
+      "api",
+      "backend",
+      "basics"
+    ],
+    "cover": "",
+    "status": "published",
+    "featured": false,
+    "ar": {
+      "title": "ما هو الـ API؟ شرح مبسّط بمثال المطعم",
+      "excerpt": "افهم واجهات البرمجة في خمس دقائق، مع مثال حقيقي بلغة JavaScript."
+    },
+    "en": {
+      "title": "What is an API? Explained with a restaurant",
+      "excerpt": "Understand APIs in five minutes, with a real JavaScript example."
+    },
+    "readMin": 1
+  },
+  {
+    "slug": "git-basics",
+    "date": "2026-11-15",
+    "tags": [
+      "git",
+      "tools",
+      "basics"
+    ],
+    "cover": "",
+    "status": "published",
+    "featured": false,
+    "ar": {
+      "title": "أساسيات Git في 10 دقائق",
+      "excerpt": "أهم الأوامر التي يحتاجها كل مبرمج لحفظ عمله وتتبّع تغييراته."
+    },
+    "en": {
+      "title": "Git basics in 10 minutes",
+      "excerpt": "The essential commands every developer needs to save and track their work."
+    },
+    "readMin": 1
+  }
+]
