@@ -5,14 +5,28 @@
   "tagline_en": "Tech facts, real code — articles and projects that make technology clear.",
   "about_ar": "أهلاً بك في **تكنو فاكت**. هنا أكتب عن البرمجة وتطوير الويب والتطبيقات، وأشارك المشاريع التي أبنيها خطوة بخطوة.\n\nهدفي أن يكون المحتوى التقني العربي **واضحاً، دقيقاً، وعملياً**.",
   "about_en": "Welcome to **Techno Fact**. I write about programming, web and app development, and share the projects I build step by step.\n\nMy goal is tech content that is **clear, accurate and practical**.",
-  "email": "",
+  "email": "alzbymndhr7@gmail.com",
   "social": {
     "github": "",
     "x": "",
     "linkedin": "",
     "youtube": "",
-    "instagram": ""
+    "instagram": "https://www.instagram.com/techno_fact_1",
+    "facebook": "https://www.facebook.com/share/19mcypQzxK/",
+    "tiktok": "",
+    "telegram": "",
+    "whatsapp": "+962791587603"
   },
   "accent": "#22d3ee",
-  "share_v": 1
+  "share_v": 1,
+  "features": {
+    "views": true,
+    "likes": true,
+    "comments": true
+  },
+  "author_avatar": "images/2026/avatar-mwpbqykh-62328.jpg",
+  "author_name": "",
+  "author_bio_ar": "",
+  "author_bio_en": "",
+  "newsletter": ""
 }
