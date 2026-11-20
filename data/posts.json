@@ -18,27 +18,6 @@
     "updated": "2026-11-20"
   },
   {
-    "slug": "free-hosting-github-pages",
-    "date": "2026-11-20",
-    "tags": [
-      "web",
-      "github",
-      "hosting"
-    ],
-    "cover": "",
-    "status": "published",
-    "featured": true,
-    "ar": {
-      "title": "كيف تنشر موقعك مجاناً للعالم كله باستخدام GitHub Pages",
-      "excerpt": "دليل عملي لنشر أي موقع ثابت مجاناً وبسرعة عالية في كل دول العالم."
-    },
-    "en": {
-      "title": "How to publish your website worldwide for free with GitHub Pages",
-      "excerpt": "A practical guide to hosting any static website for free, fast, everywhere."
-    },
-    "readMin": 1
-  },
-  {
     "slug": "what-is-an-api",
     "date": "2026-11-18",
     "tags": [
