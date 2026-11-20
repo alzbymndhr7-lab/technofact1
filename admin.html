@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>لوحة التحكم | Techno Fact</title>
+<meta name="theme-color" content="#070b14">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23a3e635'/%3E%3Ctext x='32' y='42' font-family='monospace' font-size='26' font-weight='700' text-anchor='middle' fill='%23070b14'%3ETF%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js"></script>
+<style>
+:root{--a:#22d3ee;--a2:#a3e635;--bg:#070b14;--bg2:#0a1020;--card:#0d1424;--card2:#111a2e;--line:#1a2540;--line2:#24324f;--ink:#e6edf7;--mut:#8a9ab5;
+  --ok:#4ade80;--warn:#fbbf24;--bad:#f87171;--ff:'IBM Plex Sans Arabic',system-ui,sans-serif;--ffm:'JetBrains Mono',ui-monospace,monospace}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--ff);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--a);text-decoration:none}
+button,input,select,textarea{font-family:inherit;font-size:15px;color:var(--ink)}
+button{cursor:pointer}
+.mono{font-family:var(--ffm)}
+.hide{display:none!important}
+
+/* login */
+#login{min-height:100vh;display:grid;place-items:center;padding:24px;
+  background:radial-gradient(ellipse at 20% 0%,rgba(34,211,238,.12),transparent 50%),radial-gradient(ellipse at 90% 10%,rgba(163,230,53,.07),transparent 45%)}
+.lbox{width:100%;max-width:440px;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:30px 26px;box-shadow:0 30px 90px rgba(0,0,0,.4)}
+.lbox .mk{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;font-family:var(--ffm);font-weight:600;color:#000;
+  background:linear-gradient(135deg,var(--a),var(--a2));box-shadow:0 0 30px rgba(34,211,238,.35);margin-bottom:16px}
+.lbox h1{margin:0 0 4px;font-size:24px}
+.lbox p.s{margin:0 0 22px;color:var(--mut)}
+.f{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.f label{font-size:13.5px;color:var(--mut);font-weight:500}
+.inp,select.inp,textarea.inp{width:100%;background:var(--bg2);border:1px solid var(--line2);border-radius:11px;padding:11px 13px;outline:none;transition:.15s}
+.inp:focus{border-color:var(--a);box-shadow:0 0 0 3px rgba(34,211,238,.12)}
+.inp.ltr{direction:ltr;text-align:left;font-family:var(--ffm);font-size:14px}
+textarea.inp{resize:vertical;min-height:90px;line-height:1.7}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.row2{grid-template-columns:1fr}}
+.chk{display:flex;align-items:center;gap:8px;color:var(--mut);font-size:14px;margin:4px 0 18px;cursor:pointer}
+.chk input{accent-color:var(--a);width:17px;height:17px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 16px;border-radius:11px;border:1px solid var(--line2);background:var(--card2);
+  font-weight:600;font-size:14.5px;transition:.15s;white-space:nowrap;color:var(--ink)}
+.btn:hover{border-color:var(--a);color:var(--a)}
+.btn.pri{background:var(--a);border-color:var(--a);color:#001016}
+.btn.pri:hover{filter:brightness(1.08);color:#001016}
+.btn.ok{background:var(--a2);border-color:var(--a2);color:#0b1400}
+.btn.bad{color:var(--bad);border-color:rgba(248,113,113,.35)}
+.btn.bad:hover{background:rgba(248,113,113,.1)}
+.btn.sm{padding:6px 11px;font-size:13px;border-radius:9px}
+.btn.block{width:100%;padding:13px}
+.btn:disabled{opacity:.5;pointer-events:none}
+.help{margin-top:18px;padding:14px;border:1px dashed var(--line2);border-radius:12px;font-size:13.5px;color:var(--mut)}
+.help ol{margin:6px 0 0;padding-inline-start:20px}
+.help li{margin:3px 0}
+.err{color:var(--bad);font-size:14px;margin:-4px 0 12px;min-height:1px}
+
+/* shell */
+#shell{display:grid;grid-template-columns:250px 1fr;min-height:100vh}
+aside.side{position:sticky;top:0;height:100vh;border-inline-end:1px solid var(--line);background:var(--bg2);display:flex;flex-direction:column;padding:18px 14px}
+.brand{display:flex;align-items:center;gap:10px;padding:4px 8px 18px;border-bottom:1px solid var(--line);margin-bottom:12px}
+.brand .mk{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;font-family:var(--ffm);font-size:13px;font-weight:600;color:#000;background:linear-gradient(135deg,var(--a),var(--a2))}
+.brand b{display:block;font-size:15.5px}.brand small{color:var(--mut);font-family:var(--ffm);font-size:11px;direction:ltr;display:block;text-align:right}
+.menu{display:flex;flex-direction:column;gap:3px;flex:1}
+.menu a{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:11px;color:var(--mut);font-weight:500;cursor:pointer}
+.menu a .ic{width:22px;text-align:center;font-size:16px}
+.menu a:hover{background:var(--card);color:var(--ink)}
+.menu a.on{background:var(--card);color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}
+.menu a.on .ic{color:var(--a)}
+.menu .sep{height:1px;background:var(--line);margin:10px 4px}
+.user{display:flex;align-items:center;gap:10px;padding:12px 8px 0;border-top:1px solid var(--line)}
+.user img{width:34px;height:34px;border-radius:50%;border:1px solid var(--line2)}
+.user div{flex:1;min-width:0}.user b{display:block;font-size:14px;overflow:hidden;text-overflow:ellipsis}.user small{color:var(--mut);font-size:12px}
+main.view{padding:26px 30px 60px;min-width:0}
+.vh{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:22px;flex-wrap:wrap}
+.vh h1{margin:0;font-size:25px}
+.vh p{margin:2px 0 0;color:var(--mut);font-size:14px}
+.vh .acts{display:flex;gap:8px;flex-wrap:wrap}
+.bnav{display:none}
+@media(max-width:900px){
+  #shell{grid-template-columns:1fr}
+  aside.side{position:fixed;inset:0 auto 0 0;inset-inline-start:0;width:270px;z-index:60;transform:translateX(100%);transition:.25s;padding-top:calc(18px + env(safe-area-inset-top))}
+  [dir=rtl] aside.side{right:0;left:auto}
+  aside.side.open{transform:none;box-shadow:0 0 0 100vmax rgba(0,0,0,.55)}
+  main.view{padding:calc(18px + env(safe-area-inset-top)) 16px calc(96px + env(safe-area-inset-bottom))}
+  .bnav{display:flex;position:fixed;bottom:0;inset-inline:0;z-index:50;background:rgba(10,16,32,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    border-top:1px solid var(--line);padding:6px 6px calc(6px + env(safe-area-inset-bottom));justify-content:space-around}
+  .bnav a{display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--mut);font-size:11px;padding:6px 10px;border-radius:10px;cursor:pointer;min-width:56px}
+  .bnav a .ic{font-size:19px;line-height:1.2}
+  .bnav a.on{color:var(--a)}
+  .bnav a.plus .ic{width:44px;height:44px;border-radius:14px;background:var(--a);color:#001016;display:grid;place-items:center;font-size:24px;margin-top:-18px;box-shadow:0 8px 24px rgba(34,211,238,.35)}
+  .vh h1{font-size:22px}
+}
+
+/* cards */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px;margin-bottom:20px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;position:relative;overflow:hidden}
+.kpi b{display:block;font-size:30px;font-family:var(--ffm);font-weight:600;line-height:1.2}
+.kpi span{color:var(--mut);font-size:13.5px}
+.kpi i{position:absolute;top:12px;inset-inline-end:14px;font-style:normal;font-size:20px;opacity:.6}
+.kpi.a b{color:var(--a)}.kpi.g b{color:var(--a2)}.kpi.w b{color:var(--warn)}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;margin-bottom:16px}
+.panel h3{margin:0 0 14px;font-size:16px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.two{display:grid;grid-template-columns:1.3fr 1fr;gap:16px}
+@media(max-width:1100px){.two{grid-template-columns:1fr}}
+.list{display:flex;flex-direction:column}
+.li{display:flex;align-items:center;gap:12px;padding:11px 4px;border-bottom:1px solid var(--line)}
+.li:last-child{border-bottom:none}
+.li .t{flex:1;min-width:0}
+.li .t b{display:block;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.li .t small{color:var(--mut);font-size:12.5px}
+.pill{font-size:11.5px;padding:3px 9px;border-radius:999px;font-weight:600;white-space:nowrap}
+.pill.pub{background:rgba(74,222,128,.12);color:var(--ok)}
+.pill.dr{background:rgba(251,191,36,.12);color:var(--warn)}
+.pill.sch{background:rgba(34,211,238,.12);color:var(--a)}
+.pill.ft{background:rgba(163,230,53,.12);color:var(--a2)}
+.lf{font-family:var(--ffm);font-size:10.5px;padding:2px 6px;border-radius:5px;border:1px solid var(--line2);color:var(--mut)}
+.lf.on{color:var(--a);border-color:rgba(34,211,238,.4)}
+.bars{display:flex;align-items:flex-end;gap:10px;height:140px;padding-top:10px}
+.bars div{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end}
+.bars i{display:block;width:100%;max-width:46px;border-radius:8px 8px 3px 3px;background:linear-gradient(180deg,var(--a),rgba(34,211,238,.25));min-height:3px}
+.bars span{font-size:11.5px;color:var(--mut);font-family:var(--ffm)}
+.bars em{font-style:normal;font-size:12px;font-family:var(--ffm)}
+.status{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:12px;background:var(--bg2);border:1px solid var(--line);font-size:14px;margin-bottom:10px}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--mut);flex:none}
+.dot.ok{background:var(--ok);box-shadow:0 0 10px var(--ok)}.dot.w{background:var(--warn);box-shadow:0 0 10px var(--warn)}.dot.b{background:var(--bad)}
+
+/* posts table */
+.toolbar{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.toolbar .inp{flex:1;min-width:200px}
+.toolbar select.inp{flex:0 0 auto;width:auto}
+.prow{display:grid;grid-template-columns:64px 1fr auto;gap:14px;align-items:center;padding:12px;border:1px solid var(--line);border-radius:14px;background:var(--card);margin-bottom:10px}
+.thumb{width:64px;height:44px;border-radius:9px;background:var(--bg2) center/cover;border:1px solid var(--line);display:grid;place-items:center;font-family:var(--ffm);font-size:11px;color:var(--a)}
+.prow .t b{display:block;font-weight:600;line-height:1.45}
+.prow .t .m{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:4px;color:var(--mut);font-size:12.5px}
+.prow .a{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+@media(max-width:700px){.prow{grid-template-columns:52px 1fr}.prow .a{grid-column:1/-1;justify-content:flex-start}.thumb{width:52px;height:40px}}
+
+/* editor */
+.ed{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:18px;align-items:start}
+@media(max-width:1100px){.ed{grid-template-columns:1fr}}
+.ltabs{display:flex;gap:6px;margin-bottom:12px}
+.ltab{padding:8px 16px;border-radius:10px;border:1px solid var(--line2);background:var(--card);font-weight:600;color:var(--mut)}
+.ltab.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.ltab sup{color:var(--ok)}
+.ttl{font-size:24px;font-weight:700;padding:12px 14px}
+.mdbar{display:flex;gap:4px;flex-wrap:wrap;padding:8px;background:var(--bg2);border:1px solid var(--line2);border-bottom:none;border-radius:12px 12px 0 0;align-items:center}
+.mdbar button{min-width:34px;height:32px;border-radius:8px;border:1px solid transparent;background:none;color:var(--mut);font-family:var(--ffm);font-size:13px;font-weight:600;padding:0 8px}
+.mdbar button:hover{background:var(--card);color:var(--a);border-color:var(--line2)}
+.mdbar .sp{flex:1}
+.mdbar .vm{display:flex;background:var(--card);border-radius:9px;padding:2px;border:1px solid var(--line2)}
+.mdbar .vm button{height:28px;font-family:var(--ff);font-size:12.5px}
+.mdbar .vm button.on{background:var(--a);color:#001016}
+.mdwrap{display:grid;grid-template-columns:1fr;border:1px solid var(--line2);border-radius:0 0 12px 12px;overflow:hidden;min-height:480px;background:var(--bg2)}
+.mdwrap.split{grid-template-columns:1fr 1fr}
+.mdwrap textarea{width:100%;min-height:480px;height:100%;border:none;outline:none;resize:vertical;background:var(--bg2);padding:18px;font-family:var(--ffm);font-size:14.5px;line-height:1.9}
+.mdwrap .pv{padding:18px 22px;overflow:auto;max-height:80vh;border-inline-start:1px solid var(--line2);background:var(--card)}
+.mdwrap.prev textarea{display:none}.mdwrap.prev .pv{border:none}
+.mdwrap.edit .pv{display:none}
+@media(max-width:800px){.mdwrap.split{grid-template-columns:1fr}.mdwrap.split .pv{border-inline-start:none;border-top:1px solid var(--line2)}}
+.edstats{display:flex;gap:16px;color:var(--mut);font-size:12.5px;font-family:var(--ffm);padding:8px 4px;flex-wrap:wrap}
+.pv{font-size:16px;line-height:1.9}
+.pv h2{font-size:22px;margin:26px 0 8px}.pv h3{font-size:18px;margin:20px 0 8px}
+.pv pre{background:#060a12;border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;direction:ltr;text-align:left}
+.pv code{font-family:var(--ffm);font-size:.88em}
+.pv :not(pre)>code{background:var(--bg2);padding:2px 6px;border-radius:6px;border:1px solid var(--line)}
+.pv blockquote{margin:16px 0;padding:10px 16px;border-inline-start:3px solid var(--a);background:var(--bg2);border-radius:10px}
+.pv img{max-width:100%;border-radius:10px}
+.pv table{border-collapse:collapse;width:100%}.pv th,.pv td{border:1px solid var(--line2);padding:7px 10px}
+.side-p{position:sticky;top:20px}
+.coverbox{aspect-ratio:16/9;border-radius:12px;border:1px dashed var(--line2);background:var(--bg2) center/cover;display:grid;place-items:center;color:var(--mut);font-size:13px;cursor:pointer;margin-bottom:8px;overflow:hidden}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chips span{font-family:var(--ffm);font-size:12px;padding:3px 8px 3px 6px;border-radius:7px;background:rgba(34,211,238,.1);color:var(--a);border:1px solid rgba(34,211,238,.25);display:inline-flex;gap:6px;align-items:center;direction:ltr}
+.chips span b{cursor:pointer;opacity:.7}
+.restore{display:flex;align-items:center;gap:10px;justify-content:space-between;padding:10px 14px;border-radius:12px;border:1px solid rgba(251,191,36,.35);background:rgba(251,191,36,.07);margin-bottom:14px;font-size:14px;flex-wrap:wrap}
+
+/* media */
+.mgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+.mi{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--card)}
+.mi .im{aspect-ratio:4/3;background:var(--bg2) center/cover}
+.mi .mb{padding:8px 10px;display:flex;flex-direction:column;gap:6px}
+.mi small{font-family:var(--ffm);font-size:11px;color:var(--mut);direction:ltr;text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mi .ma{display:flex;gap:4px}
+.drop{border:2px dashed var(--line2);border-radius:16px;padding:28px;text-align:center;color:var(--mut);margin-bottom:16px;cursor:pointer;transition:.15s}
+.drop:hover,.drop.ov{border-color:var(--a);color:var(--a);background:rgba(34,211,238,.04)}
+
+/* settings */
+.swatches{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.swatches button{width:32px;height:32px;border-radius:10px;border:2px solid transparent}
+.swatches button.on{border-color:var(--ink)}
+.tool{display:flex;gap:14px;align-items:flex-start;padding:16px;border:1px solid var(--line);border-radius:14px;background:var(--card);margin-bottom:12px}
+.tool .ti{width:42px;height:42px;border-radius:12px;background:var(--bg2);border:1px solid var(--line2);display:grid;place-items:center;font-size:19px;flex:none}
+.tool div.tb{flex:1}.tool b{display:block;margin-bottom:2px}.tool p{margin:0 0 10px;color:var(--mut);font-size:13.5px}
+
+/* modal & overlay */
+.ov{position:fixed;inset:0;background:rgba(2,5,12,.7);backdrop-filter:blur(4px);z-index:100;display:grid;place-items:center;padding:18px}
+.modal{width:100%;max-width:560px;max-height:90vh;overflow:auto;background:var(--card);border:1px solid var(--line2);border-radius:20px;padding:22px}
+.modal h3{margin:0 0 14px;font-size:19px}
+.modal .acts{display:flex;gap:8px;justify-content:flex-end;margin-top:18px}
+.busy{position:fixed;inset:0;z-index:150;background:rgba(2,5,12,.75);display:grid;place-items:center}
+.busy div{background:var(--card);border:1px solid var(--line2);border-radius:16px;padding:22px 26px;display:flex;align-items:center;gap:14px;font-weight:500}
+.spin{width:22px;height:22px;border-radius:50%;border:3px solid var(--line2);border-top-color:var(--a);animation:sp .8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.toast{position:fixed;bottom:calc(90px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%) translateY(20px);opacity:0;transition:.3s;z-index:200;
+  background:var(--ink);color:var(--bg);padding:11px 18px;border-radius:12px;font-weight:600;font-size:14px;pointer-events:none;max-width:90vw;text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%)}
+.toast.bad{background:var(--bad);color:#fff}
+.empty{padding:40px 16px;text-align:center;color:var(--mut);border:1px dashed var(--line2);border-radius:16px}
+.setup{max-width:620px;margin:40px auto;text-align:center}
+.setup .big{font-size:52px}
+.kbd{font-family:var(--ffm);font-size:11.5px;padding:2px 6px;border:1px solid var(--line2);border-radius:6px;color:var(--mut)}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<section id="login" class="hide">
+  <form class="lbox" id="lform" autocomplete="off">
+    <div class="mk">&lt;TF/&gt;</div>
+    <h1>لوحة تحكم تكنو فاكت</h1>
+    <p class="s">دخول خاص بصاحب الموقع فقط.</p>
+    <div class="row2">
+      <div class="f"><label>اسم مستخدم GitHub</label><input class="inp ltr" id="lo" placeholder="username" required></div>
+      <div class="f"><label>اسم المستودع</label><input class="inp ltr" id="lr" placeholder="technofact" required></div>
+    </div>
+    <div class="f"><label>مفتاح الدخول (Access Token)</label><input class="inp ltr" id="lt" type="password" placeholder="github_pat_…" required></div>
+    <label class="chk"><input type="checkbox" id="lrem" checked> تذكّرني على هذا الجهاز</label>
+    <div class="err" id="lerr"></div>
+    <button class="btn pri block" id="lbtn">دخول ←</button>
+    <div class="help">
+      <b style="color:var(--ink)">كيف أحصل على المفتاح؟</b>
+      <ol>
+        <li>افتح <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">صفحة إنشاء مفتاح جديد</a> على GitHub.</li>
+        <li>اختر <b>Only select repositories</b> ثم اختر مستودع موقعك فقط.</li>
+        <li>من <b>Permissions</b> أعطِ <b>Contents: Read and write</b> (واختيارياً <b>Pages: Read</b>).</li>
+        <li>اضغط Generate وانسخ المفتاح والصقه هنا.</li>
+      </ol>
+      🔒 المفتاح يُحفظ في متصفحك فقط ولا يُرسل إلا إلى GitHub.
+    </div>
+  </form>
+</section>
+
+<!-- SHELL -->
+<div id="shell" class="hide">
+  <aside class="side" id="side">
+    <div class="brand"><span class="mk">&lt;TF/&gt;</span><div><b id="bname">Techno Fact</b><small id="brepo"></small></div></div>
+    <nav class="menu" id="menu">
+      <a data-v="dash"><span class="ic">◧</span>الرئيسية</a>
+      <a data-v="posts"><span class="ic">✎</span>المقالات</a>
+      <a data-v="new"><span class="ic">＋</span>مقال جديد</a>
+      <a data-v="projects"><span class="ic">◈</span>المشاريع</a>
+      <a data-v="media"><span class="ic">▣</span>الوسائط</a>
+      <div class="sep"></div>
+      <a data-v="settings"><span class="ic">⚙</span>إعدادات الموقع</a>
+      <a data-v="tools"><span class="ic">⚒</span>الأدوات</a>
+      <a id="openSite" target="_blank" rel="noopener"><span class="ic">↗</span>عرض الموقع</a>
+    </nav>
+    <div class="user"><img id="uav" alt=""><div><b id="uname"></b><small>المالك</small></div><button class="btn sm" id="logout" title="خروج">⏻</button></div>
+  </aside>
+  <main class="view" id="view"></main>
+  <nav class="bnav" id="bnav">
+    <a data-v="dash"><span class="ic">◧</span>الرئيسية</a>
+    <a data-v="posts"><span class="ic">✎</span>المقالات</a>
+    <a data-v="new" class="plus"><span class="ic">＋</span></a>
+    <a data-v="projects"><span class="ic">◈</span>المشاريع</a>
+    <a id="bmore"><span class="ic">☰</span>المزيد</a>
+  </nav>
+</div>
+
+<div class="toast" id="toast"></div>
+<input type="file" id="filePick" accept="image/*" class="hide">
+
+<script id="seed" type="application/json">{"settings": {"name_ar": "تكنو فاكت", "name_en": "Techno Fact", "tagline_ar": "حقائق تقنية، برمجة حقيقية — مقالات ومشاريع تشرح التقنية بوضوح.", "tagline_en": "Tech facts, real code — articles and projects that make technology clear.", "about_ar": "أهلاً بك في **تكنو فاكت**. هنا أكتب عن البرمجة وتطوير الويب والتطبيقات، وأشارك المشاريع التي أبنيها خطوة بخطوة.\n\nهدفي أن يكون المحتوى التقني العربي **واضحاً، دقيقاً، وعملياً**.", "about_en": "Welcome to **Techno Fact**. I write about programming, web and app development, and share the projects I build step by step.\n\nMy goal is tech content that is **clear, accurate and practical**.", "email": "", "social": {"github": "", "x": "", "linkedin": "", "youtube": "", "instagram": ""}, "accent": "#22d3ee"}, "posts": [{"slug": "free-hosting-github-pages", "date": "2026-11-20", "tags": ["web", "github", "hosting"], "cover": "", "status": "published", "featured": true, "ar": {"title": "كيف تنشر موقعك مجاناً للعالم كله باستخدام GitHub Pages", "excerpt": "دليل عملي لنشر أي موقع ثابت مجاناً وبسرعة عالية في كل دول العالم."}, "en": {"title": "How to publish your website worldwide for free with GitHub Pages", "excerpt": "A practical guide to hosting any static website for free, fast, everywhere."}}, {"slug": "what-is-an-api", "date": "2026-11-18", "tags": ["api", "backend", "basics"], "cover": "", "status": "published", "featured": false, "ar": {"title": "ما هو الـ API؟ شرح مبسّط بمثال المطعم", "excerpt": "افهم واجهات البرمجة في خمس دقائق، مع مثال حقيقي بلغة JavaScript."}, "en": {"title": "What is an API? Explained with a restaurant", "excerpt": "Understand APIs in five minutes, with a real JavaScript example."}}, {"slug": "git-basics", "date": "2026-11-15", "tags": ["git", "tools", "basics"], "cover": "", "status": "published", "featured": false, "ar": {"title": "أساسيات Git في 10 دقائق", "excerpt": "أهم الأوامر التي يحتاجها كل مبرمج لحفظ عمله وتتبّع تغييراته."}, "en": {"title": "Git basics in 10 minutes", "excerpt": "The essential commands every developer needs to save and track their work."}}], "projects": [{"id": "mahami", "url": "", "repo": "", "cover": "", "tags": ["PWA", "JavaScript"], "featured": true, "ar": {"title": "مهامي", "desc": "تطبيق مهام عربي خفيف يعمل على الهاتف كتطبيق حقيقي، مع تصنيفات ونسبة إنجاز ووضع ليلي."}, "en": {"title": "Mahami", "desc": "A lightweight Arabic to-do app that installs on your phone, with categories, progress and dark mode."}}, {"id": "engineering-archive", "url": "", "repo": "", "cover": "", "tags": ["Web App", "Archive"], "featured": false, "ar": {"title": "نظام الأرشيف الهندسي", "desc": "نظام ويب لأرشفة المشاريع الهندسية وتنظيم ملفاتها والبحث فيها بسهولة."}, "en": {"title": "Engineering Archive System", "desc": "A web system for archiving engineering projects, organizing their files and searching them easily."}}], "content": {"free-hosting-github-pages.ar.md": "إذا كان عندك موقع جاهز (HTML وCSS وJavaScript) وتريد نشره للعالم **مجاناً**، فإن GitHub Pages من أفضل الخيارات.\n\n## لماذا GitHub Pages؟\n\n- **مجاني** تماماً للمواقع الثابتة.\n- **سريع** لأنه يُخدَّم عبر شبكة توزيع محتوى (CDN).\n- يعطيك عنواناً مجانياً مثل `username.github.io`.\n- يمكنك ربط نطاق خاص بك مثل `example.com` لاحقاً.\n\n## الخطوات\n\n1. أنشئ حساباً على [github.com](https://github.com).\n2. أنشئ مستودعاً جديداً (Repository) واجعله **Public**.\n3. ارفع ملفات موقعك، وتأكد أن الصفحة الرئيسية اسمها `index.html`.\n4. من **Settings ← Pages** اختر الفرع `main` ثم احفظ.\n5. انتظر دقيقة، وسيظهر لك رابط موقعك.\n\n## مثال على أبسط صفحة\n\n```html\n<!DOCTYPE html>\n<html lang=\"ar\" dir=\"rtl\">\n  <head><meta charset=\"UTF-8\"><title>موقعي<\/title><\/head>\n  <body><h1>أهلاً بالعالم 👋<\/h1><\/body>\n<\/html>\n```\n\n> نصيحة: كل تعديل ترفعه على المستودع يُنشر تلقائياً خلال دقيقة تقريباً.\n\nبهذه البساطة يصبح موقعك متاحاً للعالم كله.", "free-hosting-github-pages.en.md": "If you have a ready website (HTML, CSS and JavaScript) and want to publish it to the world **for free**, GitHub Pages is one of the best options.\n\n## Why GitHub Pages?\n\n- **Free** for static websites.\n- **Fast**, served through a CDN.\n- Gives you a free address like `username.github.io`.\n- You can connect your own domain like `example.com` later.\n\n## Steps\n\n1. Create an account on [github.com](https://github.com).\n2. Create a new **Public** repository.\n3. Upload your files and make sure the home page is named `index.html`.\n4. Go to **Settings → Pages**, choose the `main` branch and save.\n5. Wait a minute and your site link will appear.\n\n## The simplest page\n\n```html\n<!DOCTYPE html>\n<html lang=\"en\">\n  <head><meta charset=\"UTF-8\"><title>My site<\/title><\/head>\n  <body><h1>Hello world 👋<\/h1><\/body>\n<\/html>\n```\n\n> Tip: every change you push to the repository is published automatically in about a minute.\n\nThat's all it takes to put your site in front of the whole world.", "what-is-an-api.ar.md": "## تخيّل أنك في مطعم\n\nأنت (**التطبيق**) تريد طعاماً من المطبخ (**الخادم**). لكنك لا تدخل المطبخ بنفسك، بل تطلب من **النادل**. النادل هنا هو الـ **API**: ينقل طلبك بطريقة متفق عليها، ويرجع لك النتيجة.\n\n## التعريف\n\nالـ API (واجهة برمجة التطبيقات) هي مجموعة قواعد تسمح لبرنامجين بالتواصل مع بعضهما.\n\n## مثال عملي\n\nهذا الكود يطلب بيانات من API ويعرض النتيجة:\n\n```js\nconst res = await fetch('https://api.github.com/users/octocat');\nconst user = await res.json();\nconsole.log(user.name, user.public_repos);\n```\n\n## أشهر أنواع الطلبات\n\n| الطلب | الاستخدام |\n|---|---|\n| `GET` | جلب بيانات |\n| `POST` | إضافة بيانات |\n| `PUT` / `PATCH` | تعديل بيانات |\n| `DELETE` | حذف بيانات |\n\nعندما تفهم الـ API، ستفهم كيف تتواصل معظم التطبيقات الحديثة مع بعضها.", "what-is-an-api.en.md": "## Imagine you're in a restaurant\n\nYou (**the app**) want food from the kitchen (**the server**). You don't walk into the kitchen yourself — you ask the **waiter**. The waiter is the **API**: they carry your request in an agreed format and bring back the result.\n\n## Definition\n\nAn API (Application Programming Interface) is a set of rules that lets two programs talk to each other.\n\n## A real example\n\nThis code requests data from an API and prints the result:\n\n```js\nconst res = await fetch('https://api.github.com/users/octocat');\nconst user = await res.json();\nconsole.log(user.name, user.public_repos);\n```\n\n## Common request methods\n\n| Method | Use |\n|---|---|\n| `GET` | Read data |\n| `POST` | Create data |\n| `PUT` / `PATCH` | Update data |\n| `DELETE` | Delete data |\n\nOnce you understand APIs, you understand how most modern apps talk to each other.", "git-basics.ar.md": "Git هو نظام لحفظ نسخ من مشروعك وتتبّع كل تغيير فيه. إليك أهم الأوامر:\n\n## البداية\n\n```bash\ngit init                 # إنشاء مستودع جديد\ngit clone <url>          # نسخ مستودع موجود\n```\n\n## الحفظ\n\n```bash\ngit status               # ماذا تغيّر؟\ngit add .                # تجهيز كل التغييرات\ngit commit -m \"رسالة\"   # حفظ نسخة\n```\n\n## المزامنة\n\n```bash\ngit push                 # رفع التغييرات\ngit pull                 # جلب آخر التغييرات\n```\n\n## الفروع\n\n```bash\ngit switch -c feature    # إنشاء فرع جديد والانتقال إليه\ngit merge feature        # دمج الفرع\n```\n\n> القاعدة الذهبية: اعمل `commit` صغيراً وواضحاً بعد كل خطوة.", "git-basics.en.md": "Git is a system for saving versions of your project and tracking every change. Here are the essential commands:\n\n## Getting started\n\n```bash\ngit init                 # create a new repository\ngit clone <url>          # copy an existing repository\n```\n\n## Saving\n\n```bash\ngit status               # what changed?\ngit add .                # stage all changes\ngit commit -m \"message\"  # save a version\n```\n\n## Syncing\n\n```bash\ngit push                 # upload changes\ngit pull                 # download latest changes\n```\n\n## Branches\n\n```bash\ngit switch -c feature    # create a branch and switch to it\ngit merge feature        # merge the branch\n```\n\n> Golden rule: make small, clear commits after every step."}}</script>
+<script>
+/* ============ helpers ============ */
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const today=()=>new Date().toISOString().slice(0,10);
+const ls={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}},del(k){try{localStorage.removeItem(k)}catch(e){}}};
+const ss={get(k){try{return sessionStorage.getItem(k)}catch(e){return null}},set(k,v){try{sessionStorage.setItem(k,v)}catch(e){}},del(k){try{sessionStorage.removeItem(k)}catch(e){}}};
+function toast(m,bad){const e=$('#toast');e.textContent=m;e.className='toast show'+(bad?' bad':'');clearTimeout(e._t);e._t=setTimeout(()=>e.className='toast',2600)}
+function busy(msg){ let el=$('.busy'); if(msg===false){el&&el.remove();return} if(!el){el=document.createElement('div');el.className='busy';document.body.appendChild(el)} el.innerHTML=`<div><span class="spin"></span>${esc(msg)}</div>`; }
+function modal(html,{wide}={}){ const o=document.createElement('div');o.className='ov';o.innerHTML=`<div class="modal" ${wide?'style="max-width:720px"':''}>${html}</div>`;document.body.appendChild(o);
+  o.addEventListener('click',e=>{if(e.target===o)o.remove()}); return o; }
+function confirmBox(title,msg,okTxt='تأكيد',danger){ return new Promise(res=>{ const o=modal(`<h3>${esc(title)}</h3><p style="color:var(--mut);margin:0">${msg}</p>
+  <div class="acts"><button class="btn" data-x>إلغاء</button><button class="btn ${danger?'bad':'pri'}" data-ok>${esc(okTxt)}</button></div>`);
+  o.querySelector('[data-x]').onclick=()=>{o.remove();res(false)}; o.querySelector('[data-ok]').onclick=()=>{o.remove();res(true)}; }); }
+function promptBox(title,label,val='',ltr){ return new Promise(res=>{ const o=modal(`<h3>${esc(title)}</h3><div class="f"><label>${esc(label)}</label><input class="inp ${ltr?'ltr':''}" value="${esc(val)}"></div>
+  <div class="acts"><button class="btn" data-x>إلغاء</button><button class="btn pri" data-ok>تم</button></div>`); const i=o.querySelector('input'); setTimeout(()=>i.focus(),50);
+  const ok=()=>{o.remove();res(i.value)}; i.onkeydown=e=>{if(e.key==='Enter')ok()}; o.querySelector('[data-x]').onclick=()=>{o.remove();res(null)}; o.querySelector('[data-ok]').onclick=ok; }); }
+const slugify=s=>String(s||'').toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9\s-]/g,'').trim().replace(/[\s_]+/g,'-').replace(/-+/g,'-').replace(/^-|-$/g,'').slice(0,70);
+const plain=md=>String(md||'').replace(/```[\s\S]*?```/g,' ').replace(/`[^`]*`/g,' ').replace(/!\[[^\]]*\]\([^)]*\)/g,' ').replace(/\[([^\]]*)\]\([^)]*\)/g,'$1').replace(/[#>*_|~-]+/g,' ').replace(/\s+/g,' ').trim();
+const words=md=>plain(md).split(' ').filter(Boolean).length;
+const readMin=md=>Math.max(1,Math.round(words(md)/200));
+function b64encBytes(bytes){let s='';const CH=0x8000;for(let i=0;i<bytes.length;i+=CH)s+=String.fromCharCode.apply(null,bytes.subarray(i,i+CH));return btoa(s)}
+const b64enc=str=>b64encBytes(new TextEncoder().encode(str));
+const b64dec=b64=>{const bin=atob(b64.replace(/\n/g,''));const u=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);return new TextDecoder().decode(u)};
+
+/* ============ GitHub API ============ */
+const GH={o:'',r:'',token:'',branch:'main',pagesUrl:''};
+async function api(path,opt={}){
+  const res=await fetch('https://api.github.com'+path,{...opt,cache:'no-store',headers:{Authorization:'Bearer '+GH.token,Accept:'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28',...(opt.body?{'Content-Type':'application/json'}:{})}});
+  if(res.status===404) return null;
+  if(!res.ok){ let m=res.status+''; try{const j=await res.json();m=j.message||m}catch(e){} const err=new Error(m); err.status=res.status; throw err; }
+  return res.status===204?{}:res.json();
+}
+const R=()=>`/repos/${GH.o}/${GH.r}`;
+const rawUrl=p=>`https://raw.githubusercontent.com/${GH.o}/${GH.r}/${GH.branch}/${p}`;
+async function readText(path){ const j=await api(`${R()}/contents/${encodeURI(path)}?ref=${GH.branch}`); if(!j||Array.isArray(j)) return null;
+  if(j.content) return b64dec(j.content);
+  if(j.download_url){ const r=await fetch(j.download_url+'?t='+Date.now()); return r.ok? r.text():null } return null; }
+async function readJSON(path,def){ const t=await readText(path); if(t==null) return def; try{return JSON.parse(t)}catch(e){return def} }
+async function loadTree(){ try{ const j=await api(`${R()}/git/trees/${GH.branch}?recursive=1`); S.tree=new Set((j?.tree||[]).filter(x=>x.type==='blob').map(x=>x.path)); }catch(e){ S.tree=new Set(); } }
+/* atomic multi-file commit */
+async function commit(files,message){
+  let ref=await api(`${R()}/git/ref/heads/${GH.branch}`).catch(e=>{ if(e.status===409) return null; throw e; });
+  if(!ref){ // empty repo → bootstrap with contents API
+    await api(`${R()}/contents/README.md`,{method:'PUT',body:JSON.stringify({message:'init',content:b64enc('# Techno Fact\n'),branch:GH.branch})});
+    ref=await api(`${R()}/git/ref/heads/${GH.branch}`);
+  }
+  const base=ref.object.sha; const bc=await api(`${R()}/git/commits/${base}`);
+  const tree=[];
+  for(const f of files){
+    if(f.del){ if(S.tree.has(f.path)) tree.push({path:f.path,mode:'100644',type:'blob',sha:null}); continue; }
+    const blob=await api(`${R()}/git/blobs`,{method:'POST',body:JSON.stringify(f.b64!=null?{content:f.b64,encoding:'base64'}:{content:f.text,encoding:'utf-8'})});
+    tree.push({path:f.path,mode:'100644',type:'blob',sha:blob.sha});
+  }
+  if(!tree.length) return;
+  const nt=await api(`${R()}/git/trees`,{method:'POST',body:JSON.stringify({base_tree:bc.tree.sha,tree})});
+  const nc=await api(`${R()}/git/commits`,{method:'POST',body:JSON.stringify({message:message+' [dashboard]',tree:nt.sha,parents:[base]})});
+  await api(`${R()}/git/refs/heads/${GH.branch}`,{method:'PATCH',body:JSON.stringify({sha:nc.sha})});
+  files.forEach(f=>f.del?S.tree.delete(f.path):S.tree.add(f.path));
+}
+async function safeCommit(files,msg,doing='جارٍ الحفظ والنشر…'){
+  busy(doing);
+  try{ await commit(files,msg); busy(false); toast('✓ تم الحفظ — سيظهر على الموقع خلال دقيقة تقريباً'); return true; }
+  catch(e){ busy(false); toast('فشل الحفظ: '+e.message,true); console.error(e); return false; }
+}
+const J=o=>JSON.stringify(o,null,2)+'\n';
+
+/* ============ state ============ */
+const S={user:null,settings:{},posts:[],projects:[],tree:new Set(),view:'dash',edit:null,imgCache:{}};
+const SEED=(()=>{try{return JSON.parse($('#seed').textContent)}catch(e){return null}})();
+const imgSrc=p=>!p?'':(/^(https?:|data:)/.test(p)?p:(S.imgCache[p]||rawUrl(p)));
+const postStatus=p=>p.status==='draft'?'dr':(p.date>today()?'sch':'pub');
+const statusPill=p=>({dr:'<span class="pill dr">مسودة</span>',sch:'<span class="pill sch">مجدول</span>',pub:'<span class="pill pub">منشور</span>'})[postStatus(p)];
+
+/* ============ auth ============ */
+function guessRepo(){ const h=location.hostname; if(h.endsWith('.github.io')){ const o=h.split('.')[0]; const seg=location.pathname.split('/').filter(Boolean)[0]; return {o, r: seg && !seg.endsWith('.html')? seg : h}; } return {}; }
+async function tryLogin(o,r,token,remember,silent){
+  GH.o=o.trim(); GH.r=r.trim(); GH.token=token.trim();
+  try{
+    const [u,repo]=await Promise.all([api('/user'),api(R())]);
+    if(!repo) throw new Error('المستودع غير موجود أو المفتاح لا يملك صلاحية عليه');
+    if(repo.permissions && !repo.permissions.push) throw new Error('هذا المفتاح لا يملك صلاحية الكتابة على المستودع');
+    S.user=u; GH.branch=repo.default_branch||'main';
+    GH.pagesUrl= repo.name.toLowerCase()===`${repo.owner.login.toLowerCase()}.github.io`? `https://${repo.name}/` : `https://${repo.owner.login.toLowerCase()}.github.io/${repo.name}/`;
+    const cred=JSON.stringify({o:GH.o,r:GH.r,token:GH.token});
+    if(remember){ ls.set('tf-admin',cred); } else { ss.set('tf-admin',cred); ls.del('tf-admin'); }
+    await boot(); return true;
+  }catch(e){ if(!silent){ $('#lerr').textContent='تعذّر الدخول: '+(e.status===401?'المفتاح غير صحيح أو منتهي الصلاحية':e.message); } return false; }
+}
+$('#lform').onsubmit=async e=>{ e.preventDefault(); $('#lerr').textContent=''; const b=$('#lbtn'); b.disabled=true; b.textContent='جارٍ التحقق…';
+  await tryLogin($('#lo').value,$('#lr').value,$('#lt').value,$('#lrem').checked); b.disabled=false; b.textContent='دخول ←'; };
+$('#logout').onclick=async()=>{ if(!await confirmBox('تسجيل الخروج','سيتم حذف المفتاح من هذا الجهاز.','خروج'))return; ls.del('tf-admin'); ss.del('tf-admin'); location.reload(); };
+
+async function boot(){
+  busy('جارٍ تحميل بيانات الموقع…');
+  try{
+    await loadTree();
+    const [s,p,pr]=await Promise.all([readJSON('data/settings.json',null),readJSON('data/posts.json',null),readJSON('data/projects.json',null)]);
+    S.settings=s||{}; S.posts=p||[]; S.projects=pr||[]; S.needsSetup=!s;
+  }finally{ busy(false); }
+  $('#login').classList.add('hide'); $('#shell').classList.remove('hide');
+  $('#uav').src=S.user.avatar_url; $('#uname').textContent=S.user.name||S.user.login;
+  $('#bname').textContent=S.settings.name_ar||'Techno Fact'; $('#brepo').textContent=GH.o+'/'+GH.r;
+  $('#openSite').href=GH.pagesUrl;
+  if(S.settings.accent) document.documentElement.style.setProperty('--a',S.settings.accent);
+  const h=location.hash.slice(1); go(['dash','posts','new','projects','media','settings','tools'].includes(h)?h:'dash');
+}
+
+/* ============ router ============ */
+function go(v,arg){
+  if(v!=='editor') S.dirty=false;
+  S.view=v; $('#side').classList.remove('open');
+  $$('[data-v]').forEach(a=>a.classList.toggle('on',a.dataset.v===v||(v==='editor'&&a.dataset.v==='posts')));
+  if(['dash','posts','projects','media','settings','tools'].includes(v)) history.replaceState(null,'','#'+v);
+  window.scrollTo(0,0);
+  if(S.needsSetup && v!=='tools') return viewSetup();
+  ({dash:viewDash,posts:viewPosts,new:()=>openEditor(null),editor:()=>openEditor(arg),projects:viewProjects,media:viewMedia,settings:viewSettings,tools:viewTools})[v]();
+}
+$$('[data-v]').forEach(a=>a.onclick=()=>go(a.dataset.v));
+$('#bmore').onclick=()=>$('#side').classList.toggle('open');
+$('#side').addEventListener('click',e=>{ if(e.target.id==='side') $('#side').classList.remove('open'); });
+
+/* ============ setup ============ */
+function viewSetup(){
+  $('#view').innerHTML=`<div class="setup"><div class="big">🚀</div><h1>أهلاً بك! لنجهّز موقعك</h1>
+  <p style="color:var(--mut)">لم يتم العثور على محتوى الموقع في المستودع <span class="mono">${esc(GH.o)}/${esc(GH.r)}</span>.<br>اضغط الزر وسيتم إنشاء الإعدادات ومقالات ومشاريع تجريبية تقدر تعدّلها أو تحذفها لاحقاً.</p>
+  <div style="display:flex;gap:10px;justify-content:center;margin-top:22px;flex-wrap:wrap">
+    <button class="btn pri" id="doSetup">✦ تهيئة الموقع بمحتوى تجريبي</button>
+    <button class="btn" id="doEmpty">بدء موقع فارغ</button></div></div>`;
+  $('#doSetup').onclick=()=>runSetup(true); $('#doEmpty').onclick=()=>runSetup(false);
+}
+async function runSetup(withSample){
+  const sd=SEED||{settings:{name_ar:'تكنو فاكت',name_en:'Techno Fact',social:{}},posts:[],projects:[],content:{}};
+  const files=[{path:'data/settings.json',text:J(sd.settings)},{path:'data/posts.json',text:J(withSample?sd.posts:[])},{path:'data/projects.json',text:J(withSample?sd.projects:[])},
+    {path:'.nojekyll',text:''}];
+  if(withSample) for(const [k,v] of Object.entries(sd.content||{})) files.push({path:'content/'+k,text:v});
+  if(withSample) sd.posts.forEach(p=>p.readMin=readMin(sd.content[p.slug+'.ar.md']||sd.content[p.slug+'.en.md']||''));
+  if(withSample) files[1].text=J(sd.posts);
+  if(await safeCommit(files,'Initial site setup','جارٍ تهيئة الموقع…')){
+    S.settings=sd.settings; S.posts=withSample?sd.posts:[]; S.projects=withSample?sd.projects:[]; S.needsSetup=false; go('dash');
+  }
+}
+
+/* ============ dashboard ============ */
+function viewDash(){
+  const pub=S.posts.filter(p=>postStatus(p)==='pub'), dr=S.posts.filter(p=>p.status==='draft'), sch=S.posts.filter(p=>postStatus(p)==='sch');
+  const imgs=[...S.tree].filter(p=>p.startsWith('images/')).length;
+  const tags=new Set(S.posts.flatMap(p=>p.tags||[])).size;
+  const months=[];const d=new Date();for(let i=5;i>=0;i--){const m=new Date(d.getFullYear(),d.getMonth()-i,1);months.push({k:m.getFullYear()+'-'+String(m.getMonth()+1).padStart(2,'0'),l:m.toLocaleDateString('ar-u-nu-latn',{month:'short'}),n:0})}
+  S.posts.forEach(p=>{const m=months.find(x=>x.k===(p.date||'').slice(0,7)); if(m)m.n++});
+  const mx=Math.max(1,...months.map(m=>m.n));
+  const recent=[...S.posts].sort((a,b)=>(b.date||'').localeCompare(a.date||'')).slice(0,5);
+  const h=new Date().getHours();
+  $('#view').innerHTML=`<div class="vh"><div><h1>${h<12?'صباح الخير':'مساء الخير'}، ${esc((S.user.name||S.user.login).split(' ')[0])} 👋</h1><p>هذه نظرة سريعة على موقعك.</p></div>
+    <div class="acts"><button class="btn pri" onclick="go('new')">＋ مقال جديد</button><a class="btn" href="${GH.pagesUrl}" target="_blank" rel="noopener">↗ عرض الموقع</a></div></div>
+  <div class="cards">
+    <div class="kpi a"><i>✎</i><b>${pub.length}</b><span>مقال منشور</span></div>
+    <div class="kpi w"><i>◔</i><b>${dr.length}</b><span>مسودة</span></div>
+    <div class="kpi"><i>⏱</i><b>${sch.length}</b><span>مجدول للنشر</span></div>
+    <div class="kpi g"><i>◈</i><b>${S.projects.length}</b><span>مشروع</span></div>
+    <div class="kpi"><i>#</i><b>${tags}</b><span>وسم</span></div>
+    <div class="kpi"><i>▣</i><b>${imgs}</b><span>صورة</span></div>
+  </div>
+  <div class="two">
+    <div>
+      <div class="panel"><h3>آخر المقالات <a class="btn sm" onclick="go('posts')">الكل</a></h3><div class="list">
+        ${recent.map(p=>`<div class="li"><div class="t"><b>${esc(p.ar?.title||p.en?.title||p.slug)}</b><small class="mono">${esc(p.date)}</small></div>${statusPill(p)}<button class="btn sm" onclick="go('editor','${esc(p.slug)}')">تعديل</button></div>`).join('')||'<div class="empty">لا توجد مقالات بعد — ابدأ بكتابة أول مقال!</div>'}
+      </div></div>
+      <div class="panel"><h3>نشاط النشر (آخر 6 أشهر)</h3><div class="bars">${months.map(m=>`<div><em>${m.n||''}</em><i style="height:${m.n/mx*100}%"></i><span>${m.l}</span></div>`).join('')}</div></div>
+    </div>
+    <div>
+      <div class="panel"><h3>حالة الموقع</h3><div id="pstat"><div class="status"><span class="spin" style="width:14px;height:14px;border-width:2px"></span>جارٍ الفحص…</div></div>
+        <div class="status"><span class="dot ok"></span><span>الرابط: <a class="mono" href="${GH.pagesUrl}" target="_blank" rel="noopener" style="direction:ltr;display:inline-block">${esc(GH.pagesUrl.replace('https://',''))}</a></span></div></div>
+      <div class="panel"><h3>آخر التعديلات</h3><div class="list" id="acts"><div class="empty" style="padding:16px">…</div></div></div>
+    </div>
+  </div>`;
+  loadStatus();
+}
+async function loadStatus(){
+  try{
+    const b=await api(`${R()}/pages/builds/latest`);
+    const st=b?.status; const map={built:['ok','منشور ويعمل ✓'],building:['w','جارٍ النشر الآن…'],queued:['w','في قائمة الانتظار…'],errored:['b','حدث خطأ في النشر']};
+    const [c,txt]=map[st]||['w', b? st : 'GitHub Pages غير مفعّل بعد — فعّله من إعدادات المستودع'];
+    $('#pstat')&&($('#pstat').innerHTML=`<div class="status"><span class="dot ${c}"></span>${esc(txt)}${b?.updated_at?` <small class="mono" style="color:var(--mut);margin-inline-start:auto">${new Date(b.updated_at).toLocaleString('ar-u-nu-latn')}</small>`:''}</div>`);
+  }catch(e){ $('#pstat')&&($('#pstat').innerHTML=`<div class="status"><span class="dot"></span><span style="color:var(--mut)">لعرض حالة النشر أضف صلاحية <b>Pages: Read</b> للمفتاح.</span></div>`); }
+  try{
+    const cs=await api(`${R()}/commits?per_page=6&sha=${GH.branch}`);
+    $('#acts')&&($('#acts').innerHTML=(cs||[]).map(c=>`<div class="li"><div class="t"><b style="font-weight:500">${esc(c.commit.message.replace(' [dashboard]','').split('\n')[0])}</b><small class="mono">${new Date(c.commit.author.date).toLocaleString('ar-u-nu-latn')}</small></div></div>`).join('')||'—');
+  }catch(e){}
+}
+
+/* ============ posts list ============ */
+function viewPosts(){
+  $('#view').innerHTML=`<div class="vh"><div><h1>المقالات</h1><p>${S.posts.length} مقال</p></div><div class="acts"><button class="btn pri" onclick="go('new')">＋ مقال جديد</button></div></div>
+  <div class="toolbar"><input class="inp" id="pq" placeholder="ابحث بالعنوان أو الوسم…"><select class="inp" id="pf"><option value="">كل الحالات</option><option value="pub">منشور</option><option value="dr">مسودة</option><option value="sch">مجدول</option></select></div>
+  <div id="plist"></div>`;
+  const draw=()=>{ const q=$('#pq').value.trim().toLowerCase(), f=$('#pf').value;
+    const ps=[...S.posts].sort((a,b)=>(b.date||'').localeCompare(a.date||'')).filter(p=>(!f||postStatus(p)===f)&&(!q||[p.slug,p.ar?.title,p.en?.title,(p.tags||[]).join(' ')].join(' ').toLowerCase().includes(q)));
+    $('#plist').innerHTML=ps.map(p=>`<div class="prow"><div class="thumb" style="${p.cover?`background-image:url('${esc(imgSrc(p.cover))}')`:''}">${p.cover?'':'TF'}</div>
+      <div class="t"><b>${esc(p.ar?.title||p.en?.title||p.slug)}</b><div class="m">${statusPill(p)}${p.featured?'<span class="pill ft">★ مميز</span>':''}
+      <span class="lf ${S.tree.has('content/'+p.slug+'.ar.md')?'on':''}">AR</span><span class="lf ${S.tree.has('content/'+p.slug+'.en.md')?'on':''}">EN</span>
+      <span class="mono">${esc(p.date)}</span>${p.readMin?`<span>${p.readMin} د</span>`:''}<span class="mono" style="direction:ltr">${(p.tags||[]).map(t=>'#'+esc(t)).join(' ')}</span></div></div>
+      <div class="a"><button class="btn sm" data-e="${esc(p.slug)}">تعديل</button><button class="btn sm" data-f="${esc(p.slug)}" title="مميز">${p.featured?'★':'☆'}</button>
+      <button class="btn sm" data-d="${esc(p.slug)}" title="نسخ">⧉</button>${postStatus(p)==='pub'?`<a class="btn sm" href="${GH.pagesUrl}#post-${esc(p.slug)}" target="_blank" rel="noopener">↗</a>`:''}
+      <button class="btn sm bad" data-x="${esc(p.slug)}">حذف</button></div></div>`).join('')||'<div class="empty">لا توجد نتائج</div>';
+    $$('[data-e]').forEach(b=>b.onclick=()=>go('editor',b.dataset.e));
+    $$('[data-f]').forEach(b=>b.onclick=()=>toggleFeat(b.dataset.f));
+    $$('[data-d]').forEach(b=>b.onclick=()=>dupPost(b.dataset.d));
+    $$('[data-x]').forEach(b=>b.onclick=()=>delPost(b.dataset.x));
+  };
+  $('#pq').oninput=draw; $('#pf').onchange=draw; draw();
+}
+async function toggleFeat(slug){ const p=S.posts.find(x=>x.slug===slug); const was=p.featured; S.posts.forEach(x=>x.featured=false); p.featured=!was;
+  if(await safeCommit([{path:'data/posts.json',text:J(S.posts)}],`${p.featured?'Feature':'Unfeature'} ${slug}`)) viewPosts(); }
+async function delPost(slug){
+  if(!await confirmBox('حذف المقال','سيتم حذف المقال <b>'+esc(slug)+'</b> نهائياً من الموقع. لا يمكن التراجع.','حذف نهائي',true)) return;
+  const keep=S.posts.filter(x=>x.slug!==slug);
+  if(await safeCommit([{path:'data/posts.json',text:J(keep)},{path:`content/${slug}.ar.md`,del:true},{path:`content/${slug}.en.md`,del:true}],`Delete post ${slug}`,'جارٍ الحذف…')){ S.posts=keep; viewPosts(); }
+}
+async function dupPost(slug){
+  const p=S.posts.find(x=>x.slug===slug); busy('جارٍ النسخ…');
+  const [ar,en]=await Promise.all([readText(`content/${slug}.ar.md`),readText(`content/${slug}.en.md`)]); busy(false);
+  let ns=slug+'-copy',i=2; while(S.posts.some(x=>x.slug===ns)) ns=slug+'-copy-'+(i++);
+  const np={...JSON.parse(JSON.stringify(p)),slug:ns,status:'draft',featured:false,date:today()};
+  if(np.ar) np.ar.title=(np.ar.title||'')+' (نسخة)'; if(np.en) np.en.title=(np.en.title||'')+' (copy)';
+  const files=[{path:'data/posts.json',text:J([np,...S.posts])}]; if(ar!=null)files.push({path:`content/${ns}.ar.md`,text:ar}); if(en!=null)files.push({path:`content/${ns}.en.md`,text:en});
+  if(await safeCommit(files,`Duplicate ${slug}`)){ S.posts.unshift(np); viewPosts(); }
+}
+
+/* ============ editor ============ */
+let autosaveT=null;
+async function openEditor(slug){
+  const isNew=!slug; let p, body={ar:'',en:''};
+  if(isNew){ p={slug:'',date:today(),tags:[],cover:'',status:'draft',featured:false,ar:{title:'',excerpt:''},en:{title:'',excerpt:''}}; }
+  else{ const src=S.posts.find(x=>x.slug===slug); if(!src) return go('posts'); p=JSON.parse(JSON.stringify(src)); p.ar=p.ar||{title:'',excerpt:''}; p.en=p.en||{title:'',excerpt:''};
+    busy('جارٍ فتح المقال…'); const [a,e]=await Promise.all([readText(`content/${slug}.ar.md`),readText(`content/${slug}.en.md`)]); busy(false); body={ar:a||'',en:e||''}; }
+  S.edit={p,body,orig:slug,lang:'ar',mode:innerWidth>1200?'split':'edit',slugTouched:!isNew};
+  const dk='tf-draft-'+(slug||'new'); const draft=(()=>{try{return JSON.parse(ls.get(dk))}catch(e){return null}})();
+  S.view='editor';
+  $('#view').innerHTML=`<div class="vh"><div><h1>${isNew?'مقال جديد':'تعديل المقال'}</h1><p class="mono" id="edSlugShow" style="direction:ltr;text-align:right">${esc(slug||'')}</p></div>
+    <div class="acts"><button class="btn" onclick="go('posts')">← رجوع</button><button class="btn" id="saveDraft">حفظ كمسودة</button><button class="btn ok" id="savePub">نشر ✓</button></div></div>
+  ${draft&&draft.t?`<div class="restore" id="rst"><span>📝 يوجد نص محفوظ تلقائياً من ${new Date(draft.t).toLocaleString('ar-u-nu-latn')} لم يُنشر.</span><span style="display:flex;gap:6px"><button class="btn sm" id="rstY">استعادة</button><button class="btn sm" id="rstN">تجاهل</button></span></div>`:''}
+  <div class="ed">
+    <div>
+      <div class="ltabs"><button class="ltab" data-l="ar">العربية <sup id="okar"></sup></button><button class="ltab" data-l="en">English <sup id="oken"></sup></button>
+        <span style="flex:1"></span><button class="btn sm" id="tExc" title="توليد المقتطف من النص">✦ مقتطف تلقائي</button></div>
+      <div class="f"><input class="inp ttl" id="eT" placeholder="عنوان المقال"></div>
+      <div class="f"><textarea class="inp" id="eX" rows="2" style="min-height:64px" placeholder="مقتطف قصير يظهر في بطاقة المقال…"></textarea></div>
+      <div class="mdbar">
+        <button data-md="b" title="غامق"><b>B</b></button><button data-md="i" title="مائل"><i>I</i></button><button data-md="h2">H2</button><button data-md="h3">H3</button>
+        <button data-md="q" title="اقتباس">❝</button><button data-md="ul" title="قائمة">•≡</button><button data-md="ol" title="قائمة مرقمة">1.</button>
+        <button data-md="c" title="كود">&lt;/&gt;</button><button data-md="cb" title="كتلة كود">{ }</button><button data-md="a" title="رابط">🔗</button>
+        <button data-md="img" title="رفع صورة">🖼</button><button data-md="tb" title="جدول">▦</button><button data-md="hr" title="فاصل">―</button>
+        <span class="sp"></span>
+        <div class="vm"><button data-vm="edit">تحرير</button><button data-vm="split">مقسوم</button><button data-vm="prev">معاينة</button></div>
+      </div>
+      <div class="mdwrap" id="mdw"><textarea id="eB" spellcheck="false" placeholder="اكتب مقالك هنا بصيغة Markdown…&#10;&#10;## عنوان فرعي&#10;نص عادي، **غامق**، \`كود\`"></textarea><div class="pv" id="pv"></div></div>
+      <div class="edstats" id="est"></div>
+    </div>
+    <div class="side-p">
+      <div class="panel"><h3>النشر</h3>
+        <div class="f"><label>الحالة</label><select class="inp" id="eS"><option value="published">منشور</option><option value="draft">مسودة</option></select></div>
+        <div class="f"><label>تاريخ النشر <small style="color:var(--mut)">(تاريخ مستقبلي = جدولة)</small></label><input class="inp ltr" type="date" id="eD"></div>
+        <label class="chk" style="margin:4px 0 0"><input type="checkbox" id="eF"> مقال مميز في الرئيسية</label>
+      </div>
+      <div class="panel"><h3>صورة الغلاف</h3><div class="coverbox" id="cbox">اضغط لرفع صورة</div>
+        <div style="display:flex;gap:6px"><button class="btn sm" id="cUp">رفع</button><button class="btn sm" id="cUrl">رابط</button><button class="btn sm bad" id="cDel">إزالة</button></div></div>
+      <div class="panel"><h3>الوسوم</h3><input class="inp ltr" id="eG" placeholder="اكتب وسماً ثم Enter"><div class="chips" id="gch"></div></div>
+      <div class="panel"><h3>الرابط (Slug)</h3><input class="inp ltr" id="eSl" placeholder="my-article"><small style="color:var(--mut);display:block;margin-top:6px">حروف إنجليزية وأرقام وشرطات فقط. يُولَّد تلقائياً من العنوان الإنجليزي.</small></div>
+    </div>
+  </div>`;
+  const E=S.edit;
+  const fillLang=()=>{ $$('.ltab').forEach(b=>b.classList.toggle('on',b.dataset.l===E.lang)); const dir=E.lang==='ar'?'rtl':'ltr';
+    $('#eT').value=E.p[E.lang].title||''; $('#eX').value=E.p[E.lang].excerpt||''; $('#eB').value=E.body[E.lang]||'';
+    ['eT','eX','eB'].forEach(id=>{$('#'+id).dir=dir}); $('#eT').placeholder=E.lang==='ar'?'عنوان المقال':'Article title'; $('#eX').placeholder=E.lang==='ar'?'مقتطف قصير يظهر في بطاقة المقال…':'Short excerpt shown on the card…';
+    $('#pv').dir=dir; preview(); };
+  const marks=()=>{ $('#okar').textContent=(E.p.ar.title&&E.body.ar.trim())?'●':''; $('#oken').textContent=(E.p.en.title&&E.body.en.trim())?'●':''; };
+  const preview=()=>{ const md=E.body[E.lang]||''; let html=DOMPurify.sanitize(marked.parse(md));
+    html=html.replace(/src="(images\/[^"]+)"/g,(m,p)=>`src="${imgSrc(p)}"`); $('#pv').innerHTML=html||'<p style="color:var(--mut)">المعاينة تظهر هنا…</p>';
+    $('#est').innerHTML=`<span>${words(md)} كلمة</span><span>${md.length} حرف</span><span>${readMin(md)} د قراءة</span><span>${(md.match(/^#{2,3} /gm)||[]).length} عناوين</span><span style="margin-inline-start:auto"><span class="kbd">Ctrl</span>+<span class="kbd">S</span> حفظ</span>`; marks(); };
+  const setMode=m=>{E.mode=m; $('#mdw').className='mdwrap '+m; $$('[data-vm]').forEach(b=>b.classList.toggle('on',b.dataset.vm===m)); };
+  const coverDraw=()=>{ const c=$('#cbox'); if(E.p.cover){c.style.backgroundImage=`url('${imgSrc(E.p.cover)}')`;c.textContent=''} else {c.style.backgroundImage='';c.textContent='اضغط لرفع صورة'} };
+  const tagsDraw=()=>{ $('#gch').innerHTML=E.p.tags.map((t,i)=>`<span>#${esc(t)} <b data-i="${i}">×</b></span>`).join(''); $$('#gch b').forEach(b=>b.onclick=()=>{E.p.tags.splice(+b.dataset.i,1);tagsDraw();dirty()}); };
+  const dirty=()=>{ S.dirty=true; clearTimeout(autosaveT); autosaveT=setTimeout(()=>ls.set(dk,JSON.stringify({t:Date.now(),p:E.p,body:E.body})),1200); };
+
+  $('#eS').value=E.p.status; $('#eD').value=E.p.date; $('#eF').checked=!!E.p.featured; $('#eSl').value=E.p.slug;
+  fillLang(); setMode(E.mode); coverDraw(); tagsDraw();
+  $$('.ltab').forEach(b=>b.onclick=()=>{E.lang=b.dataset.l;fillLang()});
+  $$('[data-vm]').forEach(b=>b.onclick=()=>setMode(b.dataset.vm));
+  $('#eT').oninput=e=>{E.p[E.lang].title=e.target.value; if(E.lang==='en'&&!E.slugTouched){E.p.slug=slugify(e.target.value);$('#eSl').value=E.p.slug} marks(); dirty()};
+  $('#eX').oninput=e=>{E.p[E.lang].excerpt=e.target.value;dirty()};
+  let pvT; $('#eB').oninput=e=>{E.body[E.lang]=e.target.value; clearTimeout(pvT); pvT=setTimeout(preview,150); dirty()};
+  $('#eS').onchange=e=>{E.p.status=e.target.value;dirty()}; $('#eD').onchange=e=>{E.p.date=e.target.value;dirty()}; $('#eF').onchange=e=>{E.p.featured=e.target.checked;dirty()};
+  $('#eSl').oninput=e=>{E.slugTouched=true; E.p.slug=e.target.value; dirty()};
+  $('#eSl').onblur=e=>{E.p.slug=slugify(e.target.value); e.target.value=E.p.slug};
+  $('#eG').onkeydown=e=>{ if(e.key==='Enter'||e.key===','){ e.preventDefault(); const v=e.target.value.trim().replace(/^#/,'').toLowerCase().replace(/\s+/g,'-'); if(v&&!E.p.tags.includes(v)){E.p.tags.push(v);tagsDraw();dirty()} e.target.value=''; } };
+  $('#tExc').onclick=()=>{ const t=plain(E.body[E.lang]); if(!t) return toast('اكتب نص المقال أولاً'); let s=t.slice(0,170); if(t.length>170) s=s.replace(/\s+\S*$/,'')+'…'; E.p[E.lang].excerpt=s; $('#eX').value=s; dirty(); };
+  const upCover=async()=>{ const r=await uploadImage('cover'); if(r){E.p.cover=r;coverDraw();dirty()} };
+  $('#cbox').onclick=upCover; $('#cUp').onclick=upCover;
+  $('#cUrl').onclick=async()=>{ const u=await promptBox('رابط صورة الغلاف','الصق رابط الصورة (https://…) أو مسار من الوسائط (images/…)',E.p.cover,true); if(u!=null){E.p.cover=u.trim();coverDraw();dirty()} };
+  $('#cDel').onclick=()=>{E.p.cover='';coverDraw();dirty()};
+  if($('#rst')){ $('#rstY').onclick=()=>{E.p=draft.p;E.body=draft.body;$('#rst').remove();$('#eS').value=E.p.status;$('#eD').value=E.p.date;$('#eF').checked=!!E.p.featured;$('#eSl').value=E.p.slug;fillLang();coverDraw();tagsDraw();toast('تمت الاستعادة')};
+    $('#rstN').onclick=()=>{ls.del(dk);$('#rst').remove()}; }
+  $$('[data-md]').forEach(b=>b.onclick=()=>mdAction(b.dataset.md));
+  $('#savePub').onclick=()=>savePost('published'); $('#saveDraft').onclick=()=>savePost('draft');
+  S.editKey=dk; S.dirty=false;
+}
+function mdInsert(before,after='',ph=''){ const ta=$('#eB'); const s=ta.selectionStart,e=ta.selectionEnd,sel=ta.value.slice(s,e)||ph;
+  ta.setRangeText(before+sel+after,s,e,'end'); ta.focus(); const start=s+before.length; ta.setSelectionRange(start,start+sel.length); ta.dispatchEvent(new Event('input')); }
+function mdLine(prefix){ const ta=$('#eB'); const s=ta.selectionStart; const ls0=ta.value.lastIndexOf('\n',s-1)+1; ta.setRangeText(prefix,ls0,ls0,'end'); ta.focus(); ta.dispatchEvent(new Event('input')); }
+async function mdAction(k){
+  const ar=S.edit.lang==='ar';
+  switch(k){
+    case 'b': return mdInsert('**','**',ar?'نص غامق':'bold');
+    case 'i': return mdInsert('*','*',ar?'نص مائل':'italic');
+    case 'h2': return mdLine('## '); case 'h3': return mdLine('### ');
+    case 'q': return mdLine('> '); case 'ul': return mdLine('- '); case 'ol': return mdLine('1. ');
+    case 'c': return mdInsert('`','`','code');
+    case 'cb': { const l=await promptBox('كتلة كود','لغة البرمجة (js, html, css, python, bash…)','js',true); if(l==null)return; return mdInsert('\n```'+l.trim()+'\n','\n```\n','// code'); }
+    case 'a': { const u=await promptBox('إدراج رابط','عنوان الرابط URL','https://',true); if(!u)return; return mdInsert('[',`](${u.trim()})`,ar?'نص الرابط':'link text'); }
+    case 'img': { const p=await uploadImage('post'); if(p) mdInsert(`\n![`,`](${p})\n`,ar?'وصف الصورة':'image'); return; }
+    case 'tb': return mdInsert(ar?'\n| العمود 1 | العمود 2 |\n|---|---|\n| ':'\n| Col 1 | Col 2 |\n|---|---|\n| ',' |  |\n',ar?'قيمة':'value');
+    case 'hr': return mdInsert('\n\n---\n\n','');
+  }
+}
+async function savePost(status){
+  const E=S.edit, p=E.p; p.status=status;
+  p.slug=slugify(p.slug)||slugify(p.en.title)||('post-'+Date.now().toString(36));
+  if(!p.ar.title.trim() && !p.en.title.trim()) return toast('اكتب عنواناً للمقال بالعربي أو الإنجليزي',true);
+  if(!E.body.ar.trim() && !E.body.en.trim()) return toast('نص المقال فارغ',true);
+  if(S.posts.some(x=>x.slug===p.slug && x.slug!==E.orig)) return toast('هذا الرابط (slug) مستخدم لمقال آخر',true);
+  p.readMin=readMin(E.body.ar||E.body.en); p.updated=today();
+  if(p.featured) S.posts.forEach(x=>{if(x.slug!==E.orig)x.featured=false});
+  const list=E.orig? S.posts.map(x=>x.slug===E.orig?p:x) : [p,...S.posts];
+  const files=[{path:'data/posts.json',text:J(list)}];
+  for(const l of ['ar','en']){ const path=`content/${p.slug}.${l}.md`; if(E.body[l].trim()) files.push({path,text:E.body[l].trimEnd()+'\n'}); else files.push({path,del:true}); }
+  if(E.orig && E.orig!==p.slug) ['ar','en'].forEach(l=>files.push({path:`content/${E.orig}.${l}.md`,del:true}));
+  if(await safeCommit(files,`${E.orig?'Update':'Add'} post: ${p.slug}`, status==='published'?'جارٍ النشر…':'جارٍ حفظ المسودة…')){
+    S.posts=list; ls.del(S.editKey); S.dirty=false; E.orig=p.slug; S.editKey='tf-draft-'+p.slug; $('#edSlugShow').textContent=p.slug; $('#eSl').value=p.slug; $('#eS').value=status;
+  }
+}
+document.addEventListener('keydown',e=>{ if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='s'&&S.view==='editor'){ e.preventDefault(); savePost(S.edit.p.status||'draft'); } });
+window.addEventListener('beforeunload',e=>{ if(S.dirty){ e.preventDefault(); e.returnValue=''; } });
+
+/* ============ images ============ */
+function pickFile(accept='image/*',multiple=false){ return new Promise(res=>{ const i=$('#filePick'); i.accept=accept; i.multiple=multiple; i.value=''; i.onchange=()=>res([...i.files]); i.click(); }); }
+function compress(file,max=1600,q=.85){ return new Promise((res,rej)=>{
+  if(!/^image\/(jpeg|png|webp)$/.test(file.type) || file.size<180*1024){ const fr=new FileReader(); fr.onload=()=>res({dataUrl:fr.result,ext:(file.name.split('.').pop()||'png').toLowerCase()}); fr.onerror=rej; fr.readAsDataURL(file); return; }
+  const im=new Image(); im.onload=()=>{ let {width:w,height:h}=im; if(w>max){h=Math.round(h*max/w);w=max} const c=document.createElement('canvas');c.width=w;c.height=h;
+    const x=c.getContext('2d'); x.drawImage(im,0,0,w,h); const isPng=file.type==='image/png'; const out=c.toDataURL(isPng?'image/webp':'image/jpeg',q);
+    res({dataUrl:out,ext:out.startsWith('data:image/webp')?'webp':'jpg'}); URL.revokeObjectURL(im.src); };
+  im.onerror=rej; im.src=URL.createObjectURL(file); }); }
+async function uploadFiles(files,prefix=''){
+  const out=[], commits=[];
+  busy('جارٍ تجهيز الصور…');
+  try{ for(const f of files){ const {dataUrl,ext}=await compress(f); const base=slugify(f.name.replace(/\.[^.]+$/,''))||'img';
+      const path=`images/${new Date().getFullYear()}/${prefix}${Date.now().toString(36)}-${base}.${ext}`;
+      S.imgCache[path]=dataUrl; commits.push({path,b64:dataUrl.split(',')[1]}); out.push(path); } }
+  catch(e){ busy(false); toast('تعذّر قراءة الصورة',true); return []; }
+  busy(false);
+  return (await safeCommit(commits,`Upload ${commits.length} image(s)`,'جارٍ رفع الصور…'))? out : [];
+}
+async function uploadImage(prefix){ const fs=await pickFile(); if(!fs.length) return null; const r=await uploadFiles(fs.slice(0,1),prefix?prefix+'-':''); return r[0]||null; }
+
+/* ============ projects ============ */
+function viewProjects(){
+  $('#view').innerHTML=`<div class="vh"><div><h1>المشاريع</h1><p>المواقع والتطبيقات التي تعرضها في موقعك.</p></div><div class="acts"><button class="btn pri" id="np">＋ مشروع جديد</button></div></div>
+  <div id="prl">${S.projects.map((p,i)=>`<div class="prow"><div class="thumb" style="${p.cover?`background-image:url('${esc(imgSrc(p.cover))}')`:''}">${p.cover?'':'◈'}</div>
+    <div class="t"><b>${esc(p.ar?.title||p.en?.title)}</b><div class="m">${p.featured?'<span class="pill ft">★ مميز</span>':''}<span>${esc(p.ar?.desc||p.en?.desc||'').slice(0,90)}</span></div></div>
+    <div class="a">${i>0?`<button class="btn sm" data-up="${i}" title="للأعلى">↑</button>`:''}<button class="btn sm" data-pe="${i}">تعديل</button><button class="btn sm bad" data-pd="${i}">حذف</button></div></div>`).join('')||'<div class="empty">لا توجد مشاريع بعد</div>'}</div>`;
+  $('#np').onclick=()=>editProject(-1);
+  $$('[data-pe]').forEach(b=>b.onclick=()=>editProject(+b.dataset.pe));
+  $$('[data-up]').forEach(b=>b.onclick=async()=>{ const i=+b.dataset.up; const l=[...S.projects]; [l[i-1],l[i]]=[l[i],l[i-1]]; if(await safeCommit([{path:'data/projects.json',text:J(l)}],'Reorder projects')){S.projects=l;viewProjects()} });
+  $$('[data-pd]').forEach(b=>b.onclick=async()=>{ const i=+b.dataset.pd; if(!await confirmBox('حذف المشروع','سيتم حذف <b>'+esc(S.projects[i].ar?.title||'')+'</b> من الموقع.','حذف',true))return;
+    const l=S.projects.filter((_,j)=>j!==i); if(await safeCommit([{path:'data/projects.json',text:J(l)}],'Delete project')){S.projects=l;viewProjects()} });
+}
+function editProject(i){
+  const p=i>=0? JSON.parse(JSON.stringify(S.projects[i])) : {id:'',url:'',repo:'',cover:'',tags:[],featured:false,ar:{title:'',desc:''},en:{title:'',desc:''}};
+  const o=modal(`<h3>${i>=0?'تعديل مشروع':'مشروع جديد'}</h3>
+    <div class="row2"><div class="f"><label>الاسم بالعربي</label><input class="inp" id="pa1" value="${esc(p.ar.title)}"></div><div class="f"><label>Name (English)</label><input class="inp ltr" id="pe1" value="${esc(p.en.title)}"></div></div>
+    <div class="f"><label>الوصف بالعربي</label><textarea class="inp" id="pa2" rows="2">${esc(p.ar.desc)}</textarea></div>
+    <div class="f"><label>Description (English)</label><textarea class="inp ltr" id="pe2" rows="2" style="font-family:var(--ff)">${esc(p.en.desc)}</textarea></div>
+    <div class="row2"><div class="f"><label>رابط الموقع</label><input class="inp ltr" id="pu" value="${esc(p.url)}" placeholder="https://"></div><div class="f"><label>رابط الكود (اختياري)</label><input class="inp ltr" id="pr" value="${esc(p.repo)}" placeholder="https://github.com/…"></div></div>
+    <div class="f"><label>التقنيات (افصل بفاصلة)</label><input class="inp ltr" id="pt" value="${esc((p.tags||[]).join(', '))}" placeholder="HTML, CSS, JavaScript"></div>
+    <div class="f"><label>صورة</label><div style="display:flex;gap:10px;align-items:center"><div class="thumb" id="pcv" style="width:96px;height:60px;${p.cover?`background-image:url('${esc(imgSrc(p.cover))}')`:''}">${p.cover?'':'◈'}</div>
+      <button class="btn sm" id="pcu">رفع صورة</button><button class="btn sm bad" id="pcd">إزالة</button></div></div>
+    <label class="chk"><input type="checkbox" id="pf" ${p.featured?'checked':''}> مشروع مميز</label>
+    <div class="acts"><button class="btn" data-x>إلغاء</button><button class="btn ok" data-ok>حفظ ونشر</button></div>`,{wide:true});
+  const cv=()=>{const e=o.querySelector('#pcv');e.style.backgroundImage=p.cover?`url('${imgSrc(p.cover)}')`:'';e.textContent=p.cover?'':'◈'};
+  o.querySelector('#pcu').onclick=async()=>{const r=await uploadImage('project');if(r){p.cover=r;cv()}};
+  o.querySelector('#pcd').onclick=()=>{p.cover='';cv()};
+  o.querySelector('[data-x]').onclick=()=>o.remove();
+  o.querySelector('[data-ok]').onclick=async()=>{
+    p.ar.title=o.querySelector('#pa1').value.trim(); p.en.title=o.querySelector('#pe1').value.trim(); p.ar.desc=o.querySelector('#pa2').value.trim(); p.en.desc=o.querySelector('#pe2').value.trim();
+    p.url=o.querySelector('#pu').value.trim(); p.repo=o.querySelector('#pr').value.trim(); p.tags=o.querySelector('#pt').value.split(',').map(s=>s.trim()).filter(Boolean); p.featured=o.querySelector('#pf').checked;
+    if(!p.ar.title&&!p.en.title) return toast('اكتب اسم المشروع',true);
+    if(!p.id) p.id=slugify(p.en.title)||('p-'+Date.now().toString(36));
+    const l=[...S.projects]; if(i>=0) l[i]=p; else l.unshift(p);
+    if(await safeCommit([{path:'data/projects.json',text:J(l)}],`${i>=0?'Update':'Add'} project: ${p.id}`)){ S.projects=l; o.remove(); viewProjects(); }
+  };
+}
+
+/* ============ media ============ */
+function viewMedia(){
+  const imgs=[...S.tree].filter(p=>p.startsWith('images/')).sort().reverse();
+  $('#view').innerHTML=`<div class="vh"><div><h1>مكتبة الوسائط</h1><p>${imgs.length} صورة — تُضغط الصور تلقائياً قبل الرفع.</p></div></div>
+  <div class="drop" id="drop">⇪ اسحب الصور هنا أو اضغط للاختيار (يمكن اختيار عدة صور)</div>
+  <div class="mgrid">${imgs.map(p=>`<div class="mi"><div class="im" style="background-image:url('${esc(imgSrc(p))}')"></div><div class="mb"><small title="${esc(p)}">${esc(p.split('/').pop())}</small>
+    <div class="ma"><button class="btn sm" data-cp="${esc(p)}">نسخ MD</button><button class="btn sm" data-cl="${esc(p)}">المسار</button><button class="btn sm bad" data-rm="${esc(p)}">✕</button></div></div></div>`).join('')||'<div class="empty" style="grid-column:1/-1">لا توجد صور بعد</div>'}</div>`;
+  const d=$('#drop');
+  d.onclick=async()=>{const fs=await pickFile('image/*',true); if(fs.length&&(await uploadFiles(fs)).length) viewMedia();};
+  d.ondragover=e=>{e.preventDefault();d.classList.add('ov')}; d.ondragleave=()=>d.classList.remove('ov');
+  d.ondrop=async e=>{e.preventDefault();d.classList.remove('ov');const fs=[...e.dataTransfer.files].filter(f=>f.type.startsWith('image/')); if(fs.length&&(await uploadFiles(fs)).length) viewMedia();};
+  const copy=async t=>{try{await navigator.clipboard.writeText(t);toast('تم النسخ ✓')}catch(e){promptBox('انسخ النص','',t,true)}};
+  $$('[data-cp]').forEach(b=>b.onclick=()=>copy(`![](${b.dataset.cp})`));
+  $$('[data-cl]').forEach(b=>b.onclick=()=>copy(b.dataset.cl));
+  $$('[data-rm]').forEach(b=>b.onclick=async()=>{ if(!await confirmBox('حذف الصورة','إذا كانت الصورة مستخدمة في مقال فلن تظهر بعد الحذف.','حذف',true))return;
+    if(await safeCommit([{path:b.dataset.rm,del:true}],'Delete image','جارٍ الحذف…')) viewMedia(); });
+}
+
+/* ============ settings ============ */
+function viewSettings(){
+  const s=JSON.parse(JSON.stringify(S.settings)); s.social=s.social||{};
+  const sw=['#22d3ee','#a3e635','#818cf8','#f472b6','#fb923c','#34d399','#facc15','#60a5fa'];
+  $('#view').innerHTML=`<div class="vh"><div><h1>إعدادات الموقع</h1><p>الاسم، الوصف، صفحة «عنّي»، الروابط والألوان.</p></div><div class="acts"><button class="btn ok" id="ss">حفظ ونشر</button></div></div>
+  <div class="two"><div>
+    <div class="panel"><h3>الهوية</h3>
+      <div class="row2"><div class="f"><label>اسم الموقع بالعربي</label><input class="inp" id="s1" value="${esc(s.name_ar)}"></div><div class="f"><label>Site name (English)</label><input class="inp ltr" id="s2" value="${esc(s.name_en)}"></div></div>
+      <div class="f"><label>الوصف المختصر بالعربي</label><textarea class="inp" id="s3" rows="2" style="min-height:60px">${esc(s.tagline_ar)}</textarea></div>
+      <div class="f"><label>Tagline (English)</label><textarea class="inp" id="s4" rows="2" dir="ltr" style="min-height:60px">${esc(s.tagline_en)}</textarea></div></div>
+    <div class="panel"><h3>صفحة «عنّي» <small style="color:var(--mut);font-weight:400">(Markdown)</small></h3>
+      <div class="f"><label>بالعربي</label><textarea class="inp" id="s5" rows="6">${esc(s.about_ar)}</textarea></div>
+      <div class="f"><label>English</label><textarea class="inp" id="s6" rows="6" dir="ltr">${esc(s.about_en)}</textarea></div></div>
+  </div><div>
+    <div class="panel"><h3>التواصل</h3>
+      <div class="f"><label>البريد الإلكتروني (يظهر للزوار)</label><input class="inp ltr" id="s7" value="${esc(s.email)}" placeholder="you@example.com"></div>
+      ${['github','x','linkedin','youtube','instagram'].map(k=>`<div class="f"><label>${({github:'GitHub',x:'X / Twitter',linkedin:'LinkedIn',youtube:'YouTube',instagram:'Instagram'})[k]}</label><input class="inp ltr" data-so="${k}" value="${esc(s.social[k]||'')}" placeholder="https://"></div>`).join('')}</div>
+    <div class="panel"><h3>اللون الأساسي</h3><div class="swatches">${sw.map(c=>`<button style="background:${c}" data-c="${c}" class="${s.accent===c?'on':''}"></button>`).join('')}
+      <input type="color" id="s8" value="${esc(s.accent||'#22d3ee')}" style="width:40px;height:34px;border:none;background:none;padding:0"></div></div>
+  </div></div>`;
+  const setC=c=>{s.accent=c;$('#s8').value=c;$$('[data-c]').forEach(b=>b.classList.toggle('on',b.dataset.c===c));document.documentElement.style.setProperty('--a',c)};
+  $$('[data-c]').forEach(b=>b.onclick=()=>setC(b.dataset.c)); $('#s8').oninput=e=>setC(e.target.value);
+  $('#ss').onclick=async()=>{
+    Object.assign(s,{name_ar:$('#s1').value.trim(),name_en:$('#s2').value.trim(),tagline_ar:$('#s3').value.trim(),tagline_en:$('#s4').value.trim(),about_ar:$('#s5').value,about_en:$('#s6').value,email:$('#s7').value.trim()});
+    $$('[data-so]').forEach(i=>s.social[i.dataset.so]=i.value.trim());
+    if(await safeCommit([{path:'data/settings.json',text:J(s)}],'Update site settings')){ S.settings=s; $('#bname').textContent=s.name_ar; }
+  };
+}
+
+/* ============ tools ============ */
+function viewTools(){
+  $('#view').innerHTML=`<div class="vh"><div><h1>الأدوات</h1><p>نسخ احتياطي، تحديثات، ونشر متقدم.</p></div></div>
+  ${S.needsSetup?`<div class="restore"><span>الموقع لم يُهيّأ بعد.</span><button class="btn sm pri" onclick="S.needsSetup=true;viewSetup()">تهيئة الآن</button></div>`:''}
+  <div class="tool"><div class="ti">⤓</div><div class="tb"><b>نسخة احتياطية كاملة</b><p>تنزيل ملف واحد فيه كل المقالات (بالنص الكامل) والمشاريع والإعدادات.</p><button class="btn sm" id="tb1">تنزيل النسخة الاحتياطية</button></div></div>
+  <div class="tool"><div class="ti">⤒</div><div class="tb"><b>استعادة من نسخة احتياطية</b><p>رفع ملف نسخة احتياطية واستبدال محتوى الموقع الحالي به.</p><button class="btn sm" id="tb2">اختيار ملف…</button></div></div>
+  <div class="tool"><div class="ti">⟳</div><div class="tb"><b>تحديث قالب الموقع</b><p>عندما أرسل لك نسخة أحدث من <span class="mono">index.html</span> أو <span class="mono">admin.html</span>، ارفعها من هنا مباشرة بدون فتح GitHub.</p><button class="btn sm" id="tb3">رفع ملف القالب…</button></div></div>
+  <div class="tool"><div class="ti">◉</div><div class="tb"><b>توليد RSS و robots.txt</b><p>ملف RSS يسمح للقرّاء وتطبيقات الأخبار بمتابعة مقالاتك الجديدة تلقائياً.</p><button class="btn sm" id="tb4">توليد ونشر</button></div></div>
+  <div class="tool"><div class="ti">⌫</div><div class="tb"><b>مسح المسودات المحلية</b><p>حذف النصوص المحفوظة تلقائياً في هذا المتصفح.</p><button class="btn sm" id="tb5">مسح</button></div></div>`;
+  $('#tb1').onclick=backup; $('#tb2').onclick=restore; $('#tb3').onclick=updateTemplate; $('#tb4').onclick=genFeeds;
+  $('#tb5').onclick=()=>{ let n=0; try{ Object.keys(localStorage).filter(k=>k.startsWith('tf-draft-')).forEach(k=>{localStorage.removeItem(k);n++}) }catch(e){} toast(`تم مسح ${n} مسودة`); };
+}
+async function backup(){
+  busy('جارٍ تجميع النسخة الاحتياطية…');
+  try{ const content={}; for(const p of [...S.tree].filter(x=>x.startsWith('content/')&&x.endsWith('.md'))) content[p.slice(8)]=await readText(p);
+    const data={app:'technofact',version:1,date:new Date().toISOString(),settings:S.settings,posts:S.posts,projects:S.projects,content};
+    const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`technofact-backup-${today()}.json`; document.body.appendChild(a); a.click(); a.remove();
+    busy(false); toast('✓ تم تجهيز النسخة الاحتياطية'); }catch(e){ busy(false); toast('فشل: '+e.message,true); }
+}
+async function restore(){
+  const [f]=await pickFile('application/json,.json'); if(!f) return;
+  let d; try{ d=JSON.parse(await f.text()); if(d.app!=='technofact') throw 0; }catch(e){ return toast('الملف ليس نسخة احتياطية صالحة',true); }
+  if(!await confirmBox('استعادة النسخة الاحتياطية',`سيتم استبدال المحتوى الحالي بـ ${d.posts.length} مقال و ${d.projects.length} مشروع من نسخة ${esc((d.date||'').slice(0,10))}.`,'استعادة',true)) return;
+  const files=[{path:'data/settings.json',text:J(d.settings)},{path:'data/posts.json',text:J(d.posts)},{path:'data/projects.json',text:J(d.projects)}];
+  const keep=new Set(Object.keys(d.content).map(k=>'content/'+k));
+  [...S.tree].filter(p=>p.startsWith('content/')&&!keep.has(p)).forEach(p=>files.push({path:p,del:true}));
+  for(const [k,v] of Object.entries(d.content)) if(v!=null) files.push({path:'content/'+k,text:v});
+  if(await safeCommit(files,'Restore from backup','جارٍ الاستعادة…')){ S.settings=d.settings;S.posts=d.posts;S.projects=d.projects;S.needsSetup=false;go('dash'); }
+}
+async function updateTemplate(){
+  const [f]=await pickFile('.html,text/html'); if(!f) return;
+  const name=f.name.toLowerCase().includes('admin')?'admin.html':(f.name.toLowerCase().includes('index')?'index.html':null);
+  if(!name) return toast('اسم الملف يجب أن يكون index.html أو admin.html',true);
+  const txt=await f.text(); if(!/<!DOCTYPE html>/i.test(txt)) return toast('الملف ليس صفحة HTML صالحة',true);
+  if(!await confirmBox('تحديث القالب',`سيتم استبدال <span class="mono">${name}</span> في موقعك بالملف المختار.`,'تحديث')) return;
+  if(await safeCommit([{path:name,text:txt}],`Update ${name} template`,'جارٍ تحديث القالب…') && name==='admin.html') toast('تم التحديث — أعد تحميل الصفحة بعد دقيقة');
+}
+async function genFeeds(){
+  const base=GH.pagesUrl, s=S.settings;
+  const x=v=>String(v??'').replace(/[<>&'"]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;',"'":'&apos;','"':'&quot;'}[c]));
+  const items=S.posts.filter(p=>postStatus(p)==='pub').sort((a,b)=>b.date.localeCompare(a.date)).slice(0,30).map(p=>`  <item><title>${x(p.ar?.title||p.en?.title)}</title><link>${base}#post-${p.slug}</link><guid>${base}#post-${p.slug}</guid><pubDate>${new Date(p.date+'T09:00:00Z').toUTCString()}</pubDate><description>${x(p.ar?.excerpt||p.en?.excerpt)}</description></item>`).join('\n');
+  const rss=`<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0"><channel>\n  <title>${x(s.name_ar||s.name_en)}</title><link>${base}</link><description>${x(s.tagline_ar)}</description><language>ar</language>\n${items}\n</channel></rss>\n`;
+  const robots=`User-agent: *\nAllow: /\nDisallow: /admin.html\n`;
+  await safeCommit([{path:'rss.xml',text:rss},{path:'robots.txt',text:robots}],'Generate RSS & robots.txt','جارٍ التوليد…');
+}
+
+/* ============ start ============ */
+(async()=>{
+  if(window.marked) marked.setOptions({gfm:true});
+  const g=guessRepo(); if(g.o){$('#lo').value=g.o;$('#lr').value=g.r}
+  let cred=null; try{cred=JSON.parse(ls.get('tf-admin')||ss.get('tf-admin'))}catch(e){}
+  if(cred&&cred.token){ busy('جارٍ تسجيل الدخول…'); const ok=await tryLogin(cred.o,cred.r,cred.token,!!ls.get('tf-admin'),true); busy(false); if(ok) return; $('#lo').value=cred.o;$('#lr').value=cred.r; }
+  $('#login').classList.remove('hide');
+})();
+</script>
+</body>
+</html>
