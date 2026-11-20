@@ -313,24 +313,39 @@ async function readText(path){ const j=await api(`${R()}/contents/${encodeURI(pa
   if(j.download_url){ const r=await fetch(j.download_url+'?t='+Date.now()); return r.ok? r.text():null } return null; }
 async function readJSON(path,def){ const t=await readText(path); if(t==null) return def; try{return JSON.parse(t)}catch(e){return def} }
 async function loadTree(){ try{ const j=await api(`${R()}/git/trees/${GH.branch}?recursive=1`); S.tree=new Set((j?.tree||[]).filter(x=>x.type==='blob').map(x=>x.path)); }catch(e){ S.tree=new Set(); } }
-/* atomic multi-file commit */
+/* atomic multi-file commit (with retry: GitHub can serve a stale branch ref for a short time) */
+let HEAD=null;
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+async function getRef(){ return api(`${R()}/git/ref/heads/${GH.branch}?t=${Date.now()}`).catch(e=>{ if(e.status===409) return null; throw e; }); }
 async function commit(files,message){
-  let ref=await api(`${R()}/git/ref/heads/${GH.branch}`).catch(e=>{ if(e.status===409) return null; throw e; });
+  let ref=await getRef();
   if(!ref){ // empty repo → bootstrap with contents API
     await api(`${R()}/contents/README.md`,{method:'PUT',body:JSON.stringify({message:'init',content:b64enc('# Techno Fact\n'),branch:GH.branch})});
-    ref=await api(`${R()}/git/ref/heads/${GH.branch}`);
+    await sleep(1500); ref=await getRef();
   }
-  const base=ref.object.sha; const bc=await api(`${R()}/git/commits/${base}`);
-  const tree=[];
+  const entries=[];
   for(const f of files){
-    if(f.del){ if(S.tree.has(f.path)) tree.push({path:f.path,mode:'100644',type:'blob',sha:null}); continue; }
+    if(f.del){ if(S.tree.has(f.path)) entries.push({path:f.path,mode:'100644',type:'blob',sha:null}); continue; }
     const blob=await api(`${R()}/git/blobs`,{method:'POST',body:JSON.stringify(f.b64!=null?{content:f.b64,encoding:'base64'}:{content:f.text,encoding:'utf-8'})});
-    tree.push({path:f.path,mode:'100644',type:'blob',sha:blob.sha});
+    entries.push({path:f.path,mode:'100644',type:'blob',sha:blob.sha});
   }
-  if(!tree.length) return;
-  const nt=await api(`${R()}/git/trees`,{method:'POST',body:JSON.stringify({base_tree:bc.tree.sha,tree})});
-  const nc=await api(`${R()}/git/commits`,{method:'POST',body:JSON.stringify({message:message+' [dashboard]',tree:nt.sha,parents:[base]})});
-  await api(`${R()}/git/refs/heads/${GH.branch}`,{method:'PATCH',body:JSON.stringify({sha:nc.sha})});
+  if(!entries.length) return;
+  for(let attempt=0;;attempt++){
+    try{
+      if(attempt>0) ref=await getRef();
+      // use the newest head we know of (our own last commit may be newer than a cached ref)
+      let base=ref.object.sha;
+      if(attempt===0 && HEAD && HEAD!==base){ base=HEAD; }
+      const bc=await api(`${R()}/git/commits/${base}`);
+      const nt=await api(`${R()}/git/trees`,{method:'POST',body:JSON.stringify({base_tree:bc.tree.sha,tree:entries})});
+      const nc=await api(`${R()}/git/commits`,{method:'POST',body:JSON.stringify({message:message+' [dashboard]',tree:nt.sha,parents:[base]})});
+      await api(`${R()}/git/refs/heads/${GH.branch}`,{method:'PATCH',body:JSON.stringify({sha:nc.sha})});
+      HEAD=nc.sha; break;
+    }catch(e){
+      if((e.status===422||e.status===409) && attempt<5){ HEAD=null; busy('المزامنة مع GitHub… محاولة '+(attempt+2)); await sleep(2000*(attempt+1)); continue; }
+      throw e;
+    }
+  }
   files.forEach(f=>f.del?S.tree.delete(f.path):S.tree.add(f.path));
 }
 async function safeCommit(files,msg,doing='جارٍ الحفظ والنشر…'){
@@ -600,7 +615,7 @@ async function mdAction(k){
 }
 async function savePost(status){
   const E=S.edit, p=E.p; p.status=status;
-  p.slug=slugify(p.slug)||slugify(p.en.title)||('post-'+Date.now().toString(36));
+  p.slug=slugify(p.slug)||slugify(p.en.title)||('post-'+p.date+'-'+Date.now().toString(36).slice(-4));
   if(!p.ar.title.trim() && !p.en.title.trim()) return toast('اكتب عنواناً للمقال بالعربي أو الإنجليزي',true);
   if(!E.body.ar.trim() && !E.body.en.trim()) return toast('نص المقال فارغ',true);
   if(S.posts.some(x=>x.slug===p.slug && x.slug!==E.orig)) return toast('هذا الرابط (slug) مستخدم لمقال آخر',true);
