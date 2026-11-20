@@ -16,26 +16,5 @@
     },
     "readMin": 4,
     "updated": "2026-11-20"
-  },
-  {
-    "slug": "git-basics",
-    "date": "2026-11-15",
-    "tags": [
-      "git",
-      "tools",
-      "basics"
-    ],
-    "cover": "",
-    "status": "published",
-    "featured": false,
-    "ar": {
-      "title": "أساسيات Git في 10 دقائق",
-      "excerpt": "أهم الأوامر التي يحتاجها كل مبرمج لحفظ عمله وتتبّع تغييراته."
-    },
-    "en": {
-      "title": "Git basics in 10 minutes",
-      "excerpt": "The essential commands every developer needs to save and track their work."
-    },
-    "readMin": 1
   }
 ]
