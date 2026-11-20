@@ -1,5 +1,27 @@
 [
   {
+    "slug": "protect-facebook-account",
+    "date": "2026-11-20",
+    "tags": [
+      "facebook",
+      "security",
+      "account-protection"
+    ],
+    "cover": "images/2026/cover-protect-facebook-account.webp",
+    "status": "published",
+    "featured": false,
+    "ar": {
+      "title": "كيف تحمي حسابك على فيسبوك من الاختراق في 7 خطوات",
+      "excerpt": "سبع خطوات عملية تأخذ ربع ساعة وتغلق أغلب الأبواب التي يدخل منها المخترقون إلى حسابك على فيسبوك."
+    },
+    "en": {
+      "title": "",
+      "excerpt": ""
+    },
+    "readMin": 4,
+    "updated": "2026-11-20"
+  },
+  {
     "slug": "post-mwp90b7l",
     "date": "2026-11-20",
     "tags": [],
