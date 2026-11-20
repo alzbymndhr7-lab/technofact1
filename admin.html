@@ -449,8 +449,9 @@ function viewDash(){
     <div class="kpi"><i>⏱</i><b>${sch.length}</b><span>مجدول للنشر</span></div>
     <div class="kpi g"><i>◈</i><b>${S.projects.length}</b><span>مشروع</span></div>
     <div class="kpi"><i>#</i><b>${tags}</b><span>وسم</span></div>
-    <div class="kpi"><i>▣</i><b>${imgs}</b><span>صورة</span></div>
+    <div class="kpi a"><i>👁</i><b id="kv">…</b><span>زيارة للموقع</span></div>
   </div>
+  ${!S.settings.share_v?`<div class="restore"><span>✨ ميزات جديدة: فعّل <b>بطاقات الروابط</b> (صورة وعنوان المقال عند لصق الرابط) بضغطة.</span><button class="btn sm pri" id="dshare">تفعيل الآن</button></div>`:''}
   <div class="two">
     <div>
       <div class="panel"><h3>آخر المقالات <a class="btn sm" onclick="go('posts')">الكل</a></h3><div class="list">
@@ -461,10 +462,15 @@ function viewDash(){
     <div>
       <div class="panel"><h3>حالة الموقع</h3><div id="pstat"><div class="status"><span class="spin" style="width:14px;height:14px;border-width:2px"></span>جارٍ الفحص…</div></div>
         <div class="status"><span class="dot ok"></span><span>الرابط: <a class="mono" href="${GH.pagesUrl}" target="_blank" rel="noopener" style="direction:ltr;display:inline-block">${esc(GH.pagesUrl.replace('https://',''))}</a></span></div></div>
+      <div class="panel"><h3>👁 الأكثر قراءة</h3><div class="list" id="topv"><div class="empty" style="padding:16px">…</div></div></div>
       <div class="panel"><h3>آخر التعديلات</h3><div class="list" id="acts"><div class="empty" style="padding:16px">…</div></div></div>
     </div>
   </div>`;
   loadStatus();
+  if($('#dshare')) $('#dshare').onclick=async()=>{ if(await buildAllShare()) viewDash(); };
+  loadViews().then(v=>{ if(S.view!=='dash') return; $('#kv').textContent=fmtN(v.site);
+    const top=S.posts.filter(p=>v[p.slug]).sort((a,b)=>v[b.slug]-v[a.slug]).slice(0,5);
+    $('#topv').innerHTML=top.map((p,i)=>`<div class="li"><span class="mono" style="color:var(--a)">#${i+1}</span><div class="t"><b>${esc(p.ar?.title||p.en?.title)}</b></div><span class="mono">${fmtN(v[p.slug])} 👁</span></div>`).join('')||'<div class="empty" style="padding:16px">لسا ما في مشاهدات — شارك مقالاتك! 🚀</div>'; });
 }
 async function loadStatus(){
   try{
@@ -489,23 +495,24 @@ function viewPosts(){
     $('#plist').innerHTML=ps.map(p=>`<div class="prow"><div class="thumb" style="${p.cover?`background-image:url('${esc(imgSrc(p.cover))}')`:''}">${p.cover?'':'TF'}</div>
       <div class="t"><b>${esc(p.ar?.title||p.en?.title||p.slug)}</b><div class="m">${statusPill(p)}${p.featured?'<span class="pill ft">★ مميز</span>':''}
       <span class="lf ${S.tree.has('content/'+p.slug+'.ar.md')?'on':''}">AR</span><span class="lf ${S.tree.has('content/'+p.slug+'.en.md')?'on':''}">EN</span>
-      <span class="mono">${esc(p.date)}</span>${p.readMin?`<span>${p.readMin} د</span>`:''}<span class="mono" style="direction:ltr">${(p.tags||[]).map(t=>'#'+esc(t)).join(' ')}</span></div></div>
+      <span class="mono">${esc(p.date)}</span>${p.readMin?`<span>${p.readMin} د</span>`:''}${S.views[p.slug]!=null?`<span>👁 ${fmtN(S.views[p.slug])}</span>`:''}<span class="mono" style="direction:ltr">${(p.tags||[]).map(t=>'#'+esc(t)).join(' ')}</span></div></div>
       <div class="a"><button class="btn sm" data-e="${esc(p.slug)}">تعديل</button><button class="btn sm" data-f="${esc(p.slug)}" title="مميز">${p.featured?'★':'☆'}</button>
-      <button class="btn sm" data-d="${esc(p.slug)}" title="نسخ">⧉</button>${postStatus(p)==='pub'?`<a class="btn sm" href="${GH.pagesUrl}#post-${esc(p.slug)}" target="_blank" rel="noopener">↗</a>`:''}
+      <button class="btn sm" data-d="${esc(p.slug)}" title="نسخ">⧉</button>${postStatus(p)==='pub'?`<button class="btn sm" data-sl="${esc(p.slug)}" title="نسخ رابط المشاركة">🔗</button><a class="btn sm" href="${GH.pagesUrl}#post-${esc(p.slug)}" target="_blank" rel="noopener">↗</a>`:''}
       <button class="btn sm bad" data-x="${esc(p.slug)}">حذف</button></div></div>`).join('')||'<div class="empty">لا توجد نتائج</div>';
     $$('[data-e]').forEach(b=>b.onclick=()=>go('editor',b.dataset.e));
     $$('[data-f]').forEach(b=>b.onclick=()=>toggleFeat(b.dataset.f));
     $$('[data-d]').forEach(b=>b.onclick=()=>dupPost(b.dataset.d));
     $$('[data-x]').forEach(b=>b.onclick=()=>delPost(b.dataset.x));
+    $$('[data-sl]').forEach(b=>b.onclick=async()=>{ const u=absUrl(`p/${b.dataset.sl}/`); try{await navigator.clipboard.writeText(u);toast('✓ تم نسخ رابط المشاركة')}catch(e){promptBox('رابط المشاركة','',u,true)} });
   };
-  $('#pq').oninput=draw; $('#pf').onchange=draw; draw();
+  $('#pq').oninput=draw; $('#pf').onchange=draw; draw(); if(!Object.keys(S.views).length) loadViews().then(()=>{ if(S.view==='posts') draw(); });
 }
 async function toggleFeat(slug){ const p=S.posts.find(x=>x.slug===slug); const was=p.featured; S.posts.forEach(x=>x.featured=false); p.featured=!was;
   if(await safeCommit([{path:'data/posts.json',text:J(S.posts)}],`${p.featured?'Feature':'Unfeature'} ${slug}`)) viewPosts(); }
 async function delPost(slug){
   if(!await confirmBox('حذف المقال','سيتم حذف المقال <b>'+esc(slug)+'</b> نهائياً من الموقع. لا يمكن التراجع.','حذف نهائي',true)) return;
   const keep=S.posts.filter(x=>x.slug!==slug);
-  if(await safeCommit([{path:'data/posts.json',text:J(keep)},{path:`content/${slug}.ar.md`,del:true},{path:`content/${slug}.en.md`,del:true}],`Delete post ${slug}`,'جارٍ الحذف…')){ S.posts=keep; viewPosts(); }
+  if(await safeCommit([{path:'data/posts.json',text:J(keep)},{path:`content/${slug}.ar.md`,del:true},{path:`content/${slug}.en.md`,del:true},{path:`p/${slug}/index.html`,del:true},{path:`images/og/${slug}.jpg`,del:true}],`Delete post ${slug}`,'جارٍ الحذف…')){ S.posts=keep; viewPosts(); }
 }
 async function dupPost(slug){
   const p=S.posts.find(x=>x.slug===slug); busy('جارٍ النسخ…');
@@ -624,7 +631,8 @@ async function savePost(status){
   const list=E.orig? S.posts.map(x=>x.slug===E.orig?p:x) : [p,...S.posts];
   const files=[{path:'data/posts.json',text:J(list)}];
   for(const l of ['ar','en']){ const path=`content/${p.slug}.${l}.md`; if(E.body[l].trim()) files.push({path,text:E.body[l].trimEnd()+'\n'}); else files.push({path,del:true}); }
-  if(E.orig && E.orig!==p.slug) ['ar','en'].forEach(l=>files.push({path:`content/${E.orig}.${l}.md`,del:true}));
+  if(E.orig && E.orig!==p.slug){ ['ar','en'].forEach(l=>files.push({path:`content/${E.orig}.${l}.md`,del:true})); files.push({path:`p/${E.orig}/index.html`,del:true},{path:`images/og/${E.orig}.jpg`,del:true}); }
+  try{ busy('جارٍ تجهيز بطاقة الرابط…'); files.push(...await shareFilesForPost(p)); S.posts=list; files.push(...siteFeeds()); }catch(e){ console.warn(e); } finally{ busy(false); }
   if(await safeCommit(files,`${E.orig?'Update':'Add'} post: ${p.slug}`, status==='published'?'جارٍ النشر…':'جارٍ حفظ المسودة…')){
     S.posts=list; ls.del(S.editKey); S.dirty=false; E.orig=p.slug; S.editKey='tf-draft-'+p.slug; $('#edSlugShow').textContent=p.slug; $('#eSl').value=p.slug; $('#eS').value=status;
   }
@@ -709,31 +717,207 @@ function viewMedia(){
 }
 
 /* ============ settings ============ */
+const SOC={facebook:'Facebook',instagram:'Instagram',x:'X / Twitter',youtube:'YouTube',tiktok:'TikTok',linkedin:'LinkedIn',github:'GitHub',telegram:'Telegram',whatsapp:'WhatsApp (رقم أو رابط)'};
 function viewSettings(){
-  const s=JSON.parse(JSON.stringify(S.settings)); s.social=s.social||{};
+  const s=JSON.parse(JSON.stringify(S.settings)); s.social=s.social||{}; s.features=s.features||{};
   const sw=['#22d3ee','#a3e635','#818cf8','#f472b6','#fb923c','#34d399','#facc15','#60a5fa'];
-  $('#view').innerHTML=`<div class="vh"><div><h1>إعدادات الموقع</h1><p>الاسم، الوصف، صفحة «عنّي»، الروابط والألوان.</p></div><div class="acts"><button class="btn ok" id="ss">حفظ ونشر</button></div></div>
+  const fe=k=>s.features[k]!==false;
+  $('#view').innerHTML=`<div class="vh"><div><h1>إعدادات الموقع</h1><p>الهوية، الكاتب، التواصل، النشرة البريدية والميزات.</p></div><div class="acts"><button class="btn ok" id="ss">حفظ ونشر</button></div></div>
   <div class="two"><div>
     <div class="panel"><h3>الهوية</h3>
       <div class="row2"><div class="f"><label>اسم الموقع بالعربي</label><input class="inp" id="s1" value="${esc(s.name_ar)}"></div><div class="f"><label>Site name (English)</label><input class="inp ltr" id="s2" value="${esc(s.name_en)}"></div></div>
       <div class="f"><label>الوصف المختصر بالعربي</label><textarea class="inp" id="s3" rows="2" style="min-height:60px">${esc(s.tagline_ar)}</textarea></div>
       <div class="f"><label>Tagline (English)</label><textarea class="inp" id="s4" rows="2" dir="ltr" style="min-height:60px">${esc(s.tagline_en)}</textarea></div></div>
+    <div class="panel"><h3>الكاتب <small style="color:var(--mut);font-weight:400">(يظهر أسفل كل مقال)</small></h3>
+      <div style="display:flex;gap:12px;align-items:center;margin-bottom:12px"><div class="thumb" id="avp" style="width:64px;height:64px;border-radius:50%;${s.author_avatar?`background-image:url('${esc(imgSrc(s.author_avatar))}')`:''}">${s.author_avatar?'':'👤'}</div>
+        <button class="btn sm" id="avu">رفع صورة شخصية</button><button class="btn sm bad" id="avd">إزالة</button></div>
+      <div class="f"><label>اسمك</label><input class="inp" id="a1" value="${esc(s.author_name)}" placeholder="اسمك كما تحب أن يظهر"></div>
+      <div class="f"><label>نبذة قصيرة بالعربي</label><textarea class="inp" id="a2" rows="2" style="min-height:60px">${esc(s.author_bio_ar)}</textarea></div>
+      <div class="f"><label>Short bio (English)</label><textarea class="inp" id="a3" rows="2" dir="ltr" style="min-height:60px">${esc(s.author_bio_en)}</textarea></div></div>
     <div class="panel"><h3>صفحة «عنّي» <small style="color:var(--mut);font-weight:400">(Markdown)</small></h3>
       <div class="f"><label>بالعربي</label><textarea class="inp" id="s5" rows="6">${esc(s.about_ar)}</textarea></div>
       <div class="f"><label>English</label><textarea class="inp" id="s6" rows="6" dir="ltr">${esc(s.about_en)}</textarea></div></div>
   </div><div>
+    <div class="panel"><h3>الميزات</h3>
+      <label class="chk" style="margin:0 0 10px"><input type="checkbox" id="f1" ${fe('views')?'checked':''}> 👁 عدّاد المشاهدات + «الأكثر قراءة»</label>
+      <label class="chk" style="margin:0 0 10px"><input type="checkbox" id="f2" ${fe('likes')?'checked':''}> ♥ زر الإعجاب في المقالات</label>
+      <label class="chk" style="margin:0"><input type="checkbox" id="f3" ${fe('comments')?'checked':''}> 💬 التعليقات ${s.comments?.categoryId?'<span class="pill pub">مربوطة</span>':'<span class="pill dr">تحتاج إعداد من الأدوات</span>'}</label></div>
+    <div class="panel"><h3>✉ النشرة البريدية</h3>
+      <p style="color:var(--mut);margin:0 0 10px;font-size:13.5px">اعمل حساب مجاني على <a href="https://buttondown.com" target="_blank" rel="noopener">buttondown.com</a> واكتب اسم المستخدم هنا. سيظهر صندوق الاشتراك في الرئيسية وأسفل المقالات. اتركه فارغاً لإخفائه.</p>
+      <div class="f"><label>اسم مستخدم Buttondown</label><input class="inp ltr" id="n1" value="${esc(s.newsletter)}" placeholder="technofact"></div></div>
     <div class="panel"><h3>التواصل</h3>
       <div class="f"><label>البريد الإلكتروني (يظهر للزوار)</label><input class="inp ltr" id="s7" value="${esc(s.email)}" placeholder="you@example.com"></div>
-      ${['github','x','linkedin','youtube','instagram'].map(k=>`<div class="f"><label>${({github:'GitHub',x:'X / Twitter',linkedin:'LinkedIn',youtube:'YouTube',instagram:'Instagram'})[k]}</label><input class="inp ltr" data-so="${k}" value="${esc(s.social[k]||'')}" placeholder="https://"></div>`).join('')}</div>
+      ${Object.keys(SOC).map(k=>`<div class="f"><label>${SOC[k]}</label><input class="inp ltr" data-so="${k}" value="${esc(s.social[k]||'')}" placeholder="${k==='whatsapp'?'+9627…':'https://'}"></div>`).join('')}</div>
     <div class="panel"><h3>اللون الأساسي</h3><div class="swatches">${sw.map(c=>`<button style="background:${c}" data-c="${c}" class="${s.accent===c?'on':''}"></button>`).join('')}
       <input type="color" id="s8" value="${esc(s.accent||'#22d3ee')}" style="width:40px;height:34px;border:none;background:none;padding:0"></div></div>
   </div></div>`;
   const setC=c=>{s.accent=c;$('#s8').value=c;$$('[data-c]').forEach(b=>b.classList.toggle('on',b.dataset.c===c));document.documentElement.style.setProperty('--a',c)};
   $$('[data-c]').forEach(b=>b.onclick=()=>setC(b.dataset.c)); $('#s8').oninput=e=>setC(e.target.value);
+  const avDraw=()=>{const e=$('#avp');e.style.backgroundImage=s.author_avatar?`url('${imgSrc(s.author_avatar)}')`:'';e.textContent=s.author_avatar?'':'👤'};
+  $('#avu').onclick=async()=>{const r=await uploadImage('avatar');if(r){s.author_avatar=r;avDraw()}}; $('#avd').onclick=()=>{s.author_avatar='';avDraw()};
   $('#ss').onclick=async()=>{
-    Object.assign(s,{name_ar:$('#s1').value.trim(),name_en:$('#s2').value.trim(),tagline_ar:$('#s3').value.trim(),tagline_en:$('#s4').value.trim(),about_ar:$('#s5').value,about_en:$('#s6').value,email:$('#s7').value.trim()});
+    Object.assign(s,{name_ar:$('#s1').value.trim(),name_en:$('#s2').value.trim(),tagline_ar:$('#s3').value.trim(),tagline_en:$('#s4').value.trim(),about_ar:$('#s5').value,about_en:$('#s6').value,email:$('#s7').value.trim(),
+      author_name:$('#a1').value.trim(),author_bio_ar:$('#a2').value.trim(),author_bio_en:$('#a3').value.trim(),newsletter:$('#n1').value.trim().replace(/^@/,'')});
+    s.features={views:$('#f1').checked,likes:$('#f2').checked,comments:$('#f3').checked};
     $$('[data-so]').forEach(i=>s.social[i.dataset.so]=i.value.trim());
     if(await safeCommit([{path:'data/settings.json',text:J(s)}],'Update site settings')){ S.settings=s; $('#bname').textContent=s.name_ar; }
+  };
+}
+
+/* ============ counters (same algorithm as the public site) ============ */
+const CNT='https://abacus.jasoncameron.dev';
+const san=(v,n=48)=>{v=String(v).toLowerCase().replace(/[^a-z0-9-]/g,'-').replace(/-+/g,'-');if(v.length<=n)return v;let h=0;for(const c of v)h=(h*31+c.charCodeAt(0))|0;return v.slice(0,n-8)+'-'+Math.abs(h).toString(36).slice(0,7)};
+const NS=()=>san(S.settings.counter_ns||('tf-'+GH.o+'-'+(GH.r.toLowerCase()===GH.o.toLowerCase()+'.github.io'?'site':GH.r)));
+async function cget(key){ try{ const r=await fetch(`${CNT}/get/${NS()}/${san(key)}`); if(!r.ok) return 0; const j=await r.json(); return +j.value||0; }catch(e){ return null; } }
+const fmtN=n=>n==null?'—':(n>=1000?(n/1000).toFixed(n>=10000?0:1)+'K':String(n));
+S.views={};
+async function loadViews(){ const ps=S.posts.filter(p=>postStatus(p)==='pub'); const [site,...vs]=await Promise.all([cget('site'),...ps.map(p=>cget('p-'+p.slug))]);
+  S.views={site}; ps.forEach((p,i)=>S.views[p.slug]=vs[i]); return S.views; }
+
+/* ============ social cards & share pages ============ */
+const xesc=v=>String(v??'').replace(/[<>&'"]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;',"'":'&#39;','"':'&quot;'}[c]));
+const absUrl=p=>!p?'':(/^https?:/.test(p)?p:GH.pagesUrl+p.replace(/^\.?\//,''));
+async function fontsReady(){ try{ await Promise.all(['700 64px "IBM Plex Sans Arabic"','500 30px "IBM Plex Sans Arabic"','600 26px "JetBrains Mono"'].map(f=>document.fonts.load(f))); }catch(e){} }
+function wrapLines(ctx,text,maxW,maxLines){ const words=String(text).split(/\s+/); const lines=[]; let cur='';
+  for(const w of words){ const t=cur?cur+' '+w:w; if(ctx.measureText(t).width>maxW && cur){ lines.push(cur); cur=w; } else cur=t; }
+  if(cur) lines.push(cur); if(lines.length>maxLines){ lines.length=maxLines; lines[maxLines-1]=lines[maxLines-1].replace(/\s*\S*$/,'')+' …'; } return lines; }
+async function makeCard({title,sub,tags,kind}){
+  await fontsReady();
+  const W=1200,H=630,c=document.createElement('canvas'); c.width=W;c.height=H; const x=c.getContext('2d');
+  const acc=S.settings.accent||'#22d3ee';
+  const g=x.createLinearGradient(0,0,W,H); g.addColorStop(0,'#0a1224'); g.addColorStop(1,'#04070e'); x.fillStyle=g; x.fillRect(0,0,W,H);
+  x.strokeStyle='rgba(120,160,220,.08)'; x.lineWidth=1; for(let i=0;i<=W;i+=48){x.beginPath();x.moveTo(i,0);x.lineTo(i,H);x.stroke()} for(let j=0;j<=H;j+=48){x.beginPath();x.moveTo(0,j);x.lineTo(W,j);x.stroke()}
+  const rg=x.createRadialGradient(W*.15,0,0,W*.15,0,520); rg.addColorStop(0,acc+'55'); rg.addColorStop(1,'transparent'); x.fillStyle=rg; x.fillRect(0,0,W,H);
+  const rg2=x.createRadialGradient(W*.95,H,0,W*.95,H,460); rg2.addColorStop(0,'#a3e63533'); rg2.addColorStop(1,'transparent'); x.fillStyle=rg2; x.fillRect(0,0,W,H);
+  // logo
+  const lg=x.createLinearGradient(1040,56,1124,140); lg.addColorStop(0,acc); lg.addColorStop(1,'#a3e635'); x.fillStyle=lg;
+  x.beginPath(); x.roundRect?x.roundRect(1040,56,84,84,20):x.rect(1040,56,84,84); x.fill();
+  x.fillStyle='#04070e'; x.font='600 24px "JetBrains Mono",monospace'; x.textAlign='center'; x.textBaseline='middle'; x.fillText('</TF>',1082,99);
+  x.direction='rtl'; x.textAlign='right'; x.fillStyle='#e6edf7'; x.font='700 34px "IBM Plex Sans Arabic",sans-serif'; x.fillText(S.settings.name_ar||'تكنو فاكت',1012,86);
+  x.fillStyle='#8a9ab5'; x.font='500 22px "JetBrains Mono",monospace'; x.direction='ltr'; x.textAlign='right'; x.fillText(S.settings.name_en||'Techno Fact',1012,122);
+  // title
+  const isAr=/[؀-ۿ]/.test(title); x.direction=isAr?'rtl':'ltr'; x.textAlign=isAr?'right':'left'; const tx=isAr?1124:76;
+  let fs=68; x.font=`700 ${fs}px "IBM Plex Sans Arabic",sans-serif`; let lines=wrapLines(x,title,1048,3);
+  if(lines.length===3){ fs=58; x.font=`700 ${fs}px "IBM Plex Sans Arabic",sans-serif`; lines=wrapLines(x,title,1048,3); }
+  x.fillStyle='#ffffff'; const lh=fs*1.42; const top=kind==='site'?300:250; lines.forEach((l,i)=>x.fillText(l,tx,top+i*lh));
+  if(sub){ x.fillStyle='#9fb0cc'; x.font='500 30px "IBM Plex Sans Arabic",sans-serif'; const sl=wrapLines(x,sub,1048,2); sl.forEach((l,i)=>x.fillText(l,tx,top+lines.length*lh+10+i*44)); }
+  // footer
+  x.fillStyle=acc; x.fillRect(76,H-92,6,40);
+  x.direction='ltr'; x.textAlign='left'; x.fillStyle='#cfe3ff'; x.font='600 26px "JetBrains Mono",monospace'; x.fillText(GH.pagesUrl.replace(/^https:\/\//,'').replace(/\/$/,''),100,H-70);
+  if(tags&&tags.length){ x.textAlign='right'; x.fillStyle=acc; x.font='600 24px "JetBrains Mono",monospace'; x.fillText(tags.slice(0,3).map(t=>'#'+t).join('  '),1124,H-70); }
+  return c.toDataURL('image/jpeg',.88);
+}
+async function makeIcon(size){ const c=document.createElement('canvas'); c.width=c.height=size; const x=c.getContext('2d'); const acc=S.settings.accent||'#22d3ee';
+  await fontsReady(); x.fillStyle='#070b14'; x.fillRect(0,0,size,size); const g=x.createLinearGradient(0,0,size,size); g.addColorStop(0,acc); g.addColorStop(1,'#a3e635');
+  x.fillStyle=g; const m=size*.12; x.beginPath(); x.roundRect?x.roundRect(m,m,size-2*m,size-2*m,size*.2):x.rect(m,m,size-2*m,size-2*m); x.fill();
+  x.fillStyle='#04070e'; x.font=`600 ${Math.round(size*.26)}px "JetBrains Mono",monospace`; x.textAlign='center'; x.textBaseline='middle'; x.fillText('TF',size/2,size/2+size*.02); return c.toDataURL('image/png'); }
+function postOgImage(p){ return p.cover? absUrl(p.cover) : absUrl(`images/og/${p.slug}.jpg`); }
+function sharePageHTML(p){
+  const title=p.ar?.title||p.en?.title||p.slug, desc=p.ar?.excerpt||p.en?.excerpt||S.settings.tagline_ar||'', site=S.settings.name_ar||'Techno Fact';
+  const url=absUrl(`p/${p.slug}/`), img=postOgImage(p), target=`../../#post-${p.slug}`;
+  return `<!DOCTYPE html>
+<html lang="ar" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${xesc(title)} | ${xesc(site)}</title>
+<meta name="description" content="${xesc(desc)}">
+<link rel="canonical" href="${xesc(url)}">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="${xesc(site)}">
+<meta property="og:locale" content="ar_AR">
+<meta property="og:title" content="${xesc(title)}">
+<meta property="og:description" content="${xesc(desc)}">
+<meta property="og:url" content="${xesc(url)}">
+<meta property="og:image" content="${xesc(img)}">
+${p.cover?'':'<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n<meta property="og:image:type" content="image/jpeg">'}
+<meta property="article:published_time" content="${xesc(p.date)}">
+${(p.tags||[]).map(t=>`<meta property="article:tag" content="${xesc(t)}">`).join('\n')}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${xesc(title)}">
+<meta name="twitter:description" content="${xesc(desc)}">
+<meta name="twitter:image" content="${xesc(img)}">
+<style>body{background:#070b14;color:#e6edf7;font-family:system-ui,sans-serif;display:grid;place-items:center;min-height:100vh;margin:0}a{color:#22d3ee}</style>
+<script>location.replace(${JSON.stringify(target)});<\/script>
+</head><body><p><a href="${xesc(target)}">${xesc(title)}</a></p></body></html>
+`;
+}
+async function shareFilesForPost(p){
+  const files=[];
+  if(postStatus(p)==='dr'){ files.push({path:`p/${p.slug}/index.html`,del:true}); return files; }
+  if(!p.cover){ const d=await makeCard({title:p.ar?.title||p.en?.title||p.slug,sub:p.ar?.excerpt||p.en?.excerpt||'',tags:p.tags}); files.push({path:`images/og/${p.slug}.jpg`,b64:d.split(',')[1]}); }
+  files.push({path:`p/${p.slug}/index.html`,text:sharePageHTML(p)});
+  return files;
+}
+function ogBlock(){ const s=S.settings, t=(s.name_ar||'تكنو فاكت')+' | '+(s.name_en||'Techno Fact'), d=s.tagline_ar||'', img=absUrl('images/og/site.jpg'), u=GH.pagesUrl;
+  return `<!--OG-->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="${xesc(s.name_ar||'Techno Fact')}">
+<meta property="og:title" content="${xesc(t)}">
+<meta property="og:description" content="${xesc(d)}">
+<meta property="og:url" content="${xesc(u)}">
+<meta property="og:image" content="${xesc(img)}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="${xesc(img)}">
+<!--/OG-->`; }
+const patchOG=html=>html.includes('<!--OG-->')? html.replace(/<!--OG-->[\s\S]*?<!--\/OG-->/,ogBlock()) : html;
+function siteFeeds(){
+  const base=GH.pagesUrl, s=S.settings, x=xesc;
+  const pubs=S.posts.filter(p=>postStatus(p)==='pub').sort((a,b)=>b.date.localeCompare(a.date));
+  const items=pubs.slice(0,30).map(p=>`  <item><title>${x(p.ar?.title||p.en?.title)}</title><link>${base}p/${p.slug}/</link><guid>${base}p/${p.slug}/</guid><pubDate>${new Date(p.date+'T09:00:00Z').toUTCString()}</pubDate><description>${x(p.ar?.excerpt||p.en?.excerpt)}</description></item>`).join('\n');
+  const rss=`<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0"><channel>\n  <title>${x(s.name_ar||s.name_en)}</title><link>${base}</link><description>${x(s.tagline_ar)}</description><language>ar</language>\n${items}\n</channel></rss>\n`;
+  const sitemap=`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url><loc>${base}</loc></url>\n${pubs.map(p=>`  <url><loc>${base}p/${p.slug}/</loc><lastmod>${p.updated||p.date}</lastmod></url>`).join('\n')}\n</urlset>\n`;
+  const manifest=JSON.stringify({name:s.name_ar||'Techno Fact',short_name:s.name_en||'TechnoFact',start_url:'./',scope:'./',display:'standalone',dir:'rtl',lang:'ar',background_color:'#070b14',theme_color:'#070b14',
+    icons:[{src:'images/og/icon-192.png',sizes:'192x192',type:'image/png'},{src:'images/og/icon-512.png',sizes:'512x512',type:'image/png',purpose:'any maskable'}]},null,2);
+  return [{path:'rss.xml',text:rss},{path:'sitemap.xml',text:sitemap},{path:'manifest.webmanifest',text:manifest},{path:'robots.txt',text:`User-agent: *\nAllow: /\nSitemap: ${base}sitemap.xml\n`}];
+}
+async function buildAllShare(){
+  busy('جارٍ تصميم بطاقات الروابط…');
+  try{
+    const files=[];
+    for(const p of S.posts){ files.push(...await shareFilesForPost(p)); }
+    const sc=await makeCard({title:S.settings.tagline_ar||S.settings.name_ar||'Techno Fact',sub:'',tags:[],kind:'site'}); files.push({path:'images/og/site.jpg',b64:sc.split(',')[1]});
+    for(const n of [192,512]){ const d=await makeIcon(n); files.push({path:`images/og/icon-${n}.png`,b64:d.split(',')[1]}); }
+    files.push(...siteFeeds());
+    const idx=await readText('index.html'); if(idx&&idx.includes('<!--OG-->')) files.push({path:'index.html',text:patchOG(idx)});
+    busy(false);
+    const st={...S.settings,share_v:1}; files.push({path:'data/settings.json',text:J(st)});
+    if(await safeCommit(files,'Build social cards, share pages, sitemap & RSS','جارٍ النشر…')){ S.settings=st; return true; }
+  }catch(e){ busy(false); toast('فشل: '+e.message,true); console.error(e); }
+  return false;
+}
+async function previewCard(){ const p=[...S.posts].sort((a,b)=>(b.date||'').localeCompare(a.date||''))[0]; if(!p) return toast('لا توجد مقالات');
+  busy('جارٍ التصميم…'); const d=await makeCard({title:p.ar?.title||p.en?.title,sub:p.ar?.excerpt||p.en?.excerpt,tags:p.tags}); busy(false);
+  modal(`<h3>معاينة بطاقة الرابط</h3><p style="color:var(--mut);margin:0 0 12px;font-size:13.5px">هكذا يظهر مقالك عند لصق رابطه في واتساب وفيسبوك (للمقالات بدون صورة غلاف).</p><img src="${d}" style="width:100%;border-radius:12px;border:1px solid var(--line2)"><div class="acts"><button class="btn pri" onclick="this.closest('.ov').remove()">تمام</button></div>`,{wide:true}); }
+
+/* ============ comments (giscus) ============ */
+async function setupComments(){
+  busy('جارٍ فحص المستودع…'); let repo; try{ repo=await api(R()); }catch(e){} busy(false);
+  const hasD=!!repo?.has_discussions, c=S.settings.comments||{};
+  const o=modal(`<h3>💬 إعداد التعليقات</h3>
+  <p style="color:var(--mut);margin:0 0 14px;font-size:14px">التعليقات مجانية بدون إعلانات، وتُحفظ في GitHub Discussions بمستودعك. الزائر يعلّق بحساب GitHub.</p>
+  <div class="status"><span class="dot ${hasD?'ok':'w'}"></span><div style="flex:1"><b>1. تفعيل Discussions</b><br><small style="color:var(--mut)">${hasD?'مفعّل ✓':'افتح الإعدادات ← Features ← فعّل Discussions'}</small></div>${hasD?'':`<a class="btn sm" href="https://github.com/${GH.o}/${GH.r}/settings" target="_blank" rel="noopener">فتح</a>`}</div>
+  <div class="status"><span class="dot ${c.categoryId?'ok':'w'}"></span><div style="flex:1"><b>2. تثبيت تطبيق giscus</b><br><small style="color:var(--mut)">اختر Only select repositories ← ${esc(GH.r)} ← Install</small></div><a class="btn sm" href="https://github.com/apps/giscus/installations/new" target="_blank" rel="noopener">تثبيت</a></div>
+  <div class="status"><span class="dot ${c.categoryId?'ok':''}"></span><div style="flex:1"><b>3. الربط</b><br><small style="color:var(--mut)" id="cmsg">${c.categoryId?'مربوط ✓ — يمكنك إعادة الربط في أي وقت':'بعد الخطوتين اضغط «ربط تلقائي»'}</small></div><button class="btn sm pri" id="cauto">ربط تلقائي</button></div>
+  <details style="margin-top:10px"><summary style="cursor:pointer;color:var(--mut);font-size:13.5px">إدخال يدوي (إذا فشل الربط التلقائي)</summary>
+    <p style="color:var(--mut);font-size:13px">افتح <a href="https://giscus.app/ar" target="_blank" rel="noopener">giscus.app</a>، اكتب <span class="mono">${esc(GH.o)}/${esc(GH.r)}</span>، اختر فئة Announcements، وانسخ القيم من الكود الظاهر.</p>
+    <div class="f"><label>data-repo-id</label><input class="inp ltr" id="crid" value="${esc(c.repoId||repo?.node_id||'')}"></div>
+    <div class="f"><label>data-category-id</label><input class="inp ltr" id="ccid" value="${esc(c.categoryId||'')}" placeholder="DIC_kwDO…"></div>
+    <button class="btn sm" id="cman">حفظ يدوي</button></details>
+  <div class="acts"><button class="btn" data-x>إغلاق</button></div>`,{wide:true});
+  o.querySelector('[data-x]').onclick=()=>o.remove();
+  const save=async(repoId,cat,catId)=>{ const st={...S.settings,comments:{repo:`${GH.o}/${GH.r}`,repoId,category:cat,categoryId:catId},features:{...(S.settings.features||{}),comments:true}};
+    if(await safeCommit([{path:'data/settings.json',text:J(st)}],'Enable comments')){ S.settings=st; o.remove(); toast('✓ التعليقات صارت شغّالة أسفل كل مقال'); } };
+  o.querySelector('#cman').onclick=()=>{ const a=o.querySelector('#crid').value.trim(), b=o.querySelector('#ccid').value.trim(); if(!a||!b) return toast('عبّي الحقلين',true); save(a,'Announcements',b); };
+  o.querySelector('#cauto').onclick=async()=>{
+    const msg=o.querySelector('#cmsg'); msg.textContent='جارٍ الربط…';
+    let repoId=repo?.node_id, cats=null;
+    try{ const r=await fetch(`https://giscus.app/api/discussions/categories?repo=${encodeURIComponent(GH.o+'/'+GH.r)}`); if(r.ok){ const j=await r.json(); repoId=j.repositoryId||repoId; cats=(j.categories||[]).map(c=>({id:c.id,name:c.name})); } }catch(e){}
+    if(!cats||!cats.length){ try{ const g=await fetch('https://api.github.com/graphql',{method:'POST',headers:{Authorization:'Bearer '+GH.token,'Content-Type':'application/json'},
+        body:JSON.stringify({query:'query($o:String!,$r:String!){repository(owner:$o,name:$r){id discussionCategories(first:25){nodes{id name}}}}',variables:{o:GH.o,r:GH.r}})});
+        const j=await g.json(); if(j.data?.repository){ repoId=j.data.repository.id; cats=j.data.repository.discussionCategories.nodes; } }catch(e){} }
+    if(!cats||!cats.length){ msg.innerHTML='<span style="color:var(--warn)">ما قدرت أربط تلقائياً. تأكد من الخطوتين 1 و 2، أو استخدم الإدخال اليدوي تحت.</span>'; o.querySelector('details').open=true; return; }
+    const pick=cats.find(c=>/announcement/i.test(c.name))||cats.find(c=>/general/i.test(c.name))||cats[0];
+    save(repoId,pick.name,pick.id);
   };
 }
 
@@ -744,9 +928,11 @@ function viewTools(){
   <div class="tool"><div class="ti">⤓</div><div class="tb"><b>نسخة احتياطية كاملة</b><p>تنزيل ملف واحد فيه كل المقالات (بالنص الكامل) والمشاريع والإعدادات.</p><button class="btn sm" id="tb1">تنزيل النسخة الاحتياطية</button></div></div>
   <div class="tool"><div class="ti">⤒</div><div class="tb"><b>استعادة من نسخة احتياطية</b><p>رفع ملف نسخة احتياطية واستبدال محتوى الموقع الحالي به.</p><button class="btn sm" id="tb2">اختيار ملف…</button></div></div>
   <div class="tool"><div class="ti">⟳</div><div class="tb"><b>تحديث قالب الموقع</b><p>عندما أرسل لك نسخة أحدث من <span class="mono">index.html</span> أو <span class="mono">admin.html</span>، ارفعها من هنا مباشرة بدون فتح GitHub.</p><button class="btn sm" id="tb3">رفع ملف القالب…</button></div></div>
-  <div class="tool"><div class="ti">◉</div><div class="tb"><b>توليد RSS و robots.txt</b><p>ملف RSS يسمح للقرّاء وتطبيقات الأخبار بمتابعة مقالاتك الجديدة تلقائياً.</p><button class="btn sm" id="tb4">توليد ونشر</button></div></div>
+  <div class="tool"><div class="ti">🔗</div><div class="tb"><b>بطاقات الروابط + SEO</b><p>يصمّم صورة وعنوان لكل مقال تظهر عند لصق الرابط في واتساب وفيسبوك، ويولّد Sitemap لجوجل وRSS وأيقونة تثبيت الموقع كتطبيق. (يتم تلقائياً عند نشر أي مقال — استخدمه مرة بعد التحديث أو تغيير الإعدادات.)</p>
+    <div style="display:flex;gap:6px;flex-wrap:wrap"><button class="btn sm pri" id="tb4">توليد ونشر الكل</button><button class="btn sm" id="tb6">معاينة بطاقة</button></div></div></div>
+  <div class="tool"><div class="ti">💬</div><div class="tb"><b>إعداد التعليقات</b><p>ربط نظام تعليقات مجاني (giscus) بموقعك في 3 خطوات.</p><button class="btn sm" id="tb7">${S.settings.comments?.categoryId?'مربوطة ✓ — إعادة الإعداد':'ابدأ الإعداد'}</button></div></div>
   <div class="tool"><div class="ti">⌫</div><div class="tb"><b>مسح المسودات المحلية</b><p>حذف النصوص المحفوظة تلقائياً في هذا المتصفح.</p><button class="btn sm" id="tb5">مسح</button></div></div>`;
-  $('#tb1').onclick=backup; $('#tb2').onclick=restore; $('#tb3').onclick=updateTemplate; $('#tb4').onclick=genFeeds;
+  $('#tb1').onclick=backup; $('#tb2').onclick=restore; $('#tb3').onclick=updateTemplate; $('#tb4').onclick=buildAllShare; $('#tb6').onclick=previewCard; $('#tb7').onclick=setupComments;
   $('#tb5').onclick=()=>{ let n=0; try{ Object.keys(localStorage).filter(k=>k.startsWith('tf-draft-')).forEach(k=>{localStorage.removeItem(k);n++}) }catch(e){} toast(`تم مسح ${n} مسودة`); };
 }
 async function backup(){
@@ -770,19 +956,10 @@ async function updateTemplate(){
   const [f]=await pickFile('.html,text/html'); if(!f) return;
   const name=f.name.toLowerCase().includes('admin')?'admin.html':(f.name.toLowerCase().includes('index')?'index.html':null);
   if(!name) return toast('اسم الملف يجب أن يكون index.html أو admin.html',true);
-  const txt=await f.text(); if(!/<!DOCTYPE html>/i.test(txt)) return toast('الملف ليس صفحة HTML صالحة',true);
+  let txt=await f.text(); if(name==='index.html'&&S.settings.share_v) txt=patchOG(txt); if(!/<!DOCTYPE html>/i.test(txt)) return toast('الملف ليس صفحة HTML صالحة',true);
   if(!await confirmBox('تحديث القالب',`سيتم استبدال <span class="mono">${name}</span> في موقعك بالملف المختار.`,'تحديث')) return;
   if(await safeCommit([{path:name,text:txt}],`Update ${name} template`,'جارٍ تحديث القالب…') && name==='admin.html') toast('تم التحديث — أعد تحميل الصفحة بعد دقيقة');
 }
-async function genFeeds(){
-  const base=GH.pagesUrl, s=S.settings;
-  const x=v=>String(v??'').replace(/[<>&'"]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;',"'":'&apos;','"':'&quot;'}[c]));
-  const items=S.posts.filter(p=>postStatus(p)==='pub').sort((a,b)=>b.date.localeCompare(a.date)).slice(0,30).map(p=>`  <item><title>${x(p.ar?.title||p.en?.title)}</title><link>${base}#post-${p.slug}</link><guid>${base}#post-${p.slug}</guid><pubDate>${new Date(p.date+'T09:00:00Z').toUTCString()}</pubDate><description>${x(p.ar?.excerpt||p.en?.excerpt)}</description></item>`).join('\n');
-  const rss=`<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0"><channel>\n  <title>${x(s.name_ar||s.name_en)}</title><link>${base}</link><description>${x(s.tagline_ar)}</description><language>ar</language>\n${items}\n</channel></rss>\n`;
-  const robots=`User-agent: *\nAllow: /\nDisallow: /admin.html\n`;
-  await safeCommit([{path:'rss.xml',text:rss},{path:'robots.txt',text:robots}],'Generate RSS & robots.txt','جارٍ التوليد…');
-}
-
 /* ============ start ============ */
 (async()=>{
   if(window.marked) marked.setOptions({gfm:true});
