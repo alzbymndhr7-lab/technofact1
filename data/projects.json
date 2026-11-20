@@ -1,24 +1,5 @@
 [
   {
-    "id": "mahami",
-    "url": "",
-    "repo": "",
-    "cover": "",
-    "tags": [
-      "PWA",
-      "JavaScript"
-    ],
-    "featured": true,
-    "ar": {
-      "title": "مهامي",
-      "desc": "تطبيق مهام عربي خفيف يعمل على الهاتف كتطبيق حقيقي، مع تصنيفات ونسبة إنجاز ووضع ليلي."
-    },
-    "en": {
-      "title": "Mahami",
-      "desc": "A lightweight Arabic to-do app that installs on your phone, with categories, progress and dark mode."
-    }
-  },
-  {
     "id": "engineering-archive",
     "url": "",
     "repo": "",
