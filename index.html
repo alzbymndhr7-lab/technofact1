@@ -268,6 +268,85 @@ footer .fs a:hover{color:var(--a);border-color:var(--a)}
 .rank{position:absolute;top:12px;inset-inline-start:12px;z-index:2;font-family:var(--ffm);font-weight:600;font-size:13px;background:rgba(0,0,0,.6);color:#fff;
   padding:4px 10px;border-radius:9px;backdrop-filter:blur(6px)}
 .fvis{font-family:var(--ffm);font-size:12px;color:var(--mut)}
+/* ===== AI office ===== */
+.ofwrap{padding-top:26px}
+.ofc{position:relative;border:1px solid #1a2540;border-radius:26px;overflow:hidden;color:#e6edf7;
+  background:radial-gradient(ellipse at 50% 0%,rgba(34,211,238,.10),transparent 60%),#050912;box-shadow:0 40px 120px rgba(0,0,0,.45),0 0 0 1px rgba(255,255,255,.02) inset}
+.ofc-bar{display:flex;align-items:center;gap:10px;padding:12px 18px;border-bottom:1px solid #16213a;background:rgba(9,14,28,.85);font-size:14px;flex-wrap:wrap}
+.ofc-bar b{font-size:15px}.ofc-cnt{color:#8a9ab5}
+.ofc-clock{margin-inline-start:auto;color:var(--a);font-size:13px;direction:ltr}
+.live{display:inline-flex;align-items:center;gap:6px;font-family:var(--ffm);font-size:11.5px;font-weight:600;color:#fca5a5;background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.35);padding:3px 9px;border-radius:999px}
+.live i{width:7px;height:7px;border-radius:50%;background:#ef4444;box-shadow:0 0 10px #ef4444;animation:pulse 1.4s infinite}
+.ofc-scroll{overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.ofc-scroll::-webkit-scrollbar{display:none}
+.ofc-stage{position:relative;min-width:900px}
+.ofsvg{display:block;width:100%;height:auto}
+.ofc-tags{position:absolute;inset:0;pointer-events:none}
+.ag{position:absolute;transform:translate(-50%,-100%);pointer-events:auto;display:flex;flex-direction:column;align-items:center;gap:1px;line-height:1.3;
+  background:rgba(7,12,24,.86);border:1px solid rgba(255,255,255,.12);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border-radius:11px;padding:4px 9px 5px;
+  color:#fff;font-family:var(--ff);white-space:nowrap;cursor:pointer;box-shadow:0 8px 22px rgba(0,0,0,.45);transition:transform .2s,border-color .2s;direction:rtl}
+[lang=en] .ag{direction:ltr}
+.ag::after{content:'';position:absolute;bottom:-5px;left:50%;width:8px;height:8px;background:inherit;border-right:1px solid rgba(255,255,255,.12);border-bottom:1px solid rgba(255,255,255,.12);transform:translateX(-50%) rotate(45deg)}
+.ag:hover{border-color:var(--a);transform:translate(-50%,-100%) scale(1.06);z-index:5}
+.ag-n{font-size:12px;font-weight:700;display:flex;align-items:center;gap:5px}
+.ag-dot{width:6px;height:6px;border-radius:50%;background:#22c55e;box-shadow:0 0 8px #22c55e;display:inline-block}
+.ag-r{font-size:10px;color:var(--a);font-weight:500}
+.ag-t{display:none;font-size:11px;color:#e2e8f0;max-width:230px;overflow:hidden;text-overflow:ellipsis}
+.ag.talk{border-color:var(--a);z-index:6;box-shadow:0 0 0 1px var(--a),0 10px 30px rgba(34,211,238,.25)}
+.ag.talk .ag-t{display:block}
+@media(max-width:760px){.ag{padding:3px 7px 4px}.ag-n{font-size:11px}.ag-r{font-size:9px}.ag-t{max-width:170px;font-size:10px}}
+.ofc-feed{display:flex;align-items:center;gap:10px;padding:12px 18px;border-top:1px solid #16213a;background:rgba(9,14,28,.85);font-size:14px;min-height:46px}
+.dotg{width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 10px #22c55e;flex:none;animation:pulse 2s infinite}
+#ofFeed{opacity:0}#ofFeed.in{animation:feedIn .5s ease forwards}
+@keyframes feedIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.ofc-hint{font-size:12px;color:#8a9ab5;padding:8px 18px 0;pointer-events:none}
+.ag-card{position:absolute;bottom:58px;left:50%;transform:translateX(-50%);width:min(380px,92%);background:rgba(10,16,32,.96);border:1px solid #24324f;border-radius:18px;padding:18px;
+  box-shadow:0 30px 80px rgba(0,0,0,.6);z-index:10;animation:fade .3s ease;text-align:start}
+.agc-x{position:absolute;top:10px;inset-inline-end:10px;background:none;border:none;color:#8a9ab5;font-size:16px}
+.agc-h{display:flex;align-items:center;gap:12px}
+.agc-av{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;font-size:24px;flex:none}
+.agc-h b{display:block;font-size:17px}.agc-h small{color:var(--a)}
+.agc-on{margin-inline-start:auto;margin-inline-end:22px;display:flex;align-items:center;gap:6px;font-size:12px;color:#86efac}
+.agc-on i{width:7px;height:7px;border-radius:50%;background:#22c55e;box-shadow:0 0 8px #22c55e}
+.ag-card p{color:#aab8cf;font-size:14.5px;margin:12px 0}
+.agc-now{background:#0b1222;border:1px solid #1a2540;border-radius:12px;padding:10px 12px}
+.agc-now small{display:block;color:#8a9ab5;font-size:12px}.agc-now span{font-weight:600}
+.agc-st{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px;text-align:center}
+.agc-st div{background:#0b1222;border:1px solid #1a2540;border-radius:12px;padding:8px}
+.agc-st b{display:block;font-family:var(--ffm);color:var(--a)}.agc-st small{color:#8a9ab5;font-size:11.5px}
+.hero2{grid-template-columns:1fr;text-align:center;padding:42px 0 10px}
+.hero2 .fade{display:flex;flex-direction:column;align-items:center}
+.hero2 p.lead{margin-inline:auto}.hero2 .cta{justify-content:center}.hero2 .stats{width:100%;max-width:560px}
+/* svg animation */
+.ofsvg .bob{animation:ofbob 3.2s ease-in-out infinite}.ofsvg .bob2{animation:ofbob 4s ease-in-out infinite}
+@keyframes ofbob{50%{transform:translateY(-1.5px)}}
+.ofsvg .blink{animation:ofblink 4.6s infinite}
+@keyframes ofblink{0%,93%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
+.ofsvg .typeL{animation:oftype .32s ease-in-out infinite alternate}.ofsvg .typeR{animation:oftype .32s ease-in-out infinite alternate-reverse}
+@keyframes oftype{to{transform:translateY(2px)}}
+.ofsvg .flick{animation:offlick 2.6s ease-in-out infinite}
+@keyframes offlick{50%{opacity:.55}}
+.ofsvg .steam{animation:ofsteam 2.8s ease-in-out infinite}
+@keyframes ofsteam{0%{opacity:0;transform:translateY(3px)}40%{opacity:.7}100%{opacity:0;transform:translateY(-6px)}}
+.ofsvg .particle{animation:ofpart 3.4s ease-in infinite;opacity:0}
+@keyframes ofpart{0%{opacity:0;transform:translateY(8px)}25%{opacity:.95}100%{opacity:0;transform:translateY(-26px)}}
+.ofsvg .led0{animation:ofled 1.1s steps(1) infinite}.ofsvg .led1{animation:ofled 1.7s steps(1) infinite}.ofsvg .led2{animation:ofled .8s steps(1) infinite}.ofsvg .led3{animation:ofled 2.3s steps(1) infinite}
+@keyframes ofled{50%{opacity:.2}}
+.ofsvg .win0{animation:ofwin 7s infinite}.ofsvg .win1{animation:ofwin 9s 2s infinite}.ofsvg .win2{opacity:.35}.ofsvg .win3{animation:ofwin 11s 4s infinite}
+@keyframes ofwin{0%,70%,100%{opacity:.9}80%{opacity:.15}}
+.ofsvg .bar{transform-box:fill-box;transform-origin:bottom;animation:ofbar 2.6s ease-in-out infinite}
+@keyframes ofbar{50%{transform:scaleY(.55)}}
+.ofsvg .pulse{animation:pulse 1.2s infinite}
+.ofsvg .dash{stroke-dasharray:.25 .12;animation:ofdash 3s linear infinite}
+@keyframes ofdash{to{stroke-dashoffset:-1.11}}
+.ofsvg .sway{animation:ofsway 5s ease-in-out infinite}
+@keyframes ofsway{50%{transform:rotate(2.5deg)}}
+.ofsvg .armUp{animation:ofpoint 2.8s ease-in-out infinite}.ofsvg .armUp2{animation:ofwrite 1.6s ease-in-out infinite}
+@keyframes ofpoint{50%{transform:rotate(-10deg)}}@keyframes ofwrite{50%{transform:rotate(8deg) translateY(2px)}}
+.ofsvg .legL,.ofsvg .legR{transform-box:fill-box;transform-origin:top center}
+.ofsvg .legL{animation:ofleg .5s ease-in-out infinite alternate}.ofsvg .legR{animation:ofleg .5s ease-in-out infinite alternate-reverse}
+@keyframes ofleg{from{transform:rotate(-14deg)}to{transform:rotate(14deg)}}
+@media (prefers-reduced-motion: reduce){.ofsvg *{animation:none!important}}
 .loading{display:grid;place-items:center;min-height:60vh;font-family:var(--ffm);color:var(--mut)}
 .fade{animation:fade .45s ease both}
 @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
@@ -307,6 +386,318 @@ footer .fs a:hover{color:var(--a);border-color:var(--a)}
 <button id="totop" aria-label="Top">↑</button>
 
 <script>
+/* ================= TECHNO FACT — AI OFFICE ================= */
+const OF={S:50,ox:600,oy:186,H:3.4,W:1200,Hh:800};
+const iso=(x,y,z=0)=>[OF.ox+(x-y)*OF.S*0.866, OF.oy+(x+y)*OF.S*0.5-z*OF.S];
+const P2=a=>a.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' ');
+function obox(x,y,z,w,d,h,c,cls=''){
+  const T=[iso(x,y,z+h),iso(x+w,y,z+h),iso(x+w,y+d,z+h),iso(x,y+d,z+h)];
+  const R=[iso(x+w,y,z),iso(x+w,y+d,z),iso(x+w,y+d,z+h),iso(x+w,y,z+h)];
+  const L=[iso(x,y+d,z),iso(x+w,y+d,z),iso(x+w,y+d,z+h),iso(x,y+d,z+h)];
+  return `<g class="${cls}"><polygon points="${P2(L)}" fill="${c[1]}"/><polygon points="${P2(R)}" fill="${c[2]}"/><polygon points="${P2(T)}" fill="${c[0]}"/></g>`;
+}
+const oshadow=(x,y,rx=44,ry=15,op=.45)=>{const [a,b]=iso(x,y,0);return `<ellipse cx="${a.toFixed(1)}" cy="${b.toFixed(1)}" rx="${rx}" ry="${ry}" fill="#000" opacity="${op}" filter="url(#ofBlur)"/>`};
+const C={desk:['#24324f','#1a2540','#121b30'],deskF:['#1b2742','#152038','#0f182b'],mon:['#0b1222','#1c2740','#111a2e'],chair:['#2a1f3d','#21182f','#181124'],
+  dark:['#141d31','#0f1729','#0b1120'],wood:['#5b4636','#47362a','#382a20'],white:['#e8eef7','#c9d3e3','#aab6ca']};
+const SKIN=['#f1c27d','#e0ac69','#c68642','#8d5524','#ffdbac','#d4a373'];
+
+const AGENTS=[
+ {id:'noor',e:'🧠',n:['نور','Noor'],r:['رئيسة التحرير','Editor-in-Chief'],shirt:'#22d3ee',skin:1,hair:'#2b1a12',hs:'long',pose:'point',pos:[6.0,1.15],
+  d:['تدير غرفة العمليات وتقرر ماذا يُنشر ومتى، وتراجع كل مقال قبل خروجه للعالم.','Runs the newsroom, decides what ships and when, and reviews every article before it goes live.'],
+  t:[['توزّع مهام اليوم على الفريق','تراجع خطة النشر الأسبوعية','تعتمد «{post}» للنشر'],['Assigning today’s tasks','Reviewing the weekly plan','Approving “{post}”']]},
+ {id:'sami',e:'🔬',n:['سامي','Sami'],r:['باحث تقني','Tech Researcher'],shirt:'#818cf8',skin:2,hair:'#1a1a1a',hs:'short',glasses:1,desk:[2.2,3.0],dev:'mon',
+  d:['يغوص في المصادر والأوراق العلمية وأخبار التقنية، ويحوّلها لأفكار مقالات قوية.','Digs through papers, sources and tech news and turns them into strong article ideas.'],
+  t:[['يتابع آخر أخبار الذكاء الاصطناعي','يجمع مصادر لمقال جديد','يقرأ ورقة بحثية عن النماذج اللغوية'],['Tracking the latest AI news','Collecting sources for a new piece','Reading a paper on language models']]},
+ {id:'layan',e:'✍️',n:['ليان','Layan'],r:['كاتبة المحتوى العربي','Arabic Writer'],shirt:'#f472b6',skin:4,hair:'#6d28d9',hs:'hijab',desk:[5.0,3.0],dev:'laptop',
+  d:['تحوّل الأفكار التقنية المعقدة لمقالات عربية واضحة وممتعة.','Turns complex tech ideas into clear, enjoyable Arabic articles.'],
+  t:[['تكتب مسودة «{post}»','تبسّط شرح مفهوم تقني','تصيغ مقدمة جذابة للمقال'],['Drafting “{post}”','Simplifying a tech concept','Writing a catchy intro']]},
+ {id:'adam',e:'🌍',n:['آدم','Adam'],r:['كاتب ومترجم إنجليزي','English Writer'],shirt:'#34d399',skin:0,hair:'#7c4a1e',hs:'short',desk:[7.8,3.0],dev:'mon',
+  d:['يكتب النسخ الإنجليزية من المقالات ويترجمها بدقة تقنية.','Writes and translates the English versions with technical precision.'],
+  t:[['يترجم «{post}» للإنجليزية','يراجع المصطلحات التقنية','يكتب ملخصاً بالإنجليزية'],['Translating “{post}”','Checking technical terms','Writing an English summary']]},
+ {id:'rami',e:'🔎',n:['رامي','Rami'],r:['مدقّق الحقائق','Fact-Checker'],shirt:'#a3e635',skin:3,hair:'#111',hs:'curly',glasses:1,desk:[2.2,6.2],dev:'dual',
+  d:['لا تمر أي معلومة قبل أن يتأكد منها — قلب «تكنو فاكت» النابض.','No fact gets through unchecked — the beating heart of Techno Fact.'],
+  t:[['يتحقق من 12 مصدراً','يراجع الأرقام والإحصائيات','يطابق الاقتباسات مع أصلها'],['Verifying 12 sources','Checking numbers & stats','Matching quotes to their origin']]},
+ {id:'haya',e:'🎨',n:['هيا','Haya'],r:['مصممة الأغلفة','Cover Designer'],shirt:'#fb923c',skin:5,hair:'#3b0d0d',hs:'bun',desk:[5.0,6.2],dev:'tablet',
+  d:['تصمم أغلفة المقالات وبطاقات المشاركة والهوية البصرية للموقع.','Designs article covers, share cards and the site’s visual identity.'],
+  t:[['تصمم غلاف «{post}»','تختار ألوان بطاقة المشاركة','تجهّز صورة لإنستغرام'],['Designing the cover for “{post}”','Picking share-card colors','Preparing an Instagram visual']]},
+ {id:'kareem',e:'💻',n:['كريم','Kareem'],r:['مطوّر الواجهات','Frontend Developer'],shirt:'#60a5fa',skin:1,hair:'#000',hs:'cap',desk:[7.8,6.2],dev:'dual',
+  d:['يبني ويحسّن واجهة الموقع لتكون سريعة وجميلة على كل الأجهزة.','Builds and polishes the site so it’s fast and beautiful on every device.'],
+  t:[['يحسّن سرعة تحميل الموقع','يبني مكوّن جديد للمدونة','يصلح عرض الجداول على الموبايل'],['Speeding up page loads','Building a new blog component','Fixing tables on mobile']]},
+ {id:'yousef',e:'🛡️',n:['يوسف','Yousef'],r:['مهندس الأمن والخوادم','Security & Infra'],shirt:'#ef4444',skin:2,hair:'#222',hs:'beard',pose:'stand',pos:[1.55,9.75],
+  d:['يحرس الخوادم ليلاً ونهاراً ويغلق أي ثغرة قبل أن تُستغل.','Guards the servers day and night and closes every hole before it’s exploited.'],
+  t:[['يراقب الخوادم 24/7','يفحص الثغرات الأمنية','يحدّث شهادات HTTPS'],['Monitoring servers 24/7','Scanning for vulnerabilities','Renewing HTTPS certificates']]},
+ {id:'maya',e:'📈',n:['مايا','Maya'],r:['خبيرة SEO','SEO Specialist'],shirt:'#facc15',skin:4,hair:'#a16207',hs:'long',desk:[3.5,9.2],dev:'laptop',
+  d:['تجعل مقالاتك تظهر في أول نتائج جوجل.','Gets your articles to the top of Google results.'],
+  t:[['تحسّن ظهور «{post}» في جوجل','تحلل الكلمات المفتاحية','تحدّث خريطة الموقع'],['Ranking “{post}” on Google','Analyzing keywords','Updating the sitemap']]},
+ {id:'omar',e:'📱',n:['عمر','Omar'],r:['مدير السوشال ميديا','Social Media'],shirt:'#c084fc',skin:0,hair:'#4a2511',hs:'short',pose:'walk',path:[[10.9,2.2],[10.9,10.4]],
+  d:['ينشر المقالات على كل المنصات ويتفاعل مع المتابعين.','Shares every article across platforms and talks with followers.'],
+  t:[['ينشر «{post}» على فيسبوك','يرد على تعليقات المتابعين','يجدول منشورات الأسبوع'],['Posting “{post}” on Facebook','Replying to followers','Scheduling this week’s posts']]},
+ {id:'salma',e:'📊',n:['سلمى','Salma'],r:['محللة البيانات','Data Analyst'],shirt:'#2dd4bf',skin:5,hair:'#1c1917',hs:'hijab2',desk:[6.4,9.2],dev:'dual',
+  d:['تقرأ أرقام الزيارات وتكتشف ماذا يحب القرّاء.','Reads the traffic numbers and discovers what readers love.'],
+  t:[['تحلل أرقام الزيارات','تكتشف أكثر المواضيع قراءة','تجهّز تقرير الأداء الأسبوعي'],['Analyzing traffic','Finding the most-read topics','Preparing the weekly report']]},
+ {id:'ziad',e:'🧪',n:['زياد','Ziad'],r:['مراجع الكود والجودة','Code Review & QA'],shirt:'#f97316',skin:3,hair:'#0a0a0a',hs:'short',glasses:1,pose:'board',pos:[1.05,5.35],
+  d:['يجرّب كل سطر كود في المقالات ويختبر الموقع قبل أي تحديث.','Tests every code sample and the whole site before any update.'],
+  t:[['يراجع أمثلة الكود في المقالات','يختبر الموقع على كل الأجهزة','يكتب قائمة الملاحظات'],['Reviewing code samples','Testing on every device','Writing the bug list']]},
+];
+
+/* ---------- people ---------- */
+function hairSVG(hs,X,hy,col,r=11){
+  switch(hs){
+    case 'long': return `<path d="M${X-r-1} ${hy+2} Q${X-r-2} ${hy-r-3} ${X} ${hy-r-1} Q${X+r+2} ${hy-r-3} ${X+r+1} ${hy+2} L${X+r+2} ${hy+r+9} L${X+r-3} ${hy+r+9} L${X+r-3} ${hy-2} Q${X} ${hy-6} ${X-r+3} ${hy-2} L${X-r+3} ${hy+r+9} L${X-r-2} ${hy+r+9}Z" fill="${col}"/>`;
+    case 'hijab': case 'hijab2': return `<path d="M${X-r-3} ${hy+r+10} Q${X-r-5} ${hy-r-4} ${X} ${hy-r-4} Q${X+r+5} ${hy-r-4} ${X+r+3} ${hy+r+10}Z" fill="${col}"/>`;
+    case 'curly': return [[-8,-7],[-2,-10],[5,-9],[9,-4],[-10,-1],[10,1]].map(([a,b])=>`<circle cx="${X+a}" cy="${hy+b}" r="5.2" fill="${col}"/>`).join('');
+    case 'bun': return `<circle cx="${X}" cy="${hy-r-3}" r="5.5" fill="${col}"/><path d="M${X-r} ${hy-1} Q${X} ${hy-r-5} ${X+r} ${hy-1} Q${X} ${hy-6} ${X-r} ${hy-1}Z" fill="${col}"/>`;
+    case 'cap': return `<path d="M${X-r} ${hy-2} Q${X} ${hy-r-6} ${X+r} ${hy-2}Z" fill="#1d4ed8"/><rect x="${X-r-1}" y="${hy-4}" width="${2*r+8}" height="3.5" rx="1.7" fill="#1e40af"/>`;
+    case 'beard': return `<path d="M${X-r} ${hy-2} Q${X} ${hy-r-5} ${X+r} ${hy-2} Q${X} ${hy-7} ${X-r} ${hy-2}Z" fill="${col}"/><path d="M${X-r+1} ${hy+1} Q${X} ${hy+r+7} ${X+r-1} ${hy+1} Q${X} ${hy+7} ${X-r+1} ${hy+1}Z" fill="${col}"/>`;
+    default: return `<path d="M${X-r} ${hy-1} Q${X-r} ${hy-r-4} ${X} ${hy-r-3} Q${X+r} ${hy-r-4} ${X+r} ${hy-1} Q${X} ${hy-7} ${X-r} ${hy-1}Z" fill="${col}"/>`;
+  }
+}
+function personSVG(a,X,Y,mode){ // X,Y = floor point (screen)
+  const S=42, sit=mode==='sit', hipZ=sit?.6:.86, skin=SKIN[a.skin%SKIN.length];
+  const tTop=Y-(hipZ+.64)*S, hy=Y-(hipZ+.93)*S;
+  let g='';
+  if(!sit){
+    g+=`<g class="${mode==='walk'?'legL':''}"><rect x="${X-8}" y="${Y-.88*S}" width="6.5" height="${.86*S}" rx="3" fill="#1f2937"/><ellipse cx="${X-5}" cy="${Y}" rx="5" ry="2.6" fill="#0b0f19"/></g>`;
+    g+=`<g class="${mode==='walk'?'legR':''}"><rect x="${X+1.5}" y="${Y-.88*S}" width="6.5" height="${.86*S}" rx="3" fill="#273244"/><ellipse cx="${X+5}" cy="${Y}" rx="5" ry="2.6" fill="#0b0f19"/></g>`;
+  }
+  // arms
+  if(mode==='point'){ g+=`<g class="armUp" style="transform-origin:${X+12}px ${tTop+5}px"><rect x="${X+10}" y="${tTop-22}" width="6.5" height="28" rx="3.2" fill="${a.shirt}"/><circle cx="${X+13.2}" cy="${tTop-23}" r="3.6" fill="${skin}"/></g>`; }
+  else if(mode==='board'){ g+=`<g class="armUp2" style="transform-origin:${X-12}px ${tTop+5}px"><rect x="${X-17}" y="${tTop-18}" width="6.5" height="25" rx="3.2" fill="${a.shirt}"/><circle cx="${X-13.8}" cy="${tTop-19}" r="3.6" fill="${skin}"/></g>`; }
+  const armR = mode==='walk'? `<rect x="${X+11}" y="${tTop+3}" width="6" height="20" rx="3" fill="${a.shirt}"/><rect x="${X+10}" y="${tTop+17}" width="9" height="13" rx="2" fill="#0b1222" stroke="#38bdf8" stroke-width="1"/><rect x="${X+11.5}" y="${tTop+18.5}" width="6" height="9" rx="1" fill="#38bdf8" class="flick"/>`
+    : (mode==='point'?'':`<rect x="${X+11}" y="${tTop+4}" width="6" height="${sit?18:24}" rx="3" fill="${a.shirt}" ${sit?'class="typeR"':''}/>`);
+  const armL = mode==='board'?'':`<rect x="${X-17}" y="${tTop+4}" width="6" height="${sit?18:24}" rx="3" fill="${a.shirt}" ${sit?'class="typeL"':''}/>`;
+  g+=armL+armR;
+  // torso
+  g+=`<rect x="${X-13}" y="${tTop}" width="26" height="${.68*S}" rx="10" fill="${a.shirt}"/>`;
+  g+=`<path d="M${X-5} ${tTop+1} L${X} ${tTop+7} L${X+5} ${tTop+1}" fill="none" stroke="rgba(0,0,0,.25)" stroke-width="2"/>`;
+  g+=`<rect x="${X-7}" y="${tTop+12}" width="5" height="5" rx="1.2" fill="rgba(255,255,255,.55)"/>`; // badge
+  // neck + head
+  g+=`<rect x="${X-3.5}" y="${hy+8}" width="7" height="7" fill="${skin}" opacity=".9"/>`;
+  const hijab=a.hs.startsWith('hijab');
+  if(hijab) g+=hairSVG(a.hs,X,hy,a.hair);
+  g+=`<circle cx="${X}" cy="${hy}" r="${hijab?9.5:11}" fill="${skin}"/>`;
+  if(!hijab) g+=hairSVG(a.hs,X,hy,a.hair);
+  g+=`<g class="blink" style="transform-origin:${X}px ${hy+1}px"><circle cx="${X-4}" cy="${hy+1}" r="1.5" fill="#111"/><circle cx="${X+4}" cy="${hy+1}" r="1.5" fill="#111"/></g>`;
+  g+=`<path d="M${X-3} ${hy+5.5} Q${X} ${hy+7.5} ${X+3} ${hy+5.5}" fill="none" stroke="#7a3b2e" stroke-width="1.2" stroke-linecap="round"/>`;
+  if(a.glasses) g+=`<g fill="none" stroke="#e2e8f0" stroke-width="1.2" opacity=".85"><circle cx="${X-4}" cy="${hy+1}" r="3.3"/><circle cx="${X+4}" cy="${hy+1}" r="3.3"/><path d="M${X-.7} ${hy+1}h1.4"/></g>`;
+  if(a.id==='omar') g+=`<path d="M${X-11} ${hy-2} Q${X} ${hy-16} ${X+11} ${hy-2}" fill="none" stroke="#e5e7eb" stroke-width="2"/><rect x="${X-13}" y="${hy-3}" width="4" height="7" rx="2" fill="#e5e7eb"/>`;
+  const k=OF.S/42*1.06; return `<g transform="matrix(${k},0,0,${k},${(X*(1-k)).toFixed(1)},${(Y*(1-k)).toFixed(1)})"><g class="${sit?'bob':'bob2'}">${g}</g></g>`;
+}
+
+/* ---------- desk stations ---------- */
+function station(a){
+  const [dx,dy]=a.desk, cx=dx+1, cy=dy-.32, [X,Y]=iso(cx,cy,0), acc=a.shirt;
+  let back='', front='';
+  back+=oshadow(dx+1,dy+.5,70,24,.5);
+  back+=obox(cx-.36,cy-.62,.42,.72,.14,.82,C.chair);           // chair back
+  back+=personSVG(a,X,Y,'sit');
+  // screen light on face
+  const [gx,gy]=iso(cx,cy,1.45);
+  back+=`<ellipse class="flick" cx="${gx}" cy="${gy}" rx="26" ry="20" fill="url(#ofScreenGlow)"/>`;
+  // desk
+  front+=obox(dx+.04,dy+.9,0,1.92,.1,.68,C.deskF);
+  front+=obox(dx,dy,.68,2,1,.07,C.desk);
+  // devices
+  const mon=(mx,my,w=.86)=>{const [lx,ly]=iso(mx+w/2,my+.06,1.06);
+    return obox(mx+w/2-.05,my+.1,.75,.1,.1,.18,C.dark)+obox(mx,my,.88,w,.07,.5,C.mon)+`<circle cx="${lx}" cy="${ly}" r="3" fill="${acc}" opacity=".9" class="flick"/>`
+      +`<polygon points="${P2([iso(mx,my+.07,.9),iso(mx+w,my+.07,.9),iso(mx+w,my+.07,.92),iso(mx,my+.07,.92)])}" fill="${acc}" opacity=".7"/>`;};
+  if(a.dev==='mon') front+=mon(dx+.57,dy+.18);
+  if(a.dev==='dual') front+=mon(dx+.12,dy+.18,.82)+mon(dx+1.02,dy+.18,.82);
+  if(a.dev==='laptop'){ front+=obox(dx+.6,dy+.35,.75,.8,.45,.03,C.white)+obox(dx+.6,dy+.3,.78,.8,.05,.46,['#cbd5e1','#94a3b8','#e2e8f0']);
+    const [lx,ly]=iso(dx+1,dy+.35,1.02); front+=`<circle cx="${lx}" cy="${ly}" r="3.2" fill="#fff" opacity=".9"/>`; }
+  if(a.dev==='tablet'){ front+=obox(dx+.45,dy+.25,.75,1.1,.7,.025,['#0f172a','#0b1222','#0b1222']);
+    front+=`<polygon class="flick" points="${P2([iso(dx+.5,dy+.3,.78),iso(dx+1.5,dy+.3,.78),iso(dx+1.5,dy+.9,.78),iso(dx+.5,dy+.9,.78)])}" fill="url(#ofArt)"/>`; }
+  // mug + steam
+  const [mx,my]=iso(dx+1.75,dy+.75,.75);
+  front+=`<rect x="${mx-4}" y="${my-9}" width="8" height="9" rx="2" fill="#f8fafc"/><path class="steam" d="M${mx-1} ${my-12} q3 -5 0 -9 q-3 -4 0 -8" fill="none" stroke="#cbd5e1" stroke-width="1.4" opacity=".6"/>`;
+  // floating code particle
+  const [px,py]=iso(cx,cy,2.0);
+  back+=`<text class="particle" x="${px+18}" y="${py}" font-family="JetBrains Mono,monospace" font-size="11" fill="${acc}" style="animation-delay:${(a.desk[0]*0.7+a.desk[1]*0.3)%3}s">${['{ }','</>','01','=>','#','✓'][Math.floor(dx+dy)%6]}</text>`;
+  return {key:cx+cy, svg:back+front, label:iso(cx,cy,2.12)};
+}
+
+/* ---------- room ---------- */
+function wallMatrix(side){ const S=OF.S,H=OF.H;
+  return side==='L'? `matrix(${.866*S},${-.5*S},0,${S},${OF.ox-10.392*S},${OF.oy+6*S-S*H})` : `matrix(${.866*S},${.5*S},0,${S},${OF.ox},${OF.oy-S*H})`; }
+function roomSVG(){
+  const H=OF.H; let s='';
+  const floor=[iso(0,0),iso(12,0),iso(12,12),iso(0,12)];
+  s+=`<polygon points="${P2([iso(0,0),iso(0,12),iso(0,12,H),iso(0,0,H)])}" fill="url(#ofWallL)"/>`;
+  s+=`<polygon points="${P2([iso(0,0),iso(12,0),iso(12,0,H),iso(0,0,H)])}" fill="url(#ofWallR)"/>`;
+  s+=`<polygon points="${P2(floor)}" fill="url(#ofFloor)"/>`;
+  let gl=''; for(let i=1;i<12;i++){ gl+=`<line x1="${iso(i,0)[0]}" y1="${iso(i,0)[1]}" x2="${iso(i,12)[0]}" y2="${iso(i,12)[1]}"/><line x1="${iso(0,i)[0]}" y1="${iso(0,i)[1]}" x2="${iso(12,i)[0]}" y2="${iso(12,i)[1]}"/>`; }
+  s+=`<g stroke="rgba(34,211,238,.07)" stroke-width="1">${gl}</g>`;
+  // rug glow
+  s+=`<polygon points="${P2([iso(1.6,2.3),iso(9.9,2.3),iso(9.9,10.7),iso(1.6,10.7)])}" fill="url(#ofRug)" opacity=".9"/>`;
+  // neon baseboards
+  s+=`<polyline points="${P2([iso(0,12,.02),iso(0,0,.02),iso(12,0,.02)])}" fill="none" stroke="var(--a)" stroke-width="2.5" opacity=".75" filter="url(#ofGlow)"/>`;
+  s+=`<polyline points="${P2([iso(0,12,H),iso(0,0,H),iso(12,0,H)])}" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="2"/>`;
+  s+=`<line x1="${iso(0,0)[0]}" y1="${iso(0,0)[1]}" x2="${iso(0,0,H)[0]}" y2="${iso(0,0,H)[1]}" stroke="rgba(255,255,255,.07)" stroke-width="2"/>`;
+  // LEFT wall content (u from front 0..12, v down 0..H)
+  let L='';
+  // window + skyline
+  L+=`<rect x="8.5" y=".35" width="3.1" height="1.85" rx=".05" fill="url(#ofSky)" stroke="#2b3a5c" stroke-width=".06"/>`;
+  const bl=[[8.6,1.1,.35],[8.98,.75,.3],[9.32,1.3,.28],[9.62,.62,.38],[10.04,1.0,.3],[10.38,.85,.34],[10.76,1.25,.3],[11.1,.7,.42]];
+  bl.forEach(([x,top,w],i)=>{ L+=`<rect x="${x}" y="${top}" width="${w}" height="${2.2-top-.0}" fill="#0a1222"/>`;
+    for(let yy=top+.12;yy<2.1;yy+=.17) for(let xx=x+.06;xx<x+w-.06;xx+=.1) if((i*7+Math.round(yy*10)+Math.round(xx*10))%3) L+=`<rect class="win${(i+Math.round(yy*10))%4}" x="${xx.toFixed(2)}" y="${yy.toFixed(2)}" width=".045" height=".07" fill="#fde68a"/>`; });
+  L+=`<circle cx="11.2" cy=".62" r=".16" fill="#f8fafc" opacity=".9" filter="url(#ofGlowS)"/>`;
+  L+=`<line x1="10.05" y1=".35" x2="10.05" y2="2.2" stroke="#2b3a5c" stroke-width=".05"/><line x1="8.5" y1="1.25" x2="11.6" y2="1.25" stroke="#2b3a5c" stroke-width=".04"/>`;
+  // whiteboard
+  L+=`<rect x="5.25" y=".55" width="2.6" height="1.45" rx=".05" fill="#e8eef7" stroke="#94a3b8" stroke-width=".05"/>`;
+  L+=`<text x="7.65" y=".85" font-size=".2" fill="#0f172a" text-anchor="end" font-family="IBM Plex Sans Arabic,sans-serif" font-weight="700">خطة الأسبوع ✓</text>`;
+  L+=`<g stroke="#0ea5e9" stroke-width=".04" fill="none"><rect x="5.45" y="1.05" width=".55" height=".35" rx=".04"/><rect x="6.3" y="1.05" width=".55" height=".35" rx=".04"/><rect x="7.12" y="1.05" width=".55" height=".35" rx=".04"/><path d="M6 1.22h.3M6.85 1.22h.27"/></g>`;
+  L+=`<path d="M5.5 1.75 L5.9 1.6 L6.3 1.68 L6.7 1.5 L7.1 1.55 L7.6 1.35" stroke="#ef4444" stroke-width=".05" fill="none"/>`;
+  // neon logo sign
+  L+=`<g filter="url(#ofGlow)"><rect x="1.4" y=".55" width="2.9" height="1.0" rx=".18" fill="none" stroke="var(--a)" stroke-width=".06"/>
+    <text x="2.85" y="1.22" font-size=".5" text-anchor="middle" fill="var(--a)" font-family="JetBrains Mono,monospace" font-weight="600">&lt;TF/&gt;</text></g>`;
+  L+=`<text x="2.85" y="1.9" font-size=".22" text-anchor="middle" fill="#a3e635" font-family="IBM Plex Sans Arabic,sans-serif" font-weight="700" filter="url(#ofGlowS)">تكنو فاكت</text>`;
+  s+=`<g transform="${wallMatrix('L')}">${L}</g>`;
+  // RIGHT wall: big live screen
+  let R='';
+  R+=`<rect x="2.6" y=".3" width="7.8" height="2.25" rx=".08" fill="#050a14" stroke="#24324f" stroke-width=".07"/>`;
+  R+=`<rect x="2.72" y=".42" width="7.56" height="2.01" rx=".05" fill="url(#ofScreen)"/>`;
+  R+=`<circle class="pulse" cx="10.0" cy=".66" r=".07" fill="#ef4444"/><text x="9.86" y=".71" font-size=".17" fill="#fca5a5" text-anchor="end" font-family="JetBrains Mono,monospace" font-weight="600">LIVE</text>`;
+  R+=`<text x="2.9" y=".71" font-size=".17" fill="#7dd3fc" font-family="JetBrains Mono,monospace" font-weight="600">TECHNO FACT · NEWSROOM</text>`;
+  R+=`<text id="ofHead" x="10.05" y="1.18" font-size=".27" fill="#fff" text-anchor="end" direction="rtl" font-family="IBM Plex Sans Arabic,sans-serif" font-weight="700"></text>`;
+  R+=`<text id="ofSub" x="10.05" y="1.5" font-size=".17" fill="#94a3b8" text-anchor="end" direction="rtl" font-family="IBM Plex Sans Arabic,sans-serif"></text>`;
+  for(let i=0;i<9;i++){ const h=.25+((i*37)%10)/22; R+=`<rect class="bar" style="animation-delay:${i*.18}s" x="${3.0+i*.32}" y="${2.3-h}" width=".2" height="${h}" rx=".03" fill="${i%3?'#22d3ee':'#a3e635'}" opacity=".85"/>`; }
+  R+=`<polyline points="6.2,2.2 6.7,1.95 7.2,2.05 7.7,1.75 8.2,1.85 8.7,1.6 9.2,1.7 9.9,1.45" fill="none" stroke="#a3e635" stroke-width=".05" class="dash"/>`;
+  R+=`<text id="ofStat" x="10.05" y="2.32" font-size=".16" fill="#a3e635" text-anchor="end" font-family="JetBrains Mono,monospace"></text>`;
+  // wall clock & shelf
+  R+=`<circle cx="11.3" cy=".9" r=".32" fill="#0b1222" stroke="#cbd5e1" stroke-width=".04"/><line id="ofHandH" x1="11.3" y1=".9" x2="11.3" y2=".72" stroke="#fff" stroke-width=".05"/><line id="ofHandM" x1="11.3" y1=".9" x2="11.3" y2=".64" stroke="var(--a)" stroke-width=".035"/>`;
+  R+=`<rect x="0.6" y=".9" width="1.5" height=".06" fill="#47362a"/><rect x=".7" y=".62" width=".14" height=".28" fill="#ef4444"/><rect x=".86" y=".66" width=".12" height=".24" fill="#3b82f6"/><rect x="1.0" y=".6" width=".15" height=".3" fill="#a3e635"/><circle cx="1.7" cy=".78" r=".12" fill="#22c55e"/>`;
+  s+=`<g transform="${wallMatrix('R')}">${R}</g>`;
+  return s;
+}
+function propsList(){
+  const L=[];
+  // server rack (front-left)
+  let sr=oshadow(.75,10.6,40,16)+obox(.25,9.9,0,.75,1.3,2.25,C.dark);
+  for(let r=0;r<9;r++){ for(let k=0;k<3;k++){ const [x,y]=iso(1.0,10.05+k*.38,.25+r*.22); sr+=`<circle class="led${(r+k)%4}" cx="${x}" cy="${y}" r="1.8" fill="${(r+k)%5?'#22c55e':'#f59e0b'}"/>`; } }
+  const [ux,uy]=iso(1.0,10.55,2.0); sr+=`<rect x="${ux-12}" y="${uy-4}" width="24" height="6" rx="2" fill="var(--a)" opacity=".7" filter="url(#ofGlowS)"/>`;
+  L.push({key:10.9,svg:sr});
+  // plants
+  const plant=(x,y,s=1)=>{ const [px,py]=iso(x+.25,y+.25,.55*s); return oshadow(x+.25,y+.25,20,8)+obox(x,y,0,.5,.5,.5*s,['#7c2d12','#5b2410','#431a0b'])+
+    `<g class="sway" style="transform-origin:${px}px ${py+6}px"><circle cx="${px-8}" cy="${py-8}" r="10" fill="#15803d"/><circle cx="${px+7}" cy="${py-12}" r="11" fill="#16a34a"/><circle cx="${px}" cy="${py-22}" r="10" fill="#22c55e"/></g>`; };
+  L.push({key:1.2,svg:plant(.35,.35,1.1)}); L.push({key:12.5,svg:plant(11.2,1.0)}); L.push({key:19.5,svg:plant(9.3,10.6)});
+  // coffee corner (right front)
+  let cf=oshadow(11.4,7.2,30,12)+obox(11.05,6.6,0,.8,1.2,.95,C.wood)+obox(11.25,6.8,.95,.45,.5,.55,['#334155','#1f2937','#111827']);
+  const [cx,cy]=iso(11.48,7.3,1.25); cf+=`<circle cx="${cx}" cy="${cy}" r="2.5" fill="#ef4444" class="led1"/>`;
+  L.push({key:18.2,svg:cf});
+  // standing table near board
+  return L;
+}
+function standing(a){
+  const [x,y]=a.pos, [X,Y]=iso(x,y,0);
+  return {key:x+y, svg:oshadow(x,y,18,7)+personSVG(a,X,Y,a.pose==='point'?'point':a.pose==='board'?'board':'stand'), label:iso(x,y,2.3)};
+}
+function botSVG(){ return `<g id="ofBot"><ellipse cx="0" cy="2" rx="16" ry="6" fill="#000" opacity=".4" filter="url(#ofBlur)"/>
+  <rect x="-12" y="-22" width="24" height="22" rx="9" fill="#e2e8f0"/><rect x="-9" y="-18" width="18" height="9" rx="4" fill="#0b1222"/>
+  <circle class="blink" cx="-4" cy="-13.5" r="1.8" fill="var(--a)"/><circle class="blink" cx="4" cy="-13.5" r="1.8" fill="var(--a)"/>
+  <rect x="-6" y="-31" width="12" height="9" rx="2" fill="#f8fafc"/><path class="steam" d="M-1 -34 q3 -4 0 -8" stroke="#cbd5e1" fill="none" stroke-width="1.3"/>
+  <text x="0" y="-3" font-size="7" text-anchor="middle" fill="#334155">☕</text></g>`; }
+
+function officeSVG(){
+  const items=[...propsList()], labels=[];
+  AGENTS.forEach(a=>{ if(a.desk){ const st=station(a); items.push(st); labels.push([a,st.label]); }
+    else if(a.pos){ const st=standing(a); items.push(st); labels.push([a,st.label]); } });
+  items.sort((p,q)=>p.key-q.key);
+  const walker=AGENTS.find(a=>a.pose==='walk');
+  return {labels, walker, svg:`<svg viewBox="0 0 ${OF.W} ${OF.Hh}" class="ofsvg" role="img" aria-label="AI office">
+  <defs>
+    <linearGradient id="ofWallL" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#101b36"/><stop offset="1" stop-color="#0a1326"/></linearGradient>
+    <linearGradient id="ofWallR" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0c1630"/><stop offset="1" stop-color="#081022"/></linearGradient>
+    <linearGradient id="ofFloor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0e1a33"/><stop offset="1" stop-color="#060c19"/></linearGradient>
+    <radialGradient id="ofRug" cx=".5" cy=".5" r=".6"><stop offset="0" stop-color="rgba(34,211,238,.10)"/><stop offset="1" stop-color="rgba(34,211,238,0)"/></radialGradient>
+    <radialGradient id="ofScreenGlow"><stop offset="0" stop-color="rgba(125,211,252,.55)"/><stop offset="1" stop-color="rgba(125,211,252,0)"/></radialGradient>
+    <linearGradient id="ofSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1e1b4b"/><stop offset=".6" stop-color="#312e81"/><stop offset="1" stop-color="#7c3aed"/></linearGradient>
+    <linearGradient id="ofScreen" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b2540"/><stop offset="1" stop-color="#071426"/></linearGradient>
+    <linearGradient id="ofArt" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f472b6"/><stop offset=".5" stop-color="#fb923c"/><stop offset="1" stop-color="#22d3ee"/></linearGradient>
+    <filter id="ofBlur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4"/></filter>
+    <filter id="ofGlow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="ofGlowS" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="1.6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  ${roomSVG()}
+  ${items.map(i=>i.svg).join('')}
+  <g id="ofWalker">${walker?'<ellipse cx="0" cy="0" rx="16" ry="6" fill="#000" opacity=".4" filter="url(#ofBlur)"/>'+personSVG(walker,0,0,'walk'):''}</g>
+  ${botSVG()}
+  </svg>`};
+}
+
+/* ---------- controller ---------- */
+let OFT=null;
+const agName=a=>a.n[S.lang==='ar'?0:1], agRole=a=>a.r[S.lang==='ar'?0:1];
+function agTask(a){ const L=a.t[S.lang==='ar'?0:1]; const ps=published(); let tk=L[Math.floor(Math.random()*L.length)];
+  if(tk.includes('{post}')){ if(!ps.length) tk=L.find(x=>!x.includes('{post}'))||tk.replace('{post}','…'); else { let ti=tr(ps[Math.floor(Math.random()*Math.min(ps.length,6))],'title'); if(ti.length>34) ti=ti.slice(0,32)+'…'; tk=tk.replace('{post}',ti); } }
+  return tk; }
+function tagHTML(a,x,y,walk){ return `<button class="ag" data-ag="${a.id}" ${walk?'id="agWalk"':''} style="left:${(x/OF.W*100).toFixed(2)}%;top:${(y/OF.Hh*100).toFixed(2)}%">
+  <span class="ag-n">${a.e} ${esc(agName(a))}<i class="ag-dot"></i></span><span class="ag-r">${esc(agRole(a))}</span><span class="ag-t"></span></button>`; }
+function officeHTML(){
+  const o=officeSVG(); OFT=o;
+  return `<div class="ofc fade" id="ofc">
+   <div class="ofc-bar"><span class="live"><i></i>LIVE</span><b>${t('of_title')}</b><span class="ofc-cnt">· ${t('of_count')}</span><span class="mono ofc-clock" id="ofClock"></span></div>
+   <div class="ofc-hint">${t('of_hint')}</div>
+   <div class="ofc-scroll" id="ofScroll" dir="ltr"><div class="ofc-stage">${o.svg}<div class="ofc-tags">${o.labels.map(([a,[x,y]])=>tagHTML(a,x,y)).join('')}${o.walker?tagHTML(o.walker,0,0,true):''}</div></div></div>
+   <div class="ofc-feed"><span class="dotg"></span><span id="ofFeed"></span></div>
+   <div class="ag-card" id="agCard" hidden></div></div>`;
+}
+function typeInto(el,txt){ if(!el) return; clearInterval(el._ti); let i=0; el.textContent=''; el._ti=setInterval(()=>{ el.textContent=txt.slice(0,++i); if(i>=txt.length) clearInterval(el._ti); },28); }
+function startOffice(){
+  const root=$('#ofScroll'); if(!root) return;
+  const alive=()=>document.body.contains(root);
+  const reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // center horizontally on narrow screens
+  requestAnimationFrame(()=>{ root.scrollLeft=(root.scrollWidth-root.clientWidth)/2; });
+  // tasks
+  const cur={};
+  const setTask=(a,talk)=>{ cur[a.id]=agTask(a); const tg=document.querySelector(`.ag[data-ag="${a.id}"]`); if(!tg) return;
+    if(talk){ document.querySelectorAll('#ofc .ag.talk').forEach(x=>x.classList.remove('talk')); tg.classList.add('talk'); typeInto(tg.querySelector('.ag-t'),'💬 '+cur[a.id]); } };
+  AGENTS.forEach(a=>setTask(a,false));
+  // wall screen + clock
+  const ps=published(); let hi=0;
+  const head=()=>{ const p=ps.length?ps[hi++%ps.length]:null; const h=$('#ofHead'), sb=$('#ofSub');
+    const dirSet=(el,txt)=>{ const ar=/[\u0600-\u06FF]/.test(txt); el.setAttribute('direction',ar?'rtl':'ltr'); el.setAttribute('text-anchor',ar?'start':'end'); el.textContent=txt; };
+    if(h){ let ti=p?tr(p,'title'):(S.lang==='ar'?'غرفة العمليات تعمل الآن':'The ops room is live'); if(ti.length>40) ti=ti.slice(0,38)+'…'; dirSet(h,ti); }
+    if(sb){ let ex=p?tr(p,'excerpt'):''; if(ex.length>58) ex=ex.slice(0,56)+'…'; dirSet(sb,ex); }
+    const st=$('#ofStat'); if(st) st.textContent=`ARTICLES ${ps.length} · AGENTS 12 · UPTIME 99.9%`; };
+  head();
+  const clock=()=>{ const d=new Date(); const c=$('#ofClock'); if(c) c.textContent=d.toLocaleTimeString(S.lang==='ar'?'ar-u-nu-latn':'en-US',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+    const hh=$('#ofHandH'), mm=$('#ofHandM'); if(hh) hh.setAttribute('transform',`rotate(${(d.getHours()%12)*30+d.getMinutes()/2} 11.3 .9)`); if(mm) mm.setAttribute('transform',`rotate(${d.getMinutes()*6} 11.3 .9)`); };
+  clock();
+  // feed
+  const feed=()=>{ const a=AGENTS[Math.floor(Math.random()*AGENTS.length)]; const f=$('#ofFeed'); if(!f) return;
+    f.classList.remove('in'); void f.offsetWidth; f.textContent=`${a.e} ${agName(a)} — ${cur[a.id]||agTask(a)}`; f.classList.add('in'); };
+  feed();
+  let tick=0;
+  const iv=setInterval(()=>{ if(!alive()) return clearInterval(iv); tick++; clock();
+    if(tick%4===1){ setTask(AGENTS[Math.floor(Math.random()*AGENTS.length)],true); }
+    if(tick%4===0) feed();
+    if(tick%5===0) head(); },1000);
+  // walker + bot
+  const W=OFT.walker, wg=$('#ofWalker'), wt=$('#agWalk'), bot=$('#ofBot');
+  const lerp=(a,b,k)=>a+(b-a)*k;
+  const pingpong=(t,dur)=>{ t=Math.max(0,t); const p=(t%(2*dur))/dur; return p<=1?p:2-p; };
+  const along=(pts,k)=>{ const n=pts.length-1, f=k*n, i=Math.min(n-1,Math.floor(f)), r=f-i; return [lerp(pts[i][0],pts[i+1][0],r),lerp(pts[i][1],pts[i+1][1],r)]; };
+  const botPts=[[1.8,11.35],[10.2,11.35],[10.2,8.2]];
+  const t0=performance.now();
+  const frame=now=>{ if(!alive()) return; const t=(now-t0)/1000;
+    if(W&&wg){ const k=reduce?0.3:pingpong(t,14); const [x,y]=along(W.path,k); const [X,Y]=iso(x,y,0); wg.setAttribute('transform',`translate(${X.toFixed(1)} ${Y.toFixed(1)})`);
+      if(wt){ const [lx,ly]=iso(x,y,2.3); wt.style.left=(lx/OF.W*100)+'%'; wt.style.top=(ly/OF.Hh*100)+'%'; } }
+    if(bot){ const k=reduce?0:pingpong(t,18); const [x,y]=along(botPts,k); const [X,Y]=iso(x,y,0); bot.setAttribute('transform',`translate(${X.toFixed(1)} ${Y.toFixed(1)})`); }
+    if(!reduce) requestAnimationFrame(frame); };
+  requestAnimationFrame(frame);
+  // card
+  const card=$('#agCard');
+  const show=id=>{ const a=AGENTS.find(x=>x.id===id); if(!a) return; let h=0; for(const c of a.id+new Date().toDateString()) h=(h*31+c.charCodeAt(0))|0;
+    card.innerHTML=`<button class="agc-x" aria-label="close">✕</button><div class="agc-h"><span class="agc-av" style="background:${a.shirt}">${a.e}</span><div><b>${esc(agName(a))}</b><small>${esc(agRole(a))}</small></div><span class="agc-on"><i></i>${t('of_online')}</span></div>
+      <p>${esc(a.d[S.lang==='ar'?0:1])}</p><div class="agc-now"><small>${t('of_now')}</small><span>${esc(cur[a.id]||agTask(a))}</span></div>
+      <div class="agc-st"><div><b>${8+Math.abs(h)%17}</b><small>${t('of_tasks')}</small></div><div><b>${(97+Math.abs(h>>3)%3)}.${Math.abs(h>>5)%10}%</b><small>${t('of_quality')}</small></div><div><b>24/7</b><small>${t('of_avail')}</small></div></div>`;
+    card.hidden=false; card.querySelector('.agc-x').onclick=()=>card.hidden=true; };
+  document.querySelectorAll('#ofc .ag').forEach(b=>b.onclick=()=>show(b.dataset.ag));
+}
+
+</script>
+<script>
 const T={
   ar:{nav_home:'الرئيسية',nav_blog:'المقالات',nav_projects:'المشاريع',nav_about:'عنّي',
     read:'اقرأ المقال',all_posts:'كل المقالات',latest:'أحدث المقالات',featured:'مقال مميز',projects:'المشاريع',topics:'المواضيع',
@@ -315,7 +706,7 @@ const T={
     share:'شارك:',copy:'نسخ الرابط',copied:'تم النسخ ✓',related:'مقالات ذات صلة',visit:'زيارة الموقع',code:'الكود',
     blog_sub:'مقالات في التقنية والبرمجة وتطوير الويب.',proj_sub:'مواقع وتطبيقات قمت ببنائها.',about_t:'عن تكنو فاكت',contact:'تواصل معي',
     rights:'جميع الحقوق محفوظة',not_found:'الصفحة غير موجودة',other_lang:'هذا المقال غير متوفر بالعربية بعد — يتم عرض النسخة الإنجليزية.',
-    setup:'الموقع جاهز! ادخل إلى لوحة التحكم لتهيئة المحتوى.',copy_code:'نسخ',no_posts:'لا توجد مقالات بعد.',views:'مشاهدة',like:'أعجبني',popular:'الأكثر قراءة',written_by:'بقلم',news_t:'اشترك في النشرة البريدية',news_p:'وصلك كل مقال جديد على بريدك مباشرة — بدون إزعاج.',news_btn:'اشترك',email_ph:'you@example.com',comments:'التعليقات',visits:'زيارة للموقع'},
+    setup:'الموقع جاهز! ادخل إلى لوحة التحكم لتهيئة المحتوى.',copy_code:'نسخ',no_posts:'لا توجد مقالات بعد.',views:'مشاهدة',like:'أعجبني',popular:'الأكثر قراءة',written_by:'بقلم',news_t:'اشترك في النشرة البريدية',news_p:'وصلك كل مقال جديد على بريدك مباشرة — بدون إزعاج.',news_btn:'اشترك',email_ph:'you@example.com',comments:'التعليقات',visits:'زيارة للموقع',of_title:'غرفة عمليات تكنو فاكت',of_count:'12 موظف ذكاء اصطناعي يعملون الآن',of_hint:'👆 اضغط على أي موظف لتتعرف عليه',of_now:'يعمل الآن على',of_tasks:'مهمة اليوم',of_quality:'دقة',of_avail:'متواجد',of_online:'متصل'},
   en:{nav_home:'Home',nav_blog:'Articles',nav_projects:'Projects',nav_about:'About',
     read:'Read article',all_posts:'All articles',latest:'Latest articles',featured:'Featured',projects:'Projects',topics:'Topics',
     articles:'articles',projects_n:'projects',topics_n:'topics',explore:'Browse articles',my_projects:'My projects',min:'min read',
@@ -323,7 +714,7 @@ const T={
     share:'Share:',copy:'Copy link',copied:'Copied ✓',related:'Related articles',visit:'Visit site',code:'Code',
     blog_sub:'Articles on technology, programming and web development.',proj_sub:'Websites and apps I have built.',about_t:'About Techno Fact',contact:'Get in touch',
     rights:'All rights reserved',not_found:'Page not found',other_lang:'This article is not available in English yet — showing the Arabic version.',
-    setup:'Your site is live! Open the dashboard to set up content.',copy_code:'Copy',no_posts:'No articles yet.',views:'views',like:'Like',popular:'Most read',written_by:'Written by',news_t:'Subscribe to the newsletter',news_p:'Get every new article straight to your inbox — no spam.',news_btn:'Subscribe',email_ph:'you@example.com',comments:'Comments',visits:'site visits'}
+    setup:'Your site is live! Open the dashboard to set up content.',copy_code:'Copy',no_posts:'No articles yet.',views:'views',like:'Like',popular:'Most read',written_by:'Written by',news_t:'Subscribe to the newsletter',news_p:'Get every new article straight to your inbox — no spam.',news_btn:'Subscribe',email_ph:'you@example.com',comments:'Comments',visits:'site visits',of_title:'Techno Fact Ops Room',of_count:'12 AI agents working right now',of_hint:'👆 Tap any agent to meet them',of_now:'Working on',of_tasks:'tasks today',of_quality:'accuracy',of_avail:'availability',of_online:'Online'}
 };
 const S={lang:'ar',theme:'dark',settings:{},posts:[],projects:[],tag:'',q:'',md:{}};
 /* ---- counters (Abacus, free, no signup) ---- */
@@ -408,7 +799,8 @@ function home(){
   const nm=S.settings['name_'+S.lang]||'Techno Fact';
   const parts=nm.split(' ');
   return `<div class="wrap">
-  <section class="hero">
+  <section class="ofwrap">${officeHTML()}</section>
+  <section class="hero hero2">
     <div class="fade">
       <span class="badge"><i></i> ${S.lang==='ar'?'// تقنية · برمجة · حقائق':'// tech · code · facts'}</span>
       <h1>${esc(parts[0])} <span class="gr">${esc(parts.slice(1).join(' '))}</span></h1>
@@ -420,7 +812,6 @@ function home(){
         <div class="stat"><b>${tags.length}</b><span>${t('topics_n')}</span></div>
       </div>
     </div>
-    <div class="term fade"><div class="bar"><i></i><i></i><i></i><span>~/technofact — zsh</span></div><pre id="term"></pre></div>
   </section>
   ${!ps.length?`<div class="empty">${t(S.posts.length?'no_posts':'setup')}</div>`:''}
   ${feat?`<section class="blk"><div class="sh"><h2><small>// featured</small>${t('featured')}</h2></div>
@@ -587,7 +978,7 @@ function route(){
   else if(h==='blog'){ app.innerHTML=blog(); bindBlog(); }
   else if(h==='projects') app.innerHTML=projects();
   else if(h==='about') app.innerHTML=about();
-  else if(h==='home'){ app.innerHTML=home(); runTerm(); loadPopular(); }
+  else if(h==='home'){ app.innerHTML=home(); startOffice(); loadPopular(); }
   else notFound();
   document.querySelectorAll('.links a').forEach(a=>a.classList.toggle('on',a.dataset.r===r));
   if(!h.startsWith('post-')) window.scrollTo(0,0);
