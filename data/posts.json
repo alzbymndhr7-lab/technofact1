@@ -1,23 +1,5 @@
 [
   {
-    "slug": "post-mwp1o9bu",
-    "date": "2026-11-20",
-    "tags": [],
-    "cover": "",
-    "status": "published",
-    "featured": false,
-    "ar": {
-      "title": "مرحبا",
-      "excerpt": "مرحبا تجربه"
-    },
-    "en": {
-      "title": "",
-      "excerpt": ""
-    },
-    "readMin": 1,
-    "updated": "2026-11-20"
-  },
-  {
     "slug": "free-hosting-github-pages",
     "date": "2026-11-20",
     "tags": [
