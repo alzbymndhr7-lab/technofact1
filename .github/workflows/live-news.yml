@@ -1,0 +1,36 @@
+name: live-news
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ["automation/news.mjs", ".github/workflows/live-news.yml"]
+permissions:
+  contents: write
+concurrency:
+  group: live-news
+  cancel-in-progress: false
+jobs:
+  news:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Collect headlines
+        run: |
+          git fetch --depth=1 origin news-data:news-data 2>/dev/null || true
+          git show news-data:news.json > /tmp/old.json 2>/dev/null || echo '{}' > /tmp/old.json
+          rm -f /tmp/news.json
+          node automation/news.mjs /tmp/old.json /tmp/news.json
+      - name: Publish to news-data branch
+        run: |
+          [ -f /tmp/news.json ] || { echo "nothing new"; exit 0; }
+          mkdir -p /tmp/pub && cd /tmp/pub && git init -q -b news-data
+          cp /tmp/news.json news.json
+          git add news.json
+          git -c user.name="technofact-bot" -c user.email="technofact-bot@users.noreply.github.com" commit -qm "Update live news"
+          git push -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}" news-data

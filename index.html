@@ -813,6 +813,7 @@ function home(){
       </div>
     </div>
   </section>
+  <section class="blk" id="liveNews"></section>
   ${!ps.length?`<div class="empty">${t(S.posts.length?'no_posts':'setup')}</div>`:''}
   ${feat?`<section class="blk"><div class="sh"><h2><small>// featured</small>${t('featured')}</h2></div>
     <a class="feat fade" href="#post-${esc(feat.slug)}"><div class="cover">${coverHTML(feat)}</div><div class="cbody">
@@ -1014,5 +1015,6 @@ $('#yr').textContent=new Date().getFullYear();
 window.addEventListener('scroll',()=>$('#totop').classList.toggle('show',scrollY>700),{passive:true});
 $('#totop').onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
 </script>
+<script src="assets/live-news.js" defer></script>
 </body>
 </html>
