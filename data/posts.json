@@ -1,5 +1,27 @@
 [
   {
+    "slug": "protect-instagram-account",
+    "date": "2026-11-21",
+    "tags": [
+      "instagram",
+      "security",
+      "privacy"
+    ],
+    "cover": "images/2026/cover-protect-instagram-account.webp",
+    "status": "published",
+    "featured": false,
+    "ar": {
+      "title": "احمِ حسابك على إنستغرام من الاختراق: دليل عملي شامل",
+      "excerpt": "خطوات واضحة لتأمين حساب إنستغرام: كلمة سر قوية، المصادقة الثنائية، مراجعة الأجهزة، وكشف رسائل التصيد."
+    },
+    "en": {
+      "title": "",
+      "excerpt": ""
+    },
+    "readMin": 5,
+    "updated": "2026-11-21"
+  },
+  {
     "slug": "protect-facebook-account",
     "date": "2026-11-20",
     "tags": [
