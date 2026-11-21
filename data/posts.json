@@ -1,5 +1,28 @@
 [
   {
+    "slug": "free-up-phone-storage",
+    "date": "2026-11-21",
+    "tags": [
+      "android",
+      "iphone",
+      "storage",
+      "tips"
+    ],
+    "cover": "images/2026/cover-free-up-phone-storage.webp",
+    "status": "published",
+    "featured": false,
+    "ar": {
+      "title": "ذاكرة هاتفك ممتلئة؟ دليل عملي لتحرير المساحة دون خسارة شيء",
+      "excerpt": "خطوات واضحة لأندرويد وآيفون لاستعادة مساحة التخزين: الصور وواتساب والتطبيقات المنسية والملفات المؤقتة، مع عادات تمنع امتلاءها مجدداً."
+    },
+    "en": {
+      "title": "",
+      "excerpt": ""
+    },
+    "readMin": 5,
+    "updated": "2026-11-21"
+  },
+  {
     "slug": "gemini-mac-computer-use",
     "date": "2026-11-21",
     "tags": [
