@@ -3,14 +3,15 @@
 // Writes out.json only when at least a few headlines were collected; otherwise keeps the old list.
 import { readFileSync, writeFileSync } from 'node:fs';
 
+// kw: general-news feeds — keep only headlines that match TECH; only: keep links matching the pattern (or TECH)
+const TECH = /تقني|تكنولوج|الذكاء الاصطناعي|ذكاء اصطناعي|تطبيق|هاتف|هواتف|آيفون|آيباد|أندرويد|جوجل|غوغل|آبل|أبل|مايكروسوفت|ميتا|فيسبوك|واتساب|إنستغرام|انستغرام|تيك توك|تيليغرام|تلغرام|يوتيوب|إيلون ماسك|سامسونغ|هواوي|شاومي|إنفيديا|انفيديا|رقائق|شرائح|أشباه الموصلات|سيبران|اختراق|قراصنة|هاكر|برمجي|برمجة|حاسوب|كمبيوتر|إنترنت|الإنترنت|روبوت|تسلا|شات ?جي ?بي ?تي|ChatGPT|OpenAI|أوبن إيه آي|Gemini|جيميني|بيتكوين|عملات مشفرة|العملات الرقمية|بلايستيشن|إكس بوكس|نينتندو|ألعاب الفيديو|الأقمار الصناعية|ستارلينك|5G|الجيل الخامس/i;
 const SOURCES = [
-  { name: 'الجزيرة نت', url: 'https://www.aljazeera.net/rss', only: /\/(tech|science)\// },
-  { name: 'بي بي سي عربي', url: 'https://feeds.bbci.co.uk/arabic/science-and-tech/rss.xml' },
-  { name: 'سكاي نيوز عربية', url: 'https://www.skynewsarabia.com/rss/v1/technology.xml' },
-  { name: 'فرانس 24', url: 'https://www.france24.com/ar/%D8%B9%D9%84%D9%88%D9%85-%D9%88%D8%AA%D9%83%D9%86%D9%88%D9%84%D9%88%D8%AC%D9%8A%D8%A7/rss' },
-  { name: 'رؤيا', url: 'https://royanews.tv/rss/section/13' },
+  { name: 'الجزيرة نت', url: 'https://www.aljazeera.net/rss', only: /\/tech\// , kw: true },
+  { name: 'بي بي سي عربي', url: 'https://feeds.bbci.co.uk/arabic/science-and-tech/rss.xml', kw: true },
+  { name: 'سكاي نيوز عربية', url: 'https://www.skynewsarabia.com/rss/v1/technology.xml', kw: true },
   { name: 'البوابة العربية للأخبار التقنية', url: 'https://aitnews.com/feed/' },
   { name: 'عالم التقنية', url: 'https://www.tech-wd.com/wd/feed/' },
+  { name: 'عرب هاردوير', url: 'https://arabhardware.net/feed' },
 ];
 const MAX = 15, KEEP_DAYS = 3, MIN_NEW = 3;
 
@@ -35,7 +36,7 @@ async function fetchSource(src) {
       const t = tag(b, 'title'), u = linkOf(b).trim();
       const d = Date.parse(tag(b, 'pubDate') || tag(b, 'published') || tag(b, 'updated') || tag(b, 'dc:date'));
       return { t, u, s: src.name, d: Number.isFinite(d) ? new Date(d).toISOString() : null };
-    }).filter((x) => x.t && /^https?:\/\//.test(x.u) && x.d && (!src.only || src.only.test(x.u)));
+    }).filter((x) => x.t && /^https?:\/\//.test(x.u) && x.d && ((!src.only && !src.kw) || (src.only && src.only.test(x.u)) || (src.kw && TECH.test(x.t))));
     return { name: src.name, ok: true, count: items.length, items };
   } catch (e) {
     return { name: src.name, ok: false, error: String(e.message || e), items: [] };
