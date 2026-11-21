@@ -1,5 +1,28 @@
 [
   {
+    "slug": "gemini-mac-computer-use",
+    "date": "2026-11-21",
+    "tags": [
+      "gemini",
+      "ai-agents",
+      "privacy",
+      "mac"
+    ],
+    "cover": "images/2026/cover-gemini-mac-computer-use.webp",
+    "status": "published",
+    "featured": false,
+    "ar": {
+      "title": "Gemini يتحكم في جهاز ماك: سباق وكلاء الذكاء الاصطناعي يبدأ",
+      "excerpt": "أطلقت Google ميزة تتيح لـGemini استخدام جهاز ماك نيابةً عنك، وApple تبني وكيلها، وMeta تواجه انتقادات خصوصية. إليك ما يعنيه ذلك لك."
+    },
+    "en": {
+      "title": "",
+      "excerpt": ""
+    },
+    "readMin": 6,
+    "updated": "2026-11-21"
+  },
+  {
     "slug": "protect-instagram-account",
     "date": "2026-11-21",
     "tags": [
