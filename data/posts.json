@@ -1,5 +1,27 @@
 [
   {
+    "slug": "spot-phishing-links",
+    "date": "2026-11-22",
+    "tags": [
+      "phishing",
+      "security",
+      "links"
+    ],
+    "cover": "images/2026/cover-spot-phishing-links.webp",
+    "status": "published",
+    "featured": false,
+    "ar": {
+      "title": "قبل أن تضغط: كيف تكشف الروابط الاحتيالية في ثوانٍ",
+      "excerpt": "دليل عملي لفحص أي رابط قبل فتحه، وكشف رسائل التصيّد، وما يجب فعله إذا ضغطت على رابط مشبوه بالخطأ."
+    },
+    "en": {
+      "title": "",
+      "excerpt": ""
+    },
+    "readMin": 5,
+    "updated": "2026-11-22"
+  },
+  {
     "slug": "meta-muse-privacy-issues",
     "date": "2026-11-22",
     "tags": [
