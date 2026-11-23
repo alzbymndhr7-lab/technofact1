@@ -1,5 +1,28 @@
 [
   {
+    "slug": "optimizely-supply-chain-attack",
+    "date": "2026-11-23",
+    "tags": [
+      "security",
+      "news",
+      "malware",
+      "iphone"
+    ],
+    "cover": "images/2026/cover-optimizely-supply-chain-attack.webp",
+    "status": "published",
+    "featured": false,
+    "ar": {
+      "title": "هجوم Optimizely: شيفرة خبيثة على 178 موقعًا عالميًا فماذا تفعل؟",
+      "excerpt": "اختراق أداة خارجية زرع شيفرة تسرق البطاقات والعملات الرقمية على مواقع مثل BBC وZoom. إليك ما حدث وخطوات حمايتك."
+    },
+    "en": {
+      "title": "",
+      "excerpt": ""
+    },
+    "readMin": 5,
+    "updated": "2026-11-23"
+  },
+  {
     "slug": "protect-tiktok-account",
     "date": "2026-11-23",
     "tags": [
