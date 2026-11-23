@@ -1,5 +1,28 @@
 [
   {
+    "slug": "backup-your-phone",
+    "date": "2026-11-23",
+    "tags": [
+      "backup",
+      "android",
+      "iphone",
+      "tips"
+    ],
+    "cover": "images/2026/cover-backup-your-phone.webp",
+    "status": "published",
+    "featured": false,
+    "ar": {
+      "title": "دليل النسخ الاحتياطي لهاتفك: أندرويد وآيفون خطوة بخطوة",
+      "excerpt": "تعلّم كيف تحفظ صورك وجهات اتصالك ومحادثاتك على أندرويد وآيفون تلقائيًا قبل أن تفقدها بسبب سرقة أو عطل."
+    },
+    "en": {
+      "title": "",
+      "excerpt": ""
+    },
+    "readMin": 5,
+    "updated": "2026-11-23"
+  },
+  {
     "slug": "optimizely-supply-chain-attack",
     "date": "2026-11-23",
     "tags": [
