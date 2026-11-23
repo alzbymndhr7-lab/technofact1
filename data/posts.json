@@ -1,5 +1,27 @@
 [
   {
+    "slug": "protect-tiktok-account",
+    "date": "2026-11-23",
+    "tags": [
+      "tiktok",
+      "security",
+      "privacy"
+    ],
+    "cover": "images/2026/cover-protect-tiktok-account.webp",
+    "status": "published",
+    "featured": false,
+    "ar": {
+      "title": "كيف تحمي حسابك على تيك توك من السرقة؟ دليل خطوة بخطوة",
+      "excerpt": "فحص الأمان والتحقق بخطوتين ومفاتيح المرور ومراجعة الأجهزة: خطوات عملية تحمي حسابك على تيك توك من المخترقين."
+    },
+    "en": {
+      "title": "",
+      "excerpt": ""
+    },
+    "readMin": 5,
+    "updated": "2026-11-23"
+  },
+  {
     "slug": "protect-whatsapp-account",
     "date": "2026-11-22",
     "tags": [
