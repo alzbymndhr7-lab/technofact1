@@ -1,5 +1,27 @@
 [
   {
+    "slug": "protect-snapchat-account",
+    "date": "2026-11-24",
+    "tags": [
+      "snapchat",
+      "security",
+      "privacy"
+    ],
+    "cover": "images/2026/cover-protect-snapchat-account.webp",
+    "status": "published",
+    "featured": false,
+    "ar": {
+      "title": "كيف تحمي حسابك على سناب شات من الاختراق: دليل خطوة بخطوة",
+      "excerpt": "دليل عملي لتأمين حساب سناب شات: المصادقة الثنائية، رمز الاسترداد، مراجعة الأجهزة، وكشف الرسائل المزيفة."
+    },
+    "en": {
+      "title": "",
+      "excerpt": ""
+    },
+    "readMin": 5,
+    "updated": "2026-11-24"
+  },
+  {
     "slug": "speed-up-home-wifi",
     "date": "2026-11-24",
     "tags": [
