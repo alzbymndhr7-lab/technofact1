@@ -1,5 +1,28 @@
 [
   {
+    "slug": "speed-up-home-wifi",
+    "date": "2026-11-24",
+    "tags": [
+      "wifi",
+      "router",
+      "internet",
+      "tips"
+    ],
+    "cover": "images/2026/cover-speed-up-home-wifi.webp",
+    "status": "published",
+    "featured": false,
+    "ar": {
+      "title": "الواي فاي بطيء؟ 7 خطوات عملية لتسريع الإنترنت في بيتك",
+      "excerpt": "دليل مبسط لتحسين سرعة الواي فاي واستقرارها في البيت: مكان الراوتر، والنطاقات، والقنوات، والحماية، وتوسيع التغطية."
+    },
+    "en": {
+      "title": "",
+      "excerpt": ""
+    },
+    "readMin": 5,
+    "updated": "2026-11-24"
+  },
+  {
     "slug": "nvidia-jensen-huang-reinstated",
     "date": "2026-11-24",
     "tags": [
