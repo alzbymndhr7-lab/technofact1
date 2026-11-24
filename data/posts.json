@@ -1,5 +1,27 @@
 [
   {
+    "slug": "nvidia-jensen-huang-reinstated",
+    "date": "2026-11-24",
+    "tags": [
+      "nvidia",
+      "ai",
+      "chips"
+    ],
+    "cover": "images/2026/cover-nvidia-jensen-huang-reinstated.webp",
+    "status": "published",
+    "featured": false,
+    "ar": {
+      "title": "عودة جنسن هوانغ إلى إنفيديا بعد 11 يومًا: ماذا حدث ولماذا يهمك؟",
+      "excerpt": "مجلس إنفيديا يعيد جنسن هوانغ رئيسًا تنفيذيًا بعد استقالته المفاجئة، والسهم يقفز 30% وسط تحقيقات وجدل سياسي."
+    },
+    "en": {
+      "title": "",
+      "excerpt": ""
+    },
+    "readMin": 5,
+    "updated": "2026-11-24"
+  },
+  {
     "slug": "backup-your-phone",
     "date": "2026-11-23",
     "tags": [
