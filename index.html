@@ -86,8 +86,20 @@ header.top{position:sticky;top:0;z-index:50;padding-top:env(safe-area-inset-top)
 .ib{height:38px;min-width:38px;padding:0 10px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);
   display:grid;place-items:center;font-size:13px;font-family:var(--ffm);font-weight:600;transition:.2s}
 .ib:hover{border-color:var(--a);color:var(--a)}
+.dd{position:relative}
+.dd>summary{list-style:none;cursor:pointer;padding:8px 14px;border-radius:10px;color:var(--mut);font-weight:500;font-size:15px;transition:.2s;user-select:none}
+.dd>summary::-webkit-details-marker{display:none}
+.dd>summary::after{content:'▾';margin-inline-start:6px;font-size:11px}
+.dd[open]>summary,.dd>summary:hover{color:var(--ink);background:var(--card)}
+.dd-m{position:absolute;top:calc(100% + 8px);inset-inline-start:0;min-width:280px;background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:6px;display:grid;gap:2px;z-index:60}
+.links .dd-m a{display:block;padding:10px 12px;border-radius:10px;color:var(--ink);font-size:15px}
+.links .dd-m a small{display:block;color:var(--mut);font-size:12.5px;font-weight:400;margin-top:2px}
+.links .dd-m a:hover{background:var(--bg2);color:var(--a)}
 .burger{display:none}
 @media(max-width:820px){
+  .dd>summary{padding:12px 14px;font-size:16px}
+  .dd-m{position:static;min-width:0;box-shadow:none;border:0;background:transparent;padding:0 0 6px;padding-inline-start:12px}
+  .links .dd-m a{padding:9px 12px}
   .links{position:fixed;top:calc(66px + env(safe-area-inset-top));inset-inline:0;flex-direction:column;padding:12px 16px 18px;gap:2px;
     background:var(--bg);border-bottom:1px solid var(--line);transform:translateY(-12px);opacity:0;pointer-events:none;transition:.25s}
   .links.open{transform:none;opacity:1;pointer-events:auto}
@@ -431,6 +443,17 @@ footer .fs a:hover{color:var(--a);border-color:var(--a)}
       <a href="#blog" data-r="blog" data-t="nav_blog"></a>
       <a href="#office" data-r="office" data-t="nav_office"></a>
       <a href="#projects" data-r="projects" data-t="nav_projects"></a>
+      <details class="dd" id="toolsDd">
+        <summary data-t="nav_tools"></summary>
+        <div class="dd-m">
+          <a href="tools/scam-message-checker/" dir="rtl" lang="ar">فاحص رسائل الاحتيال<small>اكشف علامات النصب في أي رسالة</small></a>
+          <a href="tools/link-checker/" dir="rtl" lang="ar">هل هذا الرابط مشبوه؟<small>افحص أي رابط قبل أن تضغط</small></a>
+          <a href="tools/password-leak-checker/" dir="rtl" lang="ar">هل تسرّبت كلمة سري؟<small>افحص كلمة سرك في التسريبات</small></a>
+          <a href="tools/password-checker/" dir="rtl" lang="ar">فاحص قوة كلمة السر<small>كم يحتاج المخترق لتخمينها</small></a>
+          <a href="tools/password-generator/" dir="rtl" lang="ar">مولّد كلمات السر<small>كلمة سر قوية بضغطة زر</small></a>
+          <a href="tools/qr-generator/" dir="rtl" lang="ar">مولّد رمز QR<small>لرابط أو نص أو واي فاي</small></a>
+        </div>
+      </details>
       <a href="#about" data-r="about" data-t="nav_about"></a>
     </nav>
     <div class="tools">
@@ -770,7 +793,7 @@ function startOffice(){
 </script>
 <script>
 const T={
-  ar:{nav_home:'الرئيسية',nav_blog:'المقالات',nav_projects:'المشاريع',nav_about:'عنّي',nav_office:'غرفة العمليات',tick_l:'آخر المستجدات',site_sub:'أخبار وشروحات تقنية بالعربي',hero_eb:'مدونة تقنية عربية',hero_p:'نشرح لك أهم أخبار التقنية بلغة بسيطة، ونقدّم أدلة عملية لحماية حساباتك والاستفادة القصوى من هاتفك وحاسوبك — بمصادر موثوقة ودون تعقيد.',hp1:'أخبار التقنية مشروحة أولًا بأول',hp2:'أدلة أمان وحماية الحسابات خطوة بخطوة',hp3:'نصائح عملية للهاتف والكمبيوتر والذكاء الاصطناعي',latest_badge:'الأحدث',of_page_sub:'تعرّف على فريق الذكاء الاصطناعي الذي يبحث ويكتب ويراجع ويصمّم مقالات الموقع على مدار الساعة.',updated_daily:'تحديث يومي',
+  ar:{nav_tools:'الأدوات',nav_home:'الرئيسية',nav_blog:'المقالات',nav_projects:'المشاريع',nav_about:'عنّي',nav_office:'غرفة العمليات',tick_l:'آخر المستجدات',site_sub:'أخبار وشروحات تقنية بالعربي',hero_eb:'مدونة تقنية عربية',hero_p:'نشرح لك أهم أخبار التقنية بلغة بسيطة، ونقدّم أدلة عملية لحماية حساباتك والاستفادة القصوى من هاتفك وحاسوبك — بمصادر موثوقة ودون تعقيد.',hp1:'أخبار التقنية مشروحة أولًا بأول',hp2:'أدلة أمان وحماية الحسابات خطوة بخطوة',hp3:'نصائح عملية للهاتف والكمبيوتر والذكاء الاصطناعي',latest_badge:'الأحدث',of_page_sub:'تعرّف على فريق الذكاء الاصطناعي الذي يبحث ويكتب ويراجع ويصمّم مقالات الموقع على مدار الساعة.',updated_daily:'تحديث يومي',
     read:'اقرأ المقال',all_posts:'كل المقالات',latest:'أحدث المقالات',featured:'مقال مميز',projects:'المشاريع',topics:'المواضيع',
     articles:'مقال',projects_n:'مشروع',topics_n:'موضوع',explore:'تصفّح المقالات',my_projects:'مشاريعي',min:'د قراءة',
     search:'ابحث في المقالات…',all:'الكل',no_results:'لا توجد نتائج مطابقة',back:'رجوع للمقالات',toc:'في هذا المقال',
@@ -778,7 +801,7 @@ const T={
     blog_sub:'مقالات في التقنية والبرمجة وتطوير الويب.',proj_sub:'مواقع وتطبيقات قمت ببنائها.',about_t:'عن تكنو فاكت',contact:'تواصل معي',
     rights:'جميع الحقوق محفوظة',not_found:'الصفحة غير موجودة',other_lang:'هذا المقال غير متوفر بالعربية بعد — يتم عرض النسخة الإنجليزية.',
     setup:'الموقع جاهز! ادخل إلى لوحة التحكم لتهيئة المحتوى.',copy_code:'نسخ',no_posts:'لا توجد مقالات بعد.',views:'مشاهدة',like:'أعجبني',popular:'الأكثر قراءة',written_by:'بقلم',news_t:'اشترك في النشرة البريدية',news_p:'وصلك كل مقال جديد على بريدك مباشرة — بدون إزعاج.',news_btn:'اشترك',email_ph:'you@example.com',comments:'التعليقات',visits:'زيارة للموقع',of_title:'غرفة عمليات تكنو فاكت',of_count:'12 موظف ذكاء اصطناعي يعملون الآن',of_hint:'👆 اضغط على أي موظف لتتعرف عليه',of_now:'يعمل الآن على',of_tasks:'مهمة اليوم',of_quality:'دقة',of_avail:'متواجد',of_online:'متصل'},
-  en:{nav_home:'Home',nav_blog:'Articles',nav_projects:'Projects',nav_about:'About',nav_office:'Ops Room',tick_l:'Latest news',site_sub:'Tech news & guides in Arabic',hero_eb:'An Arabic tech publication',hero_p:'We explain the most important tech news in plain language and publish practical guides to protect your accounts and get more from your phone and computer — with trusted sources and no jargon.',hp1:'Tech news, explained as it happens',hp2:'Step-by-step account security guides',hp3:'Practical tips for phones, PCs and AI',latest_badge:'Latest',of_page_sub:'Meet the AI team that researches, writes, reviews and designs the site\'s articles around the clock.',updated_daily:'updated daily',
+  en:{nav_tools:'Tools',nav_home:'Home',nav_blog:'Articles',nav_projects:'Projects',nav_about:'About',nav_office:'Ops Room',tick_l:'Latest news',site_sub:'Tech news & guides in Arabic',hero_eb:'An Arabic tech publication',hero_p:'We explain the most important tech news in plain language and publish practical guides to protect your accounts and get more from your phone and computer — with trusted sources and no jargon.',hp1:'Tech news, explained as it happens',hp2:'Step-by-step account security guides',hp3:'Practical tips for phones, PCs and AI',latest_badge:'Latest',of_page_sub:'Meet the AI team that researches, writes, reviews and designs the site\'s articles around the clock.',updated_daily:'updated daily',
     read:'Read article',all_posts:'All articles',latest:'Latest articles',featured:'Featured',projects:'Projects',topics:'Topics',
     articles:'articles',projects_n:'projects',topics_n:'topics',explore:'Browse articles',my_projects:'My projects',min:'min read',
     search:'Search articles…',all:'All',no_results:'No matching results',back:'Back to articles',toc:'On this page',
@@ -1086,6 +1109,8 @@ window.addEventListener('scroll',()=>{
 $('#langBtn').onclick=()=>{S.lang=S.lang==='ar'?'en':'ar';store.set('tf-lang',S.lang);applyChrome();route()};
 $('#themeBtn').onclick=()=>{S.theme=S.theme==='dark'?'light':'dark';store.set('tf-theme',S.theme);applyChrome()};
 $('#burger').onclick=()=>$('#links').classList.toggle('open');
+document.addEventListener('click',e=>{const d=$('#toolsDd'); if(d&&d.open&&!d.contains(e.target)) d.open=false;});
+window.addEventListener('hashchange',()=>{const d=$('#toolsDd'); if(d) d.open=false;});
 window.addEventListener('hashchange',route);
 $('#yr').textContent=new Date().getFullYear();
 
