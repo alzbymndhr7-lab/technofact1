@@ -1,1 +1,62 @@
-[]
+[
+  {
+    "id": "link-checker",
+    "url": "https://alzbymndhr7-lab.github.io/technofact1/tools/link-checker/",
+    "repo": "",
+    "cover": "images/projects/link-checker.webp",
+    "tags": [
+      "أمان",
+      "JavaScript",
+      "تصيد"
+    ],
+    "featured": true,
+    "ar": {
+      "title": "هل هذا الرابط مشبوه؟",
+      "desc": "الصق أي رابط وصلك في رسالة لتكشف علامات التصيد: تقليد المواقع المشهورة، والحروف المتشابهة، والروابط المختصرة. يعمل داخل متصفحك ولا يفتح الرابط."
+    },
+    "en": {
+      "title": "Is this link suspicious?",
+      "desc": "Paste any link to spot phishing signs — look-alike domains, homoglyphs and shorteners. Runs in your browser and never opens the link."
+    }
+  },
+  {
+    "id": "password-checker",
+    "url": "https://alzbymndhr7-lab.github.io/technofact1/tools/password-checker/",
+    "repo": "",
+    "cover": "images/projects/password-checker.webp",
+    "tags": [
+      "أمان",
+      "JavaScript",
+      "كلمات السر"
+    ],
+    "featured": false,
+    "ar": {
+      "title": "فاحص قوة كلمة السر",
+      "desc": "اكتب كلمة سر فيخبرك بقوتها وكم يحتاج المخترق لتخمينها، ويكشف الكلمات الشائعة والتسلسلات والسنوات. لا تُرسل كلمة السر لأي مكان."
+    },
+    "en": {
+      "title": "Password Strength Checker",
+      "desc": "See how strong a password is and how long it would take to crack, with tips to improve it. Nothing leaves your browser."
+    }
+  },
+  {
+    "id": "password-generator",
+    "url": "https://alzbymndhr7-lab.github.io/technofact1/tools/password-generator/",
+    "repo": "",
+    "cover": "images/projects/password-generator.webp",
+    "tags": [
+      "أمان",
+      "JavaScript",
+      "كلمات السر"
+    ],
+    "featured": false,
+    "ar": {
+      "title": "مولّد كلمات السر القوية",
+      "desc": "كلمة سر عشوائية من حروف ورموز، أو عبارة مرور من كلمات سهلة الحفظ، بضغطة زر ومع زر نسخ. يستخدم مولّد العشوائية الآمن في المتصفح."
+    },
+    "en": {
+      "title": "Strong Password Generator",
+      "desc": "Random passwords or easy-to-remember passphrases in one click, using the browser's secure random generator."
+    }
+  }
+]

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>هل هذا الرابط مشبوه؟ فاحص روابط التصيد | تكنو فاكت</title>
+<meta name="description" content="الصق أي رابط وصلك في رسالة لتكشف علامات التصيد والاحتيال قبل أن تضغط عليه. الفحص يتم داخل متصفحك ولا نفتح الرابط.">
+<link rel="canonical" href="https://alzbymndhr7-lab.github.io/technofact1/tools/link-checker/">
+<meta property="og:title" content="هل هذا الرابط مشبوه؟ | تكنو فاكت">
+<meta property="og:description" content="اكشف علامات التصيد في أي رابط قبل أن تضغط عليه.">
+<meta property="og:image" content="https://alzbymndhr7-lab.github.io/technofact1/images/projects/link-checker.webp">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../tools.css">
+</head>
+<body>
+<header class="top"><div class="in">
+  <a class="logo" href="../../"><i>TF</i>تكنو فاكت</a>
+  <nav aria-label="الأدوات"><a href="../password-checker/">فاحص كلمة السر</a><a href="../password-generator/">مولّد كلمات السر</a><a href="./" aria-current="page">فاحص الروابط</a><a href="../../#projects">كل المشاريع</a></nav>
+</div></header>
+<main>
+  <span class="kick">// أداة مجانية</span>
+  <h1>هل هذا الرابط مشبوه؟</h1>
+  <p class="lead">وصلك رابط في رسالة أو واتساب ولست متأكداً منه؟ الصقه هنا لتكشف علامات التصيد قبل أن تضغط عليه.</p>
+
+  <form class="card" id="form" autocomplete="off">
+    <label for="url">الرابط</label>
+    <input id="url" type="text" inputmode="url" dir="ltr" spellcheck="false" placeholder="https://example.com/login">
+    <div class="row" style="margin-top:12px">
+      <button class="btn pri" type="submit">افحص الرابط</button>
+      <button class="btn" type="button" id="demo">جرّب مثالاً مشبوهاً</button>
+    </div>
+    <div class="note">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+      <span>لا نفتح الرابط ولا نرسله لأي مكان. نحلل شكله فقط داخل متصفحك. والنتيجة تقدير وليست ضماناً، فإذا شككت في رسالة فلا تضغط، وادخل الموقع بكتابة عنوانه بنفسك.</span>
+    </div>
+
+    <div id="result" aria-live="polite" hidden>
+      <div class="meter"><b id="meter"></b></div>
+      <div class="verdict"><strong id="label"></strong><span id="host"></span></div>
+      <ul class="checks" id="checks"></ul>
+    </div>
+  </form>
+
+  <section class="prose">
+    <h2>ما الذي نفحصه؟</h2>
+    <ul>
+      <li><strong>تقليد أسماء المواقع المشهورة:</strong> مثل <strong>faceb00k-login.com</strong> أو <strong>paypal.secure-verify.xyz</strong>، حيث يظهر اسم الموقع المعروف لكن النطاق الحقيقي مختلف.</li>
+      <li><strong>الحروف المتشابهة:</strong> روابط تبدأ بـ xn-- تستخدم حروفاً من لغات أخرى تشبه الحروف الإنجليزية.</li>
+      <li><strong>الروابط المختصرة:</strong> مثل bit.ly، تخفي الوجهة الحقيقية.</li>
+      <li><strong>علامات أخرى:</strong> عنوان IP بدل اسم موقع، وعدم وجود https، ونطاقات رخيصة يكثر استخدامها في الاحتيال، وكلمات مثل verify وlogin وupdate.</li>
+    </ul>
+    <h2>القاعدة الذهبية</h2>
+    <p>البنوك وفيسبوك وواتساب <strong>لا تطلب منك أبداً</strong> كلمة السر أو رمز التحقق عبر رابط في رسالة. إذا وصلتك رسالة تستعجلك، افتح التطبيق الرسمي بنفسك بدل الضغط على الرابط.</p>
+    <h2>أدوات أخرى</h2>
+    <div class="more">
+      <a href="../password-checker/"><b>فاحص قوة كلمة السر</b><small>اعرف كم يحتاج المخترق لتخمين كلمتك</small></a>
+      <a href="../password-generator/"><b>مولّد كلمات السر</b><small>كلمات سر قوية وعشوائية بضغطة زر</small></a>
+    </div>
+  </section>
+</main>
+<footer>© تكنو فاكت · أداة تعليمية تعطي تقديراً تقريبياً</footer>
+
+<script>
+(function(){
+  var BRANDS = {
+    'facebook':['facebook.com','fb.com','fb.me','facebook.net'], 'instagram':['instagram.com'], 'whatsapp':['whatsapp.com','whatsapp.net','wa.me'],
+    'messenger':['messenger.com'], 'meta':['meta.com'], 'google':['google.com','google.jo','google.com.sa','google.ae','goo.gl','g.co'], 'gmail':['gmail.com','google.com'],
+    'youtube':['youtube.com','youtu.be'], 'apple':['apple.com','icloud.com'], 'icloud':['icloud.com','apple.com'], 'microsoft':['microsoft.com','live.com','office.com','microsoftonline.com'],
+    'outlook':['outlook.com','live.com','office.com'], 'office':['office.com','microsoft.com'], 'paypal':['paypal.com','paypal.me'], 'amazon':['amazon.com','amazon.ae','amazon.sa','amazon.eg','amzn.to'],
+    'netflix':['netflix.com'], 'tiktok':['tiktok.com'], 'snapchat':['snapchat.com'], 'telegram':['telegram.org','t.me','telegram.me'], 'twitter':['twitter.com','x.com','t.co'],
+    'linkedin':['linkedin.com','lnkd.in'], 'binance':['binance.com'], 'visa':['visa.com'], 'mastercard':['mastercard.com'], 'dhl':['dhl.com'], 'aramex':['aramex.com'], 'fedex':['fedex.com'],
+    'steam':['steampowered.com','steamcommunity.com'], 'shein':['shein.com'], 'noon':['noon.com'], 'talabat':['talabat.com'], 'zain':['zain.com','jo.zain.com'], 'orange':['orange.jo','orange.com']
+  };
+  var SHORT = ['bit.ly','tinyurl.com','t.ly','cutt.ly','is.gd','rb.gy','ow.ly','shorturl.at','tiny.cc','s.id','rebrand.ly','buff.ly','shorte.st','adf.ly','v.gd','qrco.de','linktr.ee'];
+  var BADTLD = ['xyz','top','click','link','work','support','live','icu','buzz','rest','shop','online','site','store','cfd','sbs','monster','fit','loan','gq','tk','ml','cf','ga','zip','mov','info','cyou','vip','win','bid','country','kim','men','party','review','date','racing','stream'];
+  var WORDS = ['login','log-in','signin','sign-in','verify','verification','secure','security','account','update','confirm','unlock','suspend','suspended','banking','wallet','password','reset','recover','support','billing','payment','gift','prize','free','bonus','claim','reward','winner','otp'];
+  var TWO = ['co.uk','com.sa','com.jo','com.eg','com.au','co.jp','com.br','co.in','gov.jo','edu.jo','org.uk','com.kw','com.qa','com.lb','com.tr','co.za','com.iq','net.sa','gov.sa','ac.uk'];
+  var LEET = {'0':'o','1':'l','3':'e','4':'a','5':'s','7':'t','8':'b','@':'a','$':'s'};
+  var $ = function(id){ return document.getElementById(id); };
+
+  function lev(a, b){
+    var m = [], i, j; for (i = 0; i <= b.length; i++) m[i] = [i];
+    for (j = 0; j <= a.length; j++) m[0][j] = j;
+    for (i = 1; i <= b.length; i++) for (j = 1; j <= a.length; j++)
+      m[i][j] = Math.min(m[i-1][j] + 1, m[i][j-1] + 1, m[i-1][j-1] + (b[i-1] === a[j-1] ? 0 : 1));
+    return m[b.length][a.length];
+  }
+  function registrable(host){
+    var p = host.split('.'); if (p.length <= 2) return host;
+    var last2 = p.slice(-2).join('.');
+    return TWO.indexOf(last2) > -1 ? p.slice(-3).join('.') : last2;
+  }
+  function owns(host, list){ return list.some(function(d){ return host === d || host.slice(-(d.length + 1)) === '.' + d; }); }
+  var L = function(t){ return '\u2066' + t + '\u2069'; };
+  function esc(t){ return String(t).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+  function analyse(raw){
+    var s = raw.trim(), out = [], score = 0;
+    if (/^(javascript|data|vbscript):/i.test(s)) return { score: 100, host: '', checks: [['bad','هذا ليس رابط موقع، بل كود قد ينفّذ أوامر في متصفحك. لا تضغط عليه أبداً.']] };
+    if (!/^[a-z][a-z0-9+.-]*:\/\//i.test(s)) s = 'http://' + s;
+    var u; try { u = new URL(s); } catch (e) { return null; }
+    var host = u.hostname.toLowerCase().replace(/\.$/, ''), reg = registrable(host), base = reg.split('.')[0];
+    var full = (host + u.pathname + u.search).toLowerCase();
+
+    if (/^\d{1,3}(\.\d{1,3}){3}$/.test(host) || host.indexOf(':') > -1) { score += 35; out.push(['bad','الرابط يستخدم عنوان IP بدل اسم موقع. المواقع الحقيقية نادراً ما تفعل هذا.']); }
+    if (raw.indexOf('@') > -1 && /^[^?#]*@/.test(raw.replace(/^[a-z]+:\/\//i, ''))) { score += 35; out.push(['bad','في الرابط علامة @، وهي حيلة تجعل الجزء الذي قبلها يبدو كأنه اسم الموقع، بينما الوجهة الحقيقية هي ما بعدها.']); }
+    if (host.split('.').some(function(p){ return p.indexOf('xn--') === 0; })) { score += 40; out.push(['bad','النطاق يستخدم حروفاً من لغات أخرى قد تشبه الحروف الإنجليزية (xn--)، وهي طريقة شائعة لتقليد المواقع المشهورة.']); }
+
+    var brandHit = '';
+    Object.keys(BRANDS).forEach(function(b){
+      if (brandHit || owns(host, BRANDS[b])) return;
+      var toks = host.replace(/[0134578@$]/g, function(c){ return LEET[c] || c; }).split(/[.-]/);
+      if (toks.some(function(t){ return t === b || t.indexOf(b) === 0 || (b.length >= 6 && t.indexOf(b) > -1); }) || full.split(/[\/?&=#.-]/).indexOf(b) > -1) { brandHit = b; return; }
+      if (b.length >= 5 && base !== b && lev(base.replace(/[0134578]/g, function(c){ return LEET[c]; }), b) <= 2) brandHit = b;
+    });
+    if (brandHit) { score += 45; out.push(['bad','يظهر في الرابط اسم «' + brandHit + '» لكن الموقع الحقيقي هو «' + L(reg) + '»، وهو ليس موقعه الرسمي. هذه أشهر علامة للتصيد.']); }
+
+    if (SHORT.indexOf(host) > -1) { score += 20; out.push(['warn','هذا رابط مختصر يخفي الوجهة الحقيقية. لا تفتحه إلا إذا كنت تثق بمن أرسله.']); }
+    var tld = host.split('.').pop();
+    if (BADTLD.indexOf(tld) > -1) { score += 15; out.push(['warn','النطاق ينتهي بـ ' + L('.' + tld) + '، وهو نطاق رخيص يكثر استخدامه في مواقع الاحتيال (لا يعني بالضرورة أن الموقع احتيالي).']); }
+    var dots = host.split('.').length;
+    if (dots >= 5) { score += 15; out.push(['warn','في الرابط عدد كبير من الأقسام الفرعية (' + dots + ')، وهي حيلة لإطالة الاسم وإخفاء النطاق الحقيقي.']); }
+    if ((host.match(/-/g) || []).length >= 3) { score += 10; out.push(['warn','اسم الموقع فيه شرطات كثيرة، وهذا شائع في المواقع المزيفة مثل secure-login-account-verify.']); }
+    var hits = WORDS.filter(function(w){ return full.indexOf(w) > -1; });
+    if (hits.length) { score += Math.min(20, hits.length * 8); out.push(['warn','فيه كلمات يستخدمها المحتالون لاستعجالك: ' + hits.slice(0, 4).map(L).join('، ') + '.']); }
+    if (u.port && u.port !== '80' && u.port !== '443') { score += 15; out.push(['warn','الرابط يستخدم منفذاً غير معتاد (' + u.port + ').']); }
+    if (s.length > 120) { score += 5; out.push(['info','الرابط طويل جداً، وهذا قد يكون لإخفاء تفاصيله.']); }
+    if (u.protocol === 'http:' && /^http:\/\//i.test(raw.trim())) { score += 15; out.push(['warn','الرابط لا يستخدم اتصالاً آمناً (https)، فلا تُدخل فيه أي كلمة سر أو بيانات.']); }
+
+    var official = Object.keys(BRANDS).filter(function(b){ return owns(host, BRANDS[b]); });
+    if (official.length && score < 30) out.unshift(['ok','النطاق «' + L(reg) + '» هو الموقع الرسمي لـ ' + official[0] + '.']);
+    if (!out.length) out.push(['ok','لم نجد علامات تحذير واضحة في شكل الرابط.']);
+    if (score < 30) out.push(['info','تأكد دائماً أن الرسالة جاءت ممن تعرفه، ولا تُدخل كلمة السر إلا بعد التأكد من اسم الموقع في شريط العنوان.']);
+    return { score: Math.min(100, score), host: reg, checks: out };
+  }
+
+  function run(e){
+    if (e) e.preventDefault();
+    var v = $('url').value; if (!v.trim()) return $('url').focus();
+    var r = analyse(v);
+    $('result').hidden = false;
+    if (!r) { $('label').textContent = 'هذا لا يبدو رابطاً صحيحاً'; $('label').className = 'warn-t'; $('host').textContent = ''; $('meter').style.width = '0'; $('checks').innerHTML = ''; return; }
+    var lv = r.score >= 45 ? ['خطر: الرابط مشبوه جداً','bad-t','var(--bad)'] : r.score >= 20 ? ['احذر: فيه علامات مريبة','warn-t','var(--warn)'] : ['لا توجد علامات خطر واضحة','ok-t','var(--ok)'];
+    $('label').textContent = lv[0]; $('label').className = lv[1];
+    $('host').textContent = r.host ? 'الموقع الحقيقي: ' + L(r.host) : '';
+    $('meter').style.width = Math.max(8, r.score) + '%'; $('meter').style.background = lv[2];
+    var icon = {ok:'✓', warn:'!', bad:'✕', info:'i'};
+    $('checks').innerHTML = r.checks.map(function(c){ return '<li><span class="ic ' + c[0] + '" aria-hidden="true">' + icon[c[0]] + '</span><span>' + esc(c[1]) + '</span></li>'; }).join('');
+  }
+  $('form').addEventListener('submit', run);
+  $('demo').addEventListener('click', function(){ $('url').value = 'http://faceb00k-login.secure-verify.xyz/account/confirm'; run(); });
+})();
+</script>
+</body>
+</html>

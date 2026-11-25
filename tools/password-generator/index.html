@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>مولّد كلمات السر القوية | تكنو فاكت</title>
+<meta name="description" content="أنشئ كلمة سر قوية وعشوائية أو عبارة مرور سهلة الحفظ بضغطة زر. التوليد يتم داخل متصفحك فقط.">
+<link rel="canonical" href="https://alzbymndhr7-lab.github.io/technofact1/tools/password-generator/">
+<meta property="og:title" content="مولّد كلمات السر القوية | تكنو فاكت">
+<meta property="og:description" content="كلمة سر قوية وعشوائية أو عبارة مرور سهلة الحفظ، بضغطة زر.">
+<meta property="og:image" content="https://alzbymndhr7-lab.github.io/technofact1/images/projects/password-generator.webp">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../tools.css">
+</head>
+<body>
+<header class="top"><div class="in">
+  <a class="logo" href="../../"><i>TF</i>تكنو فاكت</a>
+  <nav aria-label="الأدوات"><a href="../password-checker/">فاحص كلمة السر</a><a href="./" aria-current="page">مولّد كلمات السر</a><a href="../link-checker/">فاحص الروابط</a><a href="../../#projects">كل المشاريع</a></nav>
+</div></header>
+<main>
+  <span class="kick">// أداة مجانية</span>
+  <h1>مولّد كلمات السر القوية</h1>
+  <p class="lead">اختر بين كلمة سر عشوائية تحفظها في مدير كلمات السر، أو عبارة مرور من كلمات سهلة تتذكرها بنفسك.</p>
+
+  <div class="card">
+    <div class="row" style="justify-content:space-between">
+      <div class="seg" role="group" aria-label="نوع كلمة السر">
+        <button type="button" id="mChars" aria-pressed="true">حروف ورموز</button>
+        <button type="button" id="mWords" aria-pressed="false">عبارة مرور</button>
+      </div>
+      <span id="strength" class="ok-t" style="font-weight:700"></span>
+    </div>
+
+    <div class="out" id="out" aria-live="polite" style="margin-top:16px"></div>
+    <div class="row" style="margin-top:12px">
+      <button class="btn pri" type="button" id="copy">نسخ</button>
+      <button class="btn" type="button" id="again">توليد جديد</button>
+    </div>
+
+    <div id="pChars">
+      <label for="len" style="margin-top:22px">الطول: <span id="lenV">16</span> حرفاً</label>
+      <input id="len" type="range" min="8" max="64" value="16">
+      <div class="opts">
+        <label class="opt"><input type="checkbox" id="oU" checked> حروف كبيرة (A–Z)</label>
+        <label class="opt"><input type="checkbox" id="oL" checked> حروف صغيرة (a–z)</label>
+        <label class="opt"><input type="checkbox" id="oD" checked> أرقام (0–9)</label>
+        <label class="opt"><input type="checkbox" id="oS" checked> رموز (!#$%)</label>
+        <label class="opt"><input type="checkbox" id="oA"> بدون أحرف متشابهة (O و0، l و1)</label>
+      </div>
+    </div>
+
+    <div id="pWords" hidden>
+      <label for="wc" style="margin-top:22px">عدد الكلمات: <span id="wcV">6</span></label>
+      <input id="wc" type="range" min="4" max="10" value="6">
+      <div class="opts">
+        <label class="opt"><input type="checkbox" id="wCap" checked> أول حرف كبير</label>
+        <label class="opt"><input type="checkbox" id="wNum" checked> إضافة رقم</label>
+        <label class="opt"><input type="checkbox" id="wDash" checked> فاصل بين الكلمات (-)</label>
+      </div>
+    </div>
+
+    <div class="note">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+      <span>التوليد يتم داخل متصفحك فقط باستخدام مولّد العشوائية الآمن في المتصفح. لا شيء يُرسل أو يُحفظ.</span>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2>أيهما أختار؟</h2>
+    <ul>
+      <li><strong>حروف ورموز:</strong> الأقوى لكل حرف، ومناسبة إذا كنت تستخدم مدير كلمات سر يحفظها عنك.</li>
+      <li><strong>عبارة مرور:</strong> كلمات عشوائية مثل <strong>Maple-River-Toast-Owl-Jazz-42</strong>. أسهل في الحفظ والكتابة، ومع 6 كلمات أو أكثر تكون قوية. مناسبة لكلمة سر هاتفك أو مدير كلمات السر نفسه.</li>
+    </ul>
+    <h2>أدوات أخرى</h2>
+    <div class="more">
+      <a href="../password-checker/"><b>فاحص قوة كلمة السر</b><small>اعرف كم يحتاج المخترق لتخمين كلمتك</small></a>
+      <a href="../link-checker/"><b>هل هذا الرابط مشبوه؟</b><small>اكشف علامات التصيد قبل أن تضغط</small></a>
+    </div>
+  </section>
+</main>
+<footer>© تكنو فاكت</footer>
+<div class="toast" id="toast" role="status">تم النسخ ✓</div>
+
+<script>
+(function(){
+  var WORDS = 'able acid aged also area army away baby back bake ball band bank base bath bean bear beat bell belt best bike bird blue boat body bold bone book boss bowl brag bulb busy cafe cage cake calm camp card care cart cash cast cave chef chip city clay clip coal coat code coin cold cook cool copy core corn cozy crab crew crop cube cute dark data dawn deck deep deer desk dial diet dirt dish dock door dove draw drum duck dune dust easy echo edge envy epic exit face fact fair farm fast fawn fern film fire fish flag flat flow foam fog folk food foot fork form fort frog fuel fund gate gear gift glad glow glue goat gold golf good gown grid grin gulf hair half hall halo hand harp hawk heat herb hero hill hint hive home honey hook horn host huge icon idea inch iron isle item jade jazz jeep jelly joke judo juice jump jury keen kelp kept kick kind king kite kiwi knee knot lace lake lamp land lava lawn leaf lean lens lift lily lime line lion list loaf lock loft logo loop lucky lunar mango maple march mask math maze meal melt menu mild milk mint mist moon moss moth much mule muse nail navy neat nest news nice node noon north note nova oak oasis ocean olive omen open orbit oval oven owl pace page palm park path peak pear pearl pen pilot pine pink pipe pixel plan plum poem polo pond pony pool port puma quiz race rain ramp rare raven reef rice ring river road robin rock roof rope rose ruby rust safe sail salt sand scarf seal seed shell ship shoe silk sing skate sky slow snow soap sofa soil solar song soup spark star stem stew stone storm sugar sun swan table taco tail tea tent tide tiger toast tomato tool torch tower toy train tree tulip tuna ultra union urban vase velvet vivid voice volt wagon walk wave wax whale wheat wind wing wise wolf wood wool yard yarn yoga zebra zero zest zinc zone'.split(' ');
+  var $ = function(id){ return document.getElementById(id); };
+  var mode = 'chars';
+  function rnd(n){ var a = new Uint32Array(1), lim = Math.floor(4294967296 / n) * n; do { crypto.getRandomValues(a); } while (a[0] >= lim); return a[0] % n; }
+  function shuffle(arr){ for (var i = arr.length - 1; i > 0; i--) { var j = rnd(i + 1), t = arr[i]; arr[i] = arr[j]; arr[j] = t; } return arr; }
+  function sets(){
+    var amb = $('oA').checked, s = [];
+    var U = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', L = 'abcdefghijklmnopqrstuvwxyz', D = '0123456789', S = '!#$%&*+-=?@^_~';
+    if (amb) { U = U.replace(/[IO]/g, ''); L = L.replace(/[lo]/g, ''); D = D.replace(/[01]/g, ''); }
+    if ($('oU').checked) s.push(U); if ($('oL').checked) s.push(L); if ($('oD').checked) s.push(D); if ($('oS').checked) s.push(S);
+    if (!s.length) { $('oL').checked = true; s.push(L); }
+    return s;
+  }
+  function genChars(){
+    var s = sets(), n = +$('len').value, all = s.join(''), out = s.map(function(x){ return x[rnd(x.length)]; });
+    while (out.length < n) out.push(all[rnd(all.length)]);
+    return { pw: shuffle(out).join(''), bits: n * Math.log2(all.length) };
+  }
+  function genWords(){
+    var n = +$('wc').value, cap = $('wCap').checked, w = [];
+    for (var i = 0; i < n; i++) { var x = WORDS[rnd(WORDS.length)]; w.push(cap ? x[0].toUpperCase() + x.slice(1) : x); }
+    var bits = n * Math.log2(WORDS.length);
+    if ($('wNum').checked) { w.push(String(rnd(90) + 10)); bits += Math.log2(90); }
+    return { pw: w.join($('wDash').checked ? '-' : ''), bits: bits };
+  }
+  function gen(){
+    var r = mode === 'chars' ? genChars() : genWords();
+    $('out').textContent = r.pw;
+    var b = r.bits, t = b < 50 ? ['متوسطة','warn-t'] : b < 70 ? ['قوية','ok-t'] : ['قوية جداً','ok-t'];
+    $('strength').textContent = t[0] + ' · ' + Math.round(b) + ' بت'; $('strength').className = t[1];
+  }
+  function setMode(m){
+    mode = m; $('mChars').setAttribute('aria-pressed', m === 'chars'); $('mWords').setAttribute('aria-pressed', m === 'words');
+    $('pChars').hidden = m !== 'chars'; $('pWords').hidden = m !== 'words'; gen();
+  }
+  $('mChars').onclick = function(){ setMode('chars'); };
+  $('mWords').onclick = function(){ setMode('words'); };
+  $('again').onclick = gen;
+  $('len').oninput = function(){ $('lenV').textContent = this.value; gen(); };
+  $('wc').oninput = function(){ $('wcV').textContent = this.value; gen(); };
+  ['oU','oL','oD','oS','oA','wCap','wNum','wDash'].forEach(function(id){ $(id).onchange = gen; });
+  $('copy').onclick = function(){
+    var t = $('out').textContent, done = function(){ var e = $('toast'); e.classList.add('on'); setTimeout(function(){ e.classList.remove('on'); }, 1600); };
+    if (navigator.clipboard) navigator.clipboard.writeText(t).then(done, function(){});
+    else { var r = document.createRange(); r.selectNodeContents($('out')); var s = getSelection(); s.removeAllRanges(); s.addRange(r); document.execCommand('copy'); done(); }
+  };
+  gen();
+})();
+</script>
+</body>
+</html>

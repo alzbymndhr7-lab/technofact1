@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>فاحص قوة كلمة السر | تكنو فاكت</title>
+<meta name="description" content="افحص قوة كلمة السر واعرف كم يحتاج المخترق لتخمينها، مع نصائح لتحسينها. الفحص يتم داخل متصفحك فقط ولا تُرسل كلمة السر لأي مكان.">
+<link rel="canonical" href="https://alzbymndhr7-lab.github.io/technofact1/tools/password-checker/">
+<meta property="og:title" content="فاحص قوة كلمة السر | تكنو فاكت">
+<meta property="og:description" content="اعرف خلال ثانية هل كلمة سرك قوية، وكم يحتاج المخترق لتخمينها.">
+<meta property="og:image" content="https://alzbymndhr7-lab.github.io/technofact1/images/projects/password-checker.webp">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../tools.css">
+</head>
+<body>
+<header class="top"><div class="in">
+  <a class="logo" href="../../"><i>TF</i>تكنو فاكت</a>
+  <nav aria-label="الأدوات"><a href="./" aria-current="page">فاحص كلمة السر</a><a href="../password-generator/">مولّد كلمات السر</a><a href="../link-checker/">فاحص الروابط</a><a href="../../#projects">كل المشاريع</a></nav>
+</div></header>
+<main>
+  <span class="kick">// أداة مجانية</span>
+  <h1>فاحص قوة كلمة السر</h1>
+  <p class="lead">اكتب كلمة سر وشاهد مدى قوتها، وكم يحتاج المخترق لتخمينها، وما الذي يمكنك تحسينه.</p>
+
+  <div class="card">
+    <label for="pw">كلمة السر</label>
+    <div class="field">
+      <input id="pw" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="اكتب كلمة السر هنا" dir="ltr">
+      <button class="btn sm in-btn" id="toggle" type="button" aria-pressed="false">إظهار</button>
+    </div>
+    <div class="note">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+      <span>الفحص يتم داخل متصفحك فقط. كلمة السر لا تُرسل ولا تُحفظ في أي مكان. ومع ذلك، الأفضل أن تجرّب كلمة <strong>تشبه</strong> كلمتك، لا كلمتك الحقيقية.</span>
+    </div>
+
+    <div id="result" aria-live="polite">
+      <div class="meter" role="img" id="meterWrap" aria-label="مؤشر القوة"><b id="meter"></b></div>
+      <div class="verdict"><strong id="label">اكتب كلمة سر للبدء</strong><span id="sub"></span></div>
+      <div class="stats" id="stats" hidden>
+        <div class="stat"><small>وقت التخمين (هجوم سريع)</small><b id="tFast"></b></div>
+        <div class="stat"><small>وقت التخمين (موقع محمي)</small><b id="tSlow"></b></div>
+        <div class="stat"><small>الطول</small><b id="len"></b></div>
+      </div>
+      <ul class="checks" id="checks"></ul>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2>كيف نقيس القوة؟</h2>
+    <p>نحسب عدد الاحتمالات التي يجب أن يجرّبها المخترق، بحسب طول الكلمة ونوع الرموز فيها. ثم نخصم منها نقاط الضعف المعروفة: الكلمات الشائعة مثل <strong>123456</strong> و<strong>password</strong>، والتكرار، والتسلسلات مثل <strong>abcd</strong> و<strong>qwerty</strong>، والسنوات وأرقام الهواتف.</p>
+    <p><strong>«الهجوم السريع»</strong> يفترض أن قاعدة كلمات سر مسرّبة وقعت بيد المخترق ويجرّب مليارات المحاولات في الثانية. و<strong>«الموقع المحمي»</strong> يفترض أنه يحاول الدخول مباشرة، والموقع يبطئه ويحظره بعد محاولات قليلة.</p>
+    <h2>ثلاث قواعد تكفيك</h2>
+    <ul>
+      <li><strong>الطول أهم من التعقيد:</strong> جملة من 4 كلمات عشوائية أقوى من كلمة قصيرة مليئة بالرموز.</li>
+      <li><strong>كلمة سر مختلفة لكل حساب:</strong> حتى لا يفتح تسريبٌ واحد كل حساباتك.</li>
+      <li><strong>فعّل التحقق بخطوتين:</strong> فهو يحميك حتى لو عُرفت كلمة السر.</li>
+    </ul>
+    <h2>أدوات أخرى</h2>
+    <div class="more">
+      <a href="../password-generator/"><b>مولّد كلمات السر</b><small>كلمات سر قوية وعشوائية بضغطة زر</small></a>
+      <a href="../link-checker/"><b>هل هذا الرابط مشبوه؟</b><small>اكشف علامات التصيد قبل أن تضغط</small></a>
+    </div>
+  </section>
+</main>
+<footer>© تكنو فاكت · أداة تعليمية تعطي تقديراً تقريبياً</footer>
+
+<script>
+(function(){
+  var COMMON = ['123456','password','12345678','qwerty','123456789','12345','1234','111111','1234567','dragon','123123','baseball','abc123','football','monkey','letmein','696969','shadow','master','666666','qwertyuiop','123321','mustang','1234567890','michael','654321','superman','1qaz2wsx','7777777','121212','000000','qazwsx','123qwe','killer','trustno1','jordan','jennifer','zxcvbnm','asdfgh','hunter','buster','soccer','harley','batman','andrew','tigger','sunshine','iloveyou','2000','charlie','robert','thomas','hockey','ranger','daniel','starwars','klaster','112233','george','computer','michelle','jessica','pepper','1111','zxcvbn','555555','11111111','131313','freedom','777777','pass','maggie','159753','aaaaaa','ginger','princess','joshua','cheese','amanda','summer','love','ashley','nicole','chelsea','biteme','matthew','access','yankees','987654321','dallas','austin','thunder','taylor','matrix','admin','welcome','login','passw0rd','p@ssw0rd','p@ssword','qwerty123','password1','password123','iloveyou1','admin123','root','toor','changeme','secret','abcdef','abcd1234','a1b2c3','q1w2e3r4','1q2w3e4r','zaq12wsx','mohammad','mohamed','muhammad','ahmad','ahmed','ali','omar','allah','palestine','jordan123','amman','cairo','riyadh','dubai','baghdad','habibi','barcelona','realmadrid','messi','ronaldo','liverpool','arsenal','manchester'];
+  var SEQ = ['abcdefghijklmnopqrstuvwxyz','qwertyuiopasdfghjklzxcvbnm','qwertyuiop','asdfghjkl','zxcvbnm','01234567890','1qaz2wsx3edc','qazwsxedc'];
+  var LEET = {'@':'a','4':'a','3':'e','1':'i','!':'i','0':'o','$':'s','5':'s','7':'t','+':'t'};
+  var $ = function(id){ return document.getElementById(id); };
+  var pw = $('pw');
+
+  function pool(s){
+    var n = 0;
+    if (/[a-z]/.test(s)) n += 26;
+    if (/[A-Z]/.test(s)) n += 26;
+    if (/[0-9]/.test(s)) n += 10;
+    if (/[^a-zA-Z0-9؀-ۿ\s]/.test(s)) n += 33;
+    if (/[؀-ۿ]/.test(s)) n += 36;
+    if (/\s/.test(s)) n += 1;
+    return Math.max(n, 1);
+  }
+  function deleet(s){ return s.toLowerCase().replace(/[@4310!$57+]/g, function(c){ return LEET[c] || c; }); }
+  function hasSeq(s){
+    var l = s.toLowerCase(), found = '';
+    SEQ.forEach(function(q){
+      var rq = q.split('').reverse().join('');
+      for (var i = 0; i + 4 <= q.length; i++) {
+        var a = q.substr(i, 4), b = rq.substr(i, 4);
+        if (l.indexOf(a) > -1 && !found) found = a;
+        if (l.indexOf(b) > -1 && !found) found = b;
+      }
+    });
+    return found;
+  }
+  function fmtTime(sec){
+    if (sec < 1) return 'أقل من ثانية';
+    var u = [['قرن',3153600000],['سنة',31536000],['شهر',2592000],['يوم',86400],['ساعة',3600],['دقيقة',60],['ثانية',1]];
+    if (sec > 3153600000 * 1000) return 'أكثر من 100 ألف سنة';
+    for (var i = 0; i < u.length; i++) {
+      if (sec >= u[i][1]) {
+        var n = Math.round(sec / u[i][1]);
+        var name = u[i][0];
+        if (name === 'قرن') return n === 1 ? 'قرن تقريباً' : n === 2 ? 'قرنان تقريباً' : n + ' قرناً تقريباً';
+        if (n === 1) return name + ' تقريباً';
+        var pl = {'سنة':'سنوات','شهر':'أشهر','يوم':'أيام','ساعة':'ساعات','دقيقة':'دقائق','ثانية':'ثوانٍ'}[name];
+        var two = {'سنة':'سنتان','شهر':'شهران','يوم':'يومان','ساعة':'ساعتان','دقيقة':'دقيقتان','ثانية':'ثانيتان'}[name];
+        if (n === 2) return two + ' تقريباً';
+        return n + ' ' + (n <= 10 ? pl : name) + ' تقريباً';
+      }
+    }
+    return 'أقل من ثانية';
+  }
+
+  function analyse(s){
+    var checks = [], bits = s.length * Math.log2(pool(s));
+    var low = s.toLowerCase(), dl = deleet(s);
+    var common = COMMON.indexOf(low) > -1 || COMMON.indexOf(dl) > -1 || COMMON.some(function(c){ return c.length >= 5 && (low.indexOf(c) > -1 || dl.indexOf(c) > -1); });
+    if (common) { bits = Math.min(bits, 14); checks.push(['bad','تحتوي على كلمة سر شائعة جداً، يجرّبها المخترقون أولاً.']); }
+    if (/(.)\1{2,}/.test(s)) { bits -= 8; checks.push(['warn','فيها حرف أو رقم مكرر أكثر من مرتين متتاليتين.']); }
+    var sq = hasSeq(s);
+    if (sq) { bits -= 10; checks.push(['warn','فيها تسلسل سهل التخمين مثل «' + sq + '».']); }
+    if (/(19[5-9]\d|20[0-3]\d)/.test(s)) { bits -= 6; checks.push(['warn','فيها سنة، وغالباً تكون سنة ميلاد يسهل تخمينها.']); }
+    if (/\d{7,}/.test(s)) { bits -= 8; checks.push(['warn','فيها رقم طويل يشبه رقم هاتف أو تاريخ.']); }
+    if (/^[a-z]+\d{1,4}$/i.test(s)) { bits -= 6; checks.push(['warn','كلمة يليها رقم في آخرها: نمط يعرفه المخترقون جيداً.']); }
+
+    if (s.length < 8) checks.push(['bad','قصيرة جداً. اجعلها 12 حرفاً على الأقل.']);
+    else if (s.length < 12) checks.push(['warn','الطول مقبول، لكن 12 حرفاً أو أكثر أفضل بكثير.']);
+    else checks.push(['ok','طولها ممتاز (' + s.length + ' حرفاً).']);
+
+    var kinds = [/[a-z]/,/[A-Z]/,/[0-9]/,/[^a-zA-Z0-9]/].filter(function(r){ return r.test(s); }).length;
+    if (kinds >= 3) checks.push(['ok','تجمع أنواعاً مختلفة من الرموز.']);
+    else checks.push(['info','أضف أنواعاً أخرى: حروفاً كبيرة، أو أرقاماً، أو رموزاً مثل # و!.']);
+
+    bits = Math.max(0, bits);
+    var guesses = Math.pow(2, bits) / 2;
+    return { bits: bits, checks: checks, fast: guesses / 1e10, slow: guesses / 10 };
+  }
+
+  var LEVELS = [
+    [28, 'ضعيفة جداً', 'var(--bad)', 'bad-t', 10],
+    [40, 'ضعيفة', 'var(--bad)', 'bad-t', 30],
+    [60, 'متوسطة', 'var(--warn)', 'warn-t', 55],
+    [80, 'قوية', 'var(--ok)', 'ok-t', 80],
+    [1e9, 'قوية جداً', 'var(--ok)', 'ok-t', 100]
+  ];
+  function esc(t){ return t.replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+  function update(){
+    var s = pw.value;
+    if (!s) {
+      $('meter').style.width = '0'; $('label').textContent = 'اكتب كلمة سر للبدء'; $('label').className = '';
+      $('sub').textContent = ''; $('stats').hidden = true; $('checks').innerHTML = ''; return;
+    }
+    var r = analyse(s), lv = LEVELS.filter(function(l){ return r.bits < l[0]; })[0];
+    $('meter').style.width = lv[4] + '%'; $('meter').style.background = lv[2];
+    $('meterWrap').setAttribute('aria-label', 'القوة: ' + lv[1]);
+    $('label').textContent = lv[1]; $('label').className = lv[3];
+    $('sub').textContent = 'حوالي ' + Math.round(r.bits) + ' بت من العشوائية';
+    $('stats').hidden = false;
+    $('tFast').textContent = fmtTime(r.fast);
+    $('tSlow').textContent = fmtTime(r.slow);
+    $('len').textContent = s.length + ' حرفاً';
+    var icon = {ok:'✓', warn:'!', bad:'✕', info:'i'};
+    $('checks').innerHTML = r.checks.map(function(c){ return '<li><span class="ic ' + c[0] + '" aria-hidden="true">' + icon[c[0]] + '</span><span>' + esc(c[1]) + '</span></li>'; }).join('');
+  }
+  pw.addEventListener('input', update);
+  $('toggle').addEventListener('click', function(){
+    var show = pw.type === 'password'; pw.type = show ? 'text' : 'password';
+    this.textContent = show ? 'إخفاء' : 'إظهار'; this.setAttribute('aria-pressed', show);
+  });
+})();
+</script>
+</body>
+</html>
