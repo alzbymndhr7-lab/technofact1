@@ -1,5 +1,28 @@
 [
   {
+    "slug": "huawei-convicted-us-trial",
+    "date": "2026-11-25",
+    "tags": [
+      "huawei",
+      "news",
+      "usa",
+      "china"
+    ],
+    "cover": "images/2026/cover-huawei-convicted-us-trial.webp",
+    "status": "published",
+    "featured": false,
+    "ar": {
+      "title": "إدانة هواوي في أمريكا بـ10 تهم: ماذا يعني ذلك لمستخدميها؟",
+      "excerpt": "هيئة محلّفين أمريكية تدين هواوي بالاحتيال المصرفي وسرقة أسرار تجارية وانتهاك عقوبات إيران. ما القصة وهل يتأثر هاتفك؟"
+    },
+    "en": {
+      "title": "",
+      "excerpt": ""
+    },
+    "readMin": 5,
+    "updated": "2026-11-25"
+  },
+  {
     "slug": "protect-x-account",
     "date": "2026-11-25",
     "tags": [
