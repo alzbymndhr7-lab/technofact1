@@ -6,7 +6,8 @@
     ['password-leak-checker', 'هل تسرّبت كلمة سري؟', 'اعرف إن ظهرت كلمة سرك في تسريبات'],
     ['password-checker', 'فاحص قوة كلمة السر', 'كم يحتاج المخترق لتخمين كلمتك'],
     ['password-generator', 'مولّد كلمات السر', 'كلمة سر قوية وعشوائية بضغطة زر'],
-    ['qr-generator', 'مولّد رمز QR', 'لرابط أو نص أو شبكة واي فاي']
+    ['qr-generator', 'مولّد رمز QR', 'لرابط أو نص أو شبكة واي فاي'],
+    ['prompt-generator', 'مولّد البرومبتات', 'برومبت مرتب لأي مهمة بالذكاء الاصطناعي']
   ];
   var here = (location.pathname.match(/tools\/([^\/]+)/) || [])[1];
   var nav = document.getElementById('tnav');

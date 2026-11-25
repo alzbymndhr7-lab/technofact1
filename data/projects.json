@@ -20,6 +20,26 @@
     }
   },
   {
+    "id": "prompt-generator",
+    "url": "https://alzbymndhr7-lab.github.io/technofact1/tools/prompt-generator/",
+    "repo": "",
+    "cover": "images/projects/prompt-generator.webp",
+    "tags": [
+      "ذكاء اصطناعي",
+      "JavaScript",
+      "برومبت"
+    ],
+    "featured": false,
+    "ar": {
+      "title": "مولّد البرومبتات للذكاء الاصطناعي",
+      "desc": "اختر المهمة (مقال، منشور، إيميل، تلخيص، ترجمة، برمجة، صورة، أفكار) واملأ التفاصيل، فتحصل على برومبت مرتب يعطيك نتائج أفضل، مع فتحه مباشرة في Claude أو ChatGPT."
+    },
+    "en": {
+      "title": "AI Prompt Generator",
+      "desc": "Pick a task, fill in a few details and get a well-structured prompt for ChatGPT, Claude or Gemini — open it in one click."
+    }
+  },
+  {
     "id": "link-checker",
     "url": "https://alzbymndhr7-lab.github.io/technofact1/tools/link-checker/",
     "repo": "",

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>مولّد البرومبتات للذكاء الاصطناعي | تكنو فاكت</title>
+<meta name="description" content="أنشئ برومبت مفصّلاً ومرتباً لـ ChatGPT وClaude وGemini: مقالات، منشورات سوشال، إيميلات، تلخيص، ترجمة، برمجة، وصور بالذكاء الاصطناعي.">
+<link rel="canonical" href="https://alzbymndhr7-lab.github.io/technofact1/tools/prompt-generator/">
+<meta property="og:title" content="مولّد البرومبتات للذكاء الاصطناعي | تكنو فاكت">
+<meta property="og:description" content="برومبت مرتب ومفصّل لأي مهمة بالذكاء الاصطناعي، بضغطة زر.">
+<meta property="og:image" content="https://alzbymndhr7-lab.github.io/technofact1/images/projects/prompt-generator.webp">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../tools.css">
+<style>.types{display:flex;flex-wrap:wrap;gap:8px}.types button{min-height:44px;padding:8px 14px;border-radius:12px;border:1px solid var(--line2);background:var(--bg2);color:var(--ink);font:inherit;font-weight:600;cursor:pointer}.types button[aria-pressed=true]{background:var(--a);border-color:var(--a);color:var(--aink)}.types button:hover{border-color:var(--a)}</style>
+</head>
+<body>
+<header class="top"><div class="in">
+  <a class="logo" href="../../"><i>TF</i>تكنو فاكت</a>
+  <nav aria-label="الأدوات" id="tnav"></nav>
+</div></header>
+<main>
+  <span class="kick">// أداة مجانية</span>
+  <h1>مولّد البرومبتات للذكاء الاصطناعي</h1>
+  <p class="lead">اختر ما تريده من الذكاء الاصطناعي واملأ بعض التفاصيل، فتحصل على برومبت مرتب ومفصّل يعطيك نتائج أفضل بكثير في ChatGPT وClaude وGemini.</p>
+
+  <div class="card">
+    <label>ماذا تريد؟</label>
+    <div class="types" id="types" role="group" aria-label="نوع المهمة"></div>
+
+    <div class="grid2" style="margin-top:18px" id="fields"></div>
+
+    <label for="extra" style="margin-top:16px">تفاصيل إضافية (اختياري)</label>
+    <textarea id="extra" style="min-height:80px" placeholder="أي معلومة تساعد: أمثلة، أشياء تريد تجنبها، نقاط لازم تُذكر…"></textarea>
+
+    <label class="opt" style="margin-top:12px"><input type="checkbox" id="ask" checked> اطلب منه أن يسألني إذا نقصته معلومات</label>
+  </div>
+
+  <div class="card">
+    <div class="row" style="justify-content:space-between">
+      <label style="margin:0">البرومبت الجاهز</label>
+      <span id="count" style="color:var(--mut);font-size:13px"></span>
+    </div>
+    <textarea id="out" readonly style="min-height:260px;margin-top:10px;font-size:15px" aria-live="polite"></textarea>
+    <div class="row" style="margin-top:12px">
+      <button class="btn pri" type="button" id="copy">نسخ البرومبت</button>
+      <a class="btn" id="openC" target="_blank" rel="noopener">افتح في Claude</a>
+      <a class="btn" id="openG" target="_blank" rel="noopener">افتح في ChatGPT</a>
+    </div>
+    <div class="note">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+      <span>البرومبت يُبنى داخل متصفحك من قوالب مجرّبة، ولا يُرسل أي شيء إلا إذا ضغطت «افتح». تقدر تعدّل عليه بعد النسخ كما تريد.</span>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2>لماذا البرومبت المفصّل أفضل؟</h2>
+    <p>الذكاء الاصطناعي لا يعرف عنك شيئاً. إذا كتبت «اكتب لي مقال عن الأمن»، سيخمّن الجمهور والطول والأسلوب. أما البرومبت الجيد فيحدد له <strong>الدور</strong> و<strong>السياق</strong> و<strong>المطلوب بالضبط</strong> و<strong>شكل النتيجة</strong>، فيعطيك ما تريده من أول مرة.</p>
+    <ul>
+      <li><strong>كن محدداً:</strong> «منشور فيسبوك من 80 كلمة لأصحاب المحلات» أفضل من «منشور تسويقي».</li>
+      <li><strong>أعطه مثالاً:</strong> إذا عندك نص يعجبك أسلوبه، ألصقه في التفاصيل الإضافية.</li>
+      <li><strong>حسّن بالحوار:</strong> النتيجة الأولى بداية. اطلب «أقصر» أو «أبسط» أو «بأسلوب أكثر رسمية».</li>
+      <li><strong>لا تشارك أسراراً:</strong> لا تضع كلمات سر أو أرقام بطاقات أو بيانات حساسة في أي برومبت.</li>
+    </ul>
+    <h2>أدوات أخرى</h2>
+    <div class="more" id="tmore"></div>
+  </section>
+</main>
+<footer>© تكنو فاكت</footer>
+<script>
+(function(){
+  var $ = function(id){ return document.getElementById(id); };
+  var F = {
+    topic:   { l:'الموضوع', ph:'مثلاً: كيف تحمي حسابك على واتساب', req:1 },
+    audience:{ l:'الجمهور', ph:'مثلاً: مبتدئون، طلاب، أصحاب محلات' },
+    tone:    { l:'الأسلوب', opts:['ودّي وبسيط','رسمي ومهني','حماسي ومقنع','تعليمي هادئ','فكاهي خفيف'] },
+    length:  { l:'الطول', opts:['قصير','متوسط','طويل ومفصّل'] },
+    lang:    { l:'لغة الإجابة', opts:['العربية الفصحى','العربية بلهجة بسيطة','الإنجليزية'] },
+    platform:{ l:'المنصة', opts:['فيسبوك','إنستغرام','لينكدإن','X (تويتر)','تيك توك (نص فيديو)','واتساب'] },
+    goal:    { l:'الهدف', ph:'مثلاً: طلب إجازة، متابعة عرض سعر، اعتذار' },
+    to:      { l:'المرسَل إليه', ph:'مثلاً: مديري، عميل، شركة' },
+    text:    { l:'النص الأصلي', ph:'الصق النص هنا', area:1, req:1 },
+    from:    { l:'من لغة', opts:['العربية','الإنجليزية','الفرنسية','التركية','أخرى (تُكتشف تلقائياً)'] },
+    tolang:  { l:'إلى لغة', opts:['الإنجليزية','العربية','الفرنسية','التركية','الألمانية'] },
+    code:    { l:'لغة البرمجة', opts:['JavaScript','Python','HTML و CSS','PHP','Java','C#','SQL','أي لغة مناسبة'] },
+    task:    { l:'ماذا تريد بالضبط؟', ph:'مثلاً: صفحة تسجيل دخول، أو اشرح لي الخطأ التالي', req:1 },
+    level:   { l:'مستواك', opts:['مبتدئ','متوسط','محترف'] },
+    subject: { l:'ماذا تريد في الصورة؟', ph:'مثلاً: قطة تقرأ كتاباً في مقهى ممطر', req:1 },
+    style:   { l:'النمط الفني', opts:['واقعي (صورة فوتوغرافية)','رسم رقمي','ثلاثي الأبعاد','أنمي','ألوان مائية','بسيط (Minimal)','سينمائي'] },
+    ratio:   { l:'أبعاد الصورة', opts:['مربعة 1:1','عرضية 16:9','طولية 9:16','4:3'] },
+    light:   { l:'الإضاءة والجو', opts:['طبيعية','ذهبية دافئة','ليلية ونيون','ناعمة ومشرقة','درامية'] },
+    count:   { l:'كم فكرة؟', opts:['5','10','20'] }
+  };
+  var TYPES = [
+    { id:'article', n:'مقال', f:['topic','audience','tone','length','lang'] },
+    { id:'social',  n:'منشور سوشال', f:['topic','platform','audience','tone','lang'] },
+    { id:'email',   n:'رسالة / إيميل', f:['goal','to','tone','length','lang'] },
+    { id:'summary', n:'تلخيص', f:['text','length','lang'] },
+    { id:'translate', n:'ترجمة', f:['text','from','tolang','tone'] },
+    { id:'explain', n:'شرح ودراسة', f:['topic','level','length','lang'] },
+    { id:'code',    n:'برمجة', f:['task','code','level'] },
+    { id:'image',   n:'صورة بالذكاء الاصطناعي', f:['subject','style','ratio','light'] },
+    { id:'ideas',   n:'أفكار', f:['topic','audience','count','lang'] }
+  ];
+  var type = TYPES[0], val = {};
+  function v(k){ return (val[k] || '').trim(); }
+  function vf(k){ return v(k) || (F[k].opts ? F[k].opts[0] : ''); }
+  function line(label, x){ return x ? '- ' + label + ': ' + x + '\n' : ''; }
+
+  var BUILD = {
+    article: function(){ return 'أنت كاتب محتوى محترف ولديك خبرة في هذا المجال.\n\nالمطلوب: اكتب مقالاً عن «' + v('topic') + '».\n\n' +
+      'التفاصيل:\n' + line('الجمهور', v('audience') || 'القارئ العام غير المتخصص') + line('الأسلوب', vf('tone')) + line('الطول', {'قصير':'حوالي 400 كلمة','متوسط':'حوالي 800 كلمة','طويل ومفصّل':'1200 كلمة أو أكثر'}[vf('length')]) + line('اللغة', vf('lang')) +
+      '\nشكل المقال:\n1. عنوان جذاب وواضح.\n2. مقدمة قصيرة تشد القارئ وتوضح ما سيستفيده.\n3. أقسام بعناوين فرعية، مع خطوات مرقمة أو نقاط حيث يناسب.\n4. خاتمة فيها الخلاصة وخطوة عملية للقارئ.\n\n' +
+      'تجنّب الحشو والعبارات العامة، ولا تخترع أرقاماً أو إحصائيات. إذا ذكرت معلومة قد تكون تغيّرت مؤخراً، نبّه إلى ذلك.'; },
+    social: function(){ var p = vf('platform'); return 'أنت خبير تسويق ومحتوى على ' + p + '.\n\nالمطلوب: اكتب منشوراً على ' + p + ' عن «' + v('topic') + '».\n\n' +
+      'التفاصيل:\n' + line('الجمهور', v('audience') || 'المتابعون العاديون') + line('الأسلوب', vf('tone')) + line('اللغة', vf('lang')) +
+      '\nالمطلوب في المنشور:\n- سطر أول قوي يوقف التمرير.\n- محتوى مختصر ومناسب لطبيعة ' + p + '.\n- دعوة واضحة للتفاعل في النهاية.\n- ' + (p.indexOf('تيك توك') > -1 ? 'اكتبه كنص فيديو قصير مقسّم إلى مشاهد مع ما يُقال في كل مشهد.' : 'من 3 إلى 5 هاشتاغات مناسبة.') +
+      '\n\nاكتب 3 نسخ مختلفة لأختار منها.'; },
+    email: function(){ return 'أنت مساعد خبير في كتابة الرسائل المهنية.\n\nالمطلوب: اكتب رسالة هدفها: ' + v('goal') + '.\n\n' +
+      'التفاصيل:\n' + line('المرسَل إليه', v('to')) + line('الأسلوب', vf('tone')) + line('الطول', vf('length')) + line('اللغة', vf('lang')) +
+      '\nالشروط:\n- ابدأ بتحية مناسبة للمرسَل إليه.\n- اذكر الهدف بوضوح في أول سطرين.\n- اختم بخطوة تالية واضحة أو طلب محدد.\n- إذا كانت إيميلاً، اقترح عنواناً (Subject) مناسباً.\n\nاكتب نسختين: واحدة مختصرة وواحدة أكثر تفصيلاً.'; },
+    summary: function(){ return 'لخّص النص التالي.\n\n' + line('الطول', {'قصير':'3 نقاط فقط','متوسط':'فقرة واحدة ثم أهم 5 نقاط','طويل ومفصّل':'ملخص مفصل بعناوين'}[vf('length')]) + line('اللغة', vf('lang')) +
+      '\nالشروط:\n- ابدأ بجملة واحدة تلخص الفكرة الأساسية.\n- حافظ على الأرقام والأسماء والتواريخ كما هي.\n- لا تضف أي معلومة غير موجودة في النص.\n\nالنص:\n"""\n' + v('text') + '\n"""'; },
+    translate: function(){ return 'أنت مترجم محترف.\n\nترجم النص التالي من ' + vf('from') + ' إلى ' + vf('tolang') + '.\n\n' + line('الأسلوب', vf('tone')) +
+      '\nالشروط:\n- ترجمة طبيعية كأن النص كُتب أصلاً بلغة الهدف، وليست ترجمة حرفية.\n- حافظ على المعنى والأرقام والأسماء.\n- إذا وجدت مصطلحاً له أكثر من ترجمة، اذكر البدائل في ملاحظة قصيرة بعد الترجمة.\n\nالنص:\n"""\n' + v('text') + '\n"""'; },
+    explain: function(){ var lv = vf('level'); return 'أنت معلّم ماهر تشرح الأفكار الصعبة ببساطة.\n\nاشرح لي: «' + v('topic') + '».\n\n' +
+      line('مستواي', lv) + line('الطول', vf('length')) + line('اللغة', vf('lang')) +
+      '\nطريقة الشرح:\n1. ابدأ بتعريف بسيط في جملة أو جملتين.\n2. استخدم مثالاً من الحياة اليومية أو تشبيهاً.\n3. اشرح الأجزاء الأساسية خطوة بخطوة.\n4. اذكر الأخطاء الشائعة في فهم الموضوع.\n5. اختم بـ 3 أسئلة قصيرة أختبر بها فهمي، مع الإجابات في النهاية.' +
+      (lv === 'مبتدئ' ? '\n\nتجنّب المصطلحات المعقدة، وإذا اضطررت لمصطلح فاشرحه.' : ''); },
+    code: function(){ return 'أنت مبرمج خبير في ' + vf('code') + ' ومعلّم صبور.\n\nالمطلوب: ' + v('task') + '\n\n' + line('لغة البرمجة', vf('code')) + line('مستواي', vf('level')) +
+      '\nالشروط:\n- اكتب كوداً كاملاً يعمل، وليس أجزاء ناقصة.\n- اتبع أفضل الممارسات واهتم بالأمان (لا تضع كلمات سر داخل الكود).\n- أضف تعليقات قصيرة توضح الأجزاء المهمة.\n- بعد الكود، اشرح كيف أشغّله خطوة بخطوة.\n' +
+      (vf('level') === 'مبتدئ' ? '- اشرح بلغة بسيطة، وافترض أنني لا أعرف المصطلحات المتقدمة.\n' : '') + '- إذا كان طلبي غير واضح أو فيه أكثر من حل، اذكر الخيارات وأسبابها.'; },
+    image: function(){
+      var st = {'واقعي (صورة فوتوغرافية)':'photorealistic photo, shot on a professional camera, sharp focus','رسم رقمي':'digital illustration, detailed','ثلاثي الأبعاد':'3D render, octane, soft shadows','أنمي':'anime style illustration','ألوان مائية':'watercolor painting, soft edges','بسيط (Minimal)':'minimalist flat design, clean background','سينمائي':'cinematic still, film grain, dramatic composition'}[vf('style')];
+      var li = {'طبيعية':'natural daylight','ذهبية دافئة':'warm golden hour lighting','ليلية ونيون':'night scene, neon lights','ناعمة ومشرقة':'soft bright lighting','درامية':'dramatic contrast lighting'}[vf('light')];
+      var ra = {'مربعة 1:1':'1:1','عرضية 16:9':'16:9','طولية 9:16':'9:16','4:3':'4:3'}[vf('ratio')];
+      return 'Create an image of: ' + v('subject') + '\n\nStyle: ' + st + '\nLighting: ' + li + '\nAspect ratio: ' + ra + '\nDetails: high quality, well-composed, coherent anatomy and proportions, no text or watermarks in the image.' +
+        '\n\n(ملاحظة: إذا كان مولّد الصور لا يفهم العربية جيداً، اكتب وصف الصورة بالإنجليزية في السطر الأول.)'; },
+    ideas: function(){ return 'أنت خبير في توليد الأفكار الإبداعية والعملية.\n\nأعطني ' + vf('count') + ' أفكار عن: «' + v('topic') + '».\n\n' + line('الجمهور', v('audience')) + line('اللغة', vf('lang')) +
+      '\nالشروط:\n- تنوّع الأفكار: بعضها سهل التنفيذ فوراً، وبعضها أكبر وأكثر إبداعاً.\n- لكل فكرة: عنوان قصير، وسطر يشرحها، ولماذا قد تنجح.\n- رتّبها من الأسهل تنفيذاً إلى الأصعب.\n- تجنّب الأفكار المكررة والعامة جداً.'; }
+  };
+
+  function renderTypes(){
+    $('types').innerHTML = TYPES.map(function(t){ return '<button type="button" data-t="' + t.id + '" aria-pressed="' + (t === type) + '">' + t.n + '</button>'; }).join('');
+    $('types').querySelectorAll('button').forEach(function(b){ b.onclick = function(){ type = TYPES.filter(function(t){ return t.id === b.dataset.t; })[0]; renderTypes(); renderFields(); build(); }; });
+  }
+  function esc(t){ return String(t).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function renderFields(){
+    $('fields').innerHTML = type.f.map(function(k){
+      var f = F[k], id = 'f_' + k, cur = val[k] || '';
+      var input = f.opts ? '<select class="inp" id="' + id + '">' + f.opts.map(function(o){ return '<option' + (o === cur ? ' selected' : '') + '>' + o + '</option>'; }).join('') + '</select>'
+        : f.area ? '<textarea id="' + id + '" style="min-height:120px" placeholder="' + esc(f.ph) + '">' + esc(cur) + '</textarea>'
+        : '<input class="inp" type="text" id="' + id + '" placeholder="' + esc(f.ph) + '" value="' + esc(cur) + '">';
+      return '<div' + (f.area ? ' style="grid-column:1/-1"' : '') + '><label for="' + id + '">' + f.l + (f.req ? ' <span class="bad-t">*</span>' : '') + '</label>' + input + '</div>';
+    }).join('');
+    type.f.forEach(function(k){ var e = $('f_' + k); e.addEventListener('input', function(){ val[k] = e.value; build(); }); e.addEventListener('change', function(){ val[k] = e.value; build(); }); });
+  }
+  function build(){
+    var missing = type.f.filter(function(k){ return F[k].req && !v(k); });
+    var out;
+    if (missing.length) out = 'اكتب «' + F[missing[0]].l + '» ليظهر البرومبت هنا…';
+    else {
+      out = BUILD[type.id]();
+      if ($('extra').value.trim()) out += (type.id === 'image' ? '\n\nExtra details: ' : '\n\nمعلومات إضافية مهمة:\n') + $('extra').value.trim();
+      if ($('ask').checked && type.id !== 'image') out += '\n\nقبل أن تبدأ: إذا كانت هناك معلومة ناقصة تؤثر كثيراً على النتيجة، اسألني عنها أولاً.';
+    }
+    $('out').value = out;
+    var ready = !missing.length;
+    $('count').textContent = ready ? (out.trim().split(/\s+/).length + ' كلمة') : '';
+    ['copy','openC','openG'].forEach(function(id){ $(id).toggleAttribute('aria-disabled', !ready); $(id).style.opacity = ready ? '' : '.5'; $(id).style.pointerEvents = ready ? '' : 'none'; });
+    $('openC').href = ready ? 'https://claude.ai/new?q=' + encodeURIComponent(out) : '#';
+    $('openG').href = ready ? 'https://chatgpt.com/?q=' + encodeURIComponent(out) : '#';
+  }
+  $('extra').addEventListener('input', build);
+  $('ask').addEventListener('change', build);
+  $('copy').addEventListener('click', function(){
+    var t = $('out').value, btn = this;
+    var done = function(){ btn.textContent = 'تم النسخ ✓'; setTimeout(function(){ btn.textContent = 'نسخ البرومبت'; }, 1600); };
+    if (navigator.clipboard) navigator.clipboard.writeText(t).then(done, function(){ $('out').select(); document.execCommand('copy'); done(); });
+    else { $('out').select(); document.execCommand('copy'); done(); }
+  });
+  renderTypes(); renderFields(); build();
+})();
+</script>
+<script src="../tools.js"></script>
+</body>
+</html>
