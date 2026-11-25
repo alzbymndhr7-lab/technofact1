@@ -1,5 +1,27 @@
 [
   {
+    "slug": "password-manager-guide",
+    "date": "2026-11-25",
+    "tags": [
+      "passwords",
+      "security",
+      "password-manager"
+    ],
+    "cover": "images/2026/cover-password-manager-guide.webp",
+    "status": "published",
+    "featured": false,
+    "ar": {
+      "title": "مدير كلمات السر: دليلك لحماية كل حساباتك بكلمة واحدة",
+      "excerpt": "ما هو مدير كلمات السر، وهل هو آمن، وكيف تختار بين آبل وجوجل وBitwarden وتبدأ استخدامه في 6 خطوات بسيطة."
+    },
+    "en": {
+      "title": "",
+      "excerpt": ""
+    },
+    "readMin": 5,
+    "updated": "2026-11-25"
+  },
+  {
     "slug": "huawei-convicted-us-trial",
     "date": "2026-11-25",
     "tags": [
