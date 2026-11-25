@@ -38,6 +38,16 @@ The site owner asked for fully automatic publishing (no review), so quality and 
 - Tags: 2–4 lowercase latin tags.
 - Never copy text from sources; write in your own words (quotes under 15 words, max one per source).
 
+### Link to the site's free tools
+End every **security** article (and any other article where it fits naturally) with a short section
+`## أدوات مجانية تساعدك` listing 1–2 of these tools as Markdown links with one line each — pick the ones
+that match the article (passwords → checker + generator; phishing/messages/links → link checker):
+- [فاحص قوة كلمة السر](https://alzbymndhr7-lab.github.io/technofact1/tools/password-checker/) — اعرف كم يحتاج المخترق لتخمين كلمة سرك.
+- [مولّد كلمات السر القوية](https://alzbymndhr7-lab.github.io/technofact1/tools/password-generator/) — كلمة سر قوية وعشوائية بضغطة زر.
+- [هل هذا الرابط مشبوه؟](https://alzbymndhr7-lab.github.io/technofact1/tools/link-checker/) — افحص أي رابط قبل أن تضغط عليه.
+Also, where the article tells the reader to choose a strong password or warns about suspicious links,
+you may link the relevant tool inline once. Never invent other tool URLs.
+
 ## 4. Publish
 1. Write the body to `automation/tmp/body.md` and the spec to `automation/tmp/post.json`:
    ```json
