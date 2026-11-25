@@ -63,3 +63,7 @@ Optimizely شركة تقدّم خدمة يستخدمها أصحاب المواق
 - [Newsweek: Cyber Attack Hits 178 Major Websites: Full List of Organizations](https://www.newsweek.com/cyber-attack-websites-affected-12725863)
 - [Cybernews: Optimizely script attack hit 178 major websites](https://cybernews.com/security/178-company-websites-infected-malware/)
 - [MacDailyNews: Major websites compromised via Optimizely supply-chain attack](https://macdailynews.com/2026/11/18/major-websites-compromised-via-optimizely-supply-chain-attack-to-steal-crypto-and-credit-card-info-from-iphone-users/)
+
+## أدوات مجانية تساعدك
+
+- [فاحص قوة كلمة السر](https://alzbymndhr7-lab.github.io/technofact1/tools/password-checker/) — اعرف كم يحتاج المخترق لتخمين كلمة سرك.
