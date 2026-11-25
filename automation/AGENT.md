@@ -41,10 +41,13 @@ The site owner asked for fully automatic publishing (no review), so quality and 
 ### Link to the site's free tools
 End every **security** article (and any other article where it fits naturally) with a short section
 `## أدوات مجانية تساعدك` listing 1–2 of these tools as Markdown links with one line each — pick the ones
-that match the article (passwords → checker + generator; phishing/messages/links → link checker):
+that match the article (passwords → leak checker / strength checker / generator; scam messages, fake calls, "verify your account" → scam message checker; links → link checker; Wi-Fi sharing → QR generator):
 - [فاحص قوة كلمة السر](https://alzbymndhr7-lab.github.io/technofact1/tools/password-checker/) — اعرف كم يحتاج المخترق لتخمين كلمة سرك.
 - [مولّد كلمات السر القوية](https://alzbymndhr7-lab.github.io/technofact1/tools/password-generator/) — كلمة سر قوية وعشوائية بضغطة زر.
 - [هل هذا الرابط مشبوه؟](https://alzbymndhr7-lab.github.io/technofact1/tools/link-checker/) — افحص أي رابط قبل أن تضغط عليه.
+- [فاحص رسائل الاحتيال](https://alzbymndhr7-lab.github.io/technofact1/tools/scam-message-checker/) — اكشف علامات النصب في أي رسالة وصلتك.
+- [هل تسرّبت كلمة سري؟](https://alzbymndhr7-lab.github.io/technofact1/tools/password-leak-checker/) — اعرف إن ظهرت كلمة سرك في تسريبات.
+- [مولّد رمز QR](https://alzbymndhr7-lab.github.io/technofact1/tools/qr-generator/) — رمز QR لرابط أو شبكة واي فاي.
 Also, where the article tells the reader to choose a strong password or warns about suspicious links,
 you may link the relevant tool inline once. Never invent other tool URLs.
 

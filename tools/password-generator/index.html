@@ -17,7 +17,7 @@
 <body>
 <header class="top"><div class="in">
   <a class="logo" href="../../"><i>TF</i>تكنو فاكت</a>
-  <nav aria-label="الأدوات"><a href="../password-checker/">فاحص كلمة السر</a><a href="./" aria-current="page">مولّد كلمات السر</a><a href="../link-checker/">فاحص الروابط</a><a href="../../#projects">كل المشاريع</a></nav>
+  <nav aria-label="الأدوات" id="tnav"></nav>
 </div></header>
 <main>
   <span class="kick">// أداة مجانية</span>
@@ -74,10 +74,7 @@
       <li><strong>عبارة مرور:</strong> كلمات عشوائية مثل <strong>Maple-River-Toast-Owl-Jazz-42</strong>. أسهل في الحفظ والكتابة، ومع 6 كلمات أو أكثر تكون قوية. مناسبة لكلمة سر هاتفك أو مدير كلمات السر نفسه.</li>
     </ul>
     <h2>أدوات أخرى</h2>
-    <div class="more">
-      <a href="../password-checker/"><b>فاحص قوة كلمة السر</b><small>اعرف كم يحتاج المخترق لتخمين كلمتك</small></a>
-      <a href="../link-checker/"><b>هل هذا الرابط مشبوه؟</b><small>اكشف علامات التصيد قبل أن تضغط</small></a>
-    </div>
+    <div class="more" id="tmore"></div>
   </section>
 </main>
 <footer>© تكنو فاكت</footer>
@@ -134,5 +131,6 @@
   gen();
 })();
 </script>
+<script src="../tools.js"></script>
 </body>
 </html>

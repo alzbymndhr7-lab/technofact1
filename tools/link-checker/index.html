@@ -17,7 +17,7 @@
 <body>
 <header class="top"><div class="in">
   <a class="logo" href="../../"><i>TF</i>تكنو فاكت</a>
-  <nav aria-label="الأدوات"><a href="../password-checker/">فاحص كلمة السر</a><a href="../password-generator/">مولّد كلمات السر</a><a href="./" aria-current="page">فاحص الروابط</a><a href="../../#projects">كل المشاريع</a></nav>
+  <nav aria-label="الأدوات" id="tnav"></nav>
 </div></header>
 <main>
   <span class="kick">// أداة مجانية</span>
@@ -54,10 +54,7 @@
     <h2>القاعدة الذهبية</h2>
     <p>البنوك وفيسبوك وواتساب <strong>لا تطلب منك أبداً</strong> كلمة السر أو رمز التحقق عبر رابط في رسالة. إذا وصلتك رسالة تستعجلك، افتح التطبيق الرسمي بنفسك بدل الضغط على الرابط.</p>
     <h2>أدوات أخرى</h2>
-    <div class="more">
-      <a href="../password-checker/"><b>فاحص قوة كلمة السر</b><small>اعرف كم يحتاج المخترق لتخمين كلمتك</small></a>
-      <a href="../password-generator/"><b>مولّد كلمات السر</b><small>كلمات سر قوية وعشوائية بضغطة زر</small></a>
-    </div>
+    <div class="more" id="tmore"></div>
   </section>
 </main>
 <footer>© تكنو فاكت · أداة تعليمية تعطي تقديراً تقريبياً</footer>
@@ -153,5 +150,6 @@
   $('demo').addEventListener('click', function(){ $('url').value = 'http://faceb00k-login.secure-verify.xyz/account/confirm'; run(); });
 })();
 </script>
+<script src="../tools.js"></script>
 </body>
 </html>

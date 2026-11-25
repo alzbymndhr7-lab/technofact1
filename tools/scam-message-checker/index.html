@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>فاحص رسائل الاحتيال | تكنو فاكت</title>
+<meta name="description" content="الصق أي رسالة SMS أو واتساب وصلتك لتكشف علامات النصب فيها: طلب رمز التحقق، والاستعجال، والجوائز الوهمية، والروابط المشبوهة. الفحص داخل متصفحك فقط.">
+<link rel="canonical" href="https://alzbymndhr7-lab.github.io/technofact1/tools/scam-message-checker/">
+<meta property="og:title" content="فاحص رسائل الاحتيال | تكنو فاكت">
+<meta property="og:description" content="اكشف علامات النصب في أي رسالة وصلتك قبل أن ترد أو تضغط.">
+<meta property="og:image" content="https://alzbymndhr7-lab.github.io/technofact1/images/projects/scam-message-checker.webp">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../tools.css">
+</head>
+<body>
+<header class="top"><div class="in">
+  <a class="logo" href="../../"><i>TF</i>تكنو فاكت</a>
+  <nav aria-label="الأدوات" id="tnav"></nav>
+</div></header>
+<main>
+  <span class="kick">// أداة مجانية</span>
+  <h1>فاحص رسائل الاحتيال</h1>
+  <p class="lead">وصلتك رسالة SMS أو واتساب أو بريد تطلب منك شيئاً؟ الصقها هنا لتكشف علامات النصب فيها قبل أن ترد أو تضغط.</p>
+
+  <form class="card" id="form">
+    <label for="msg">نص الرسالة</label>
+    <textarea id="msg" placeholder="الصق الرسالة هنا…"></textarea>
+    <div class="row" style="margin-top:12px">
+      <button class="btn pri" type="submit">افحص الرسالة</button>
+      <button class="btn" type="button" id="demo">جرّب مثالاً</button>
+      <button class="btn" type="button" id="clear">مسح</button>
+    </div>
+    <div class="note">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+      <span>الفحص يتم داخل متصفحك فقط، ولا تُرسل الرسالة لأي مكان. احذف منها أي رقم حساب أو رمز قبل لصقها إن أردت. والنتيجة تقدير يساعدك، وليست حكماً نهائياً.</span>
+    </div>
+
+    <div id="result" aria-live="polite" hidden>
+      <div class="meter"><b id="meter"></b></div>
+      <div class="verdict"><strong id="label"></strong><span id="sub"></span></div>
+      <ul class="checks" id="checks"></ul>
+      <div id="advice"></div>
+    </div>
+  </form>
+
+  <section class="prose">
+    <h2>أشهر أنواع رسائل النصب</h2>
+    <ul>
+      <li><strong>«رمز التحقق وصلك بالغلط»:</strong> شخص يطلب منك رمزاً وصلك برسالة. هذا الرمز مفتاح حسابك، ولا يُعطى لأحد أبداً.</li>
+      <li><strong>«حسابك سيُغلق»:</strong> رسالة باسم البنك أو واتساب أو فيسبوك تستعجلك لتحديث بياناتك عبر رابط.</li>
+      <li><strong>«شحنتك متوقفة»:</strong> رسالة باسم شركة توصيل تطلب رسوماً صغيرة عبر رابط، وهدفها سرقة بطاقتك.</li>
+      <li><strong>«مبروك ربحت»:</strong> جائزة أو سحب لم تشارك فيه، ومطلوب منك دفع رسوم أو إرسال بياناتك.</li>
+      <li><strong>«ماما هذا رقمي الجديد»:</strong> شخص يدّعي أنه قريبك ويطلب تحويل مال بسرعة. اتصل بقريبك على رقمه القديم قبل أي تحويل.</li>
+      <li><strong>الاستثمار والوظائف:</strong> أرباح «مضمونة» يومية، أو وظيفة من البيت مقابل لايكات أو رسوم تسجيل.</li>
+    </ul>
+    <h2>أدوات أخرى</h2>
+    <div class="more" id="tmore"></div>
+  </section>
+</main>
+<footer>© تكنو فاكت</footer>
+<script>
+(function(){
+  var $ = function(id){ return document.getElementById(id); };
+  // [weight, level, message, regex]
+  var RULES = [
+    [45,'bad','يطلب منك رمز تحقق أو كوداً وصلك. لا تعطِ هذا الرمز لأي أحد، حتى لو قال إنه من الشركة أو صديقك.', /(رمز|كود|الرمز|الكود)\s*(التحقق|التفعيل|السري|اللي وصلك|الذي وصلك|وصلك)|ارسل(ي)?\s*(لي)?\s*(الرمز|الكود)|ابعث(ي)?\s*(لي)?\s*(الرمز|الكود)|وصلك\s*(رمز|كود)|(الكود|الرمز)\s*(اللي|الي|الّي)\s*(وصلك|اجاك|إجاك|جاك)|(كود|رمز)[^\n]{0,30}بالغلط|ابع[تث](ي)?\s*(لي|لي)?\s*(الكود|الرمز)|ابع[تث]لي\s*(الكود|الرمز)|اعطيني\s*(الكود|الرمز)|(otp|verification code|send me the code|the code you received)/i],
+    [40,'bad','يطلب كلمة سر أو رقماً سرياً أو بيانات بطاقة. لا توجد جهة حقيقية تطلب هذه عبر رسالة.', /كلمة\s*(السر|المرور)|الرقم\s*السري|رقم\s*البطاقة|تاريخ\s*(الانتهاء|انتهاء البطاقة)|cvv|cvc|الرمز\s*الموجود\s*خلف|password|pin\s*code|card\s*number/i],
+    [35,'bad','يطلب منك تحويل مال أو دفع رسوم. توقف وتأكد من الطرف الآخر بطريقة مستقلة قبل أي دفع.', /حو(ّ)?ل(ي)?\s*(لي)?|تحويل\s*(مبلغ|مال|فلوس)|ارسل(ي)?\s*(مبلغ|فلوس)|ابعث(ي)?\s*(مبلغ|فلوس|مصاري)|رسوم\s*(جمركية|الشحن|التوصيل|رمزية|التسجيل)|ادفع(ي)?\s*(رسوم|مبلغ)|بطاقة\s*(شحن|ايتونز|جوجل بلاي)|transfer|wire\s*money|gift\s*card|pay\s*(a|the)?\s*fee/i],
+    [30,'bad','يدّعي أنه قريبك أو صديقك من رقم جديد. اتصل به على رقمه القديم قبل أن تصدّق.', /(هذا|هاد|هاض|هيدا)\s*(رقمي|نمرتي)\s*(الجديد|الجديدة)|غيرت\s*(رقمي|نمرتي)|(ماما|بابا|يما|يابا|أمي|ابوي)[^\n]{0,40}(رقمي|نمرتي|تلفوني|جوالي)|new\s*number|my\s*phone\s*(broke|is broken)/i],
+    [25,'warn','يحاول استعجالك أو إخافتك. المحتالون يريدونك أن تتصرف قبل أن تفكر.', /خلال\s*(\d+|ساعة|ساعتين|24|يوم)|فورا|فوراً|حالا|حالاً|عاجل|آخر\s*(فرصة|مهلة|تحذير)|قبل\s*فوات|سيتم\s*(إيقاف|ايقاف|إغلاق|اغلاق|حظر|تعليق|حذف)|سيُ?(غلق|حذف|حظر|عل(ّ)?ق)|تم\s*(إيقاف|ايقاف|تعليق|تجميد)|urgent|immediately|within\s*24|suspended|will\s*be\s*(closed|blocked|deleted)/i],
+    [25,'warn','يتحدث عن جائزة أو ربح أو هدية لم تطلبها.', /مبروك|مبارك\s*لك|ربحت|فزت|فائز|الفائزين|جائزة|سحب|هدية\s*مجانية|كاش\s*باك|congratulations|you\s*(have\s*)?won|winner|prize|free\s*gift|lottery/i],
+    [25,'warn','يعدك بأرباح كبيرة أو مضمونة أو وظيفة سهلة. هذه أشهر طعوم النصب.', /أرباح|ارباح|ربح\s*يومي|دخل\s*يومي|مضمون|بدون\s*رأس\s*مال|استثمار|تداول|عملات\s*رقمية|بيتكوين|عمل\s*من\s*(البيت|المنزل)|وظيفة\s*(من البيت|اونلاين|أونلاين)|لايكات|guaranteed|profit|invest(ment)?|crypto|work\s*from\s*home|daily\s*income/i],
+    [20,'warn','يتحدث باسم بنك أو جهة رسمية أو شركة توصيل. تواصل مع الجهة على رقمها الرسمي، لا على الرقم أو الرابط الذي في الرسالة.', /البنك|بنك|المصرف|حسابك\s*البنكي|بطاقتك|الصراف|شحنتك|طردك|الشحنة|الطرد|أرامكس|ارامكس|dhl|fedex|البريد|الجمارك|وزارة|الضريبة|المرور|مخالفة|bank|parcel|package|delivery|customs/i],
+    [20,'warn','يطلب بيانات شخصية أو صورة هويتك. لا ترسلها لأي جهة لا تعرفها.', /الرقم\s*الوطني|رقم\s*الهوية|صورة\s*(الهوية|الجواز|البطاقة)|جواز\s*السفر|تاريخ\s*ميلادك|حدث(ّ)?\s*بياناتك|تحديث\s*(البيانات|بياناتك)|تأكيد\s*(البيانات|بياناتك|حسابك|الحساب)|national\s*id|passport|update\s*your\s*(details|info)|verify\s*your\s*(account|identity)/i],
+    [15,'warn','يطلب منك الاتصال برقم أو إضافته على واتساب أو تيليغرام للمتابعة.', /اتصل(ي)?\s*(بنا|على|بالرقم)|كلمنا|راسلنا\s*على|تواصل(ي)?\s*(معنا)?\s*على\s*(واتساب|تيليجرام|تيليغرام|تلغرام)|call\s*(us|now)|contact\s*us\s*on\s*whatsapp|telegram/i]
+  ];
+  var SHORT = /(bit\.ly|tinyurl\.com|t\.ly|cutt\.ly|is\.gd|rb\.gy|ow\.ly|shorturl\.at|tiny\.cc|s\.id|rebrand\.ly|v\.gd|qrco\.de)/i;
+  var BADTLD = /\.(xyz|top|click|link|work|support|live|icu|buzz|rest|shop|online|site|cfd|sbs|monster|loan|tk|ml|cf|ga|gq|zip|mov|cyou|vip|win|bid)(\/|$|\?)/i;
+  var BRANDS = /(faceb[o0]{2}k|instagram|whatsapp|wats?app|paypal|apple|icloud|google|gmail|microsoft|outlook|netflix|amazon|aramex|dhl|fedex|binance|tiktok|snapchat|telegram|zain|orange|umniah|bank)/i;
+
+  function esc(t){ return String(t).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function analyse(text){
+    var t = text.normalize('NFKC'), score = 0, out = [];
+    RULES.forEach(function(r){ if (r[3].test(t)) { score += r[0]; out.push([r[1], r[2]]); } });
+    var urls = t.match(/(https?:\/\/[^\s<>"']+|www\.[^\s<>"']+|\b[a-z0-9-]+\.(com|net|org|xyz|top|click|link|info|online|site|shop|live|me|ly|co|io|app)(\/[^\s<>"']*)?)/gi) || [];
+    if (urls.length) {
+      var bad = urls.filter(function(u){ return SHORT.test(u) || BADTLD.test(u) || /\d{1,3}(\.\d{1,3}){3}/.test(u) || /xn--/.test(u) || /@/.test(u) || (BRANDS.test(u) && /[-.](secure|verify|login|update|account|support|help)|-(com|net)\b/i.test(u)); });
+      if (bad.length) { score += 35; out.push(['bad','فيها رابط مشبوه: ⁦' + bad[0].slice(0, 60) + '⁩. لا تضغط عليه. يمكنك فحصه بأداة «هل هذا الرابط مشبوه؟».']); }
+      else { score += 10; out.push(['info','فيها رابط. قبل الضغط تأكد أنه يقود للموقع الرسمي، أو افحصه بأداة «هل هذا الرابط مشبوه؟».']); }
+    }
+    if (/[!؟?]{3,}/.test(t) || (t.match(/[A-Z]{6,}/g) || []).length) { score += 5; out.push(['info','أسلوب الرسالة مبالغ فيه (علامات تعجب كثيرة أو أحرف كبيرة)، وهذا شائع في رسائل النصب.']); }
+    if (out.some(function(c){ return c[0] === 'bad'; })) score = Math.max(score, 50);
+    return { score: Math.min(100, score), checks: out, urls: urls.length };
+  }
+  var ADVICE = {
+    bad: '<ul class="checks"><li><span class="ic bad" aria-hidden="true">!</span><span><strong>لا ترد ولا تضغط على أي رابط ولا تحوّل أي مبلغ.</strong> احظر المرسل وأبلغ عنه من التطبيق. وإذا كانت باسم جهة تعرفها، اتصل بها على رقمها الرسمي.</span></li></ul>',
+    warn: '<ul class="checks"><li><span class="ic warn" aria-hidden="true">!</span><span>تمهّل وتأكد من المرسل بطريقة مستقلة قبل أن تفعل ما تطلبه الرسالة.</span></li></ul>',
+    ok: ''
+  };
+  function run(e){
+    if (e) e.preventDefault();
+    var v = $('msg').value.trim(); if (!v) return $('msg').focus();
+    var r = analyse(v);
+    var lv = r.score >= 50 ? ['خطر: رسالة احتيال على الأغلب','bad-t','var(--bad)','bad'] : r.score >= 20 ? ['احذر: فيها علامات مريبة','warn-t','var(--warn)','warn'] : ['لم نجد علامات احتيال واضحة','ok-t','var(--ok)','ok'];
+    $('result').hidden = false;
+    $('label').textContent = lv[0]; $('label').className = lv[1];
+    $('sub').textContent = r.checks.length ? r.checks.length + (r.checks.length === 1 ? ' ملاحظة' : r.checks.length === 2 ? ' ملاحظتان' : ' ملاحظات') : '';
+    $('meter').style.width = Math.max(6, r.score) + '%'; $('meter').style.background = lv[2];
+    var icon = {ok:'✓', warn:'!', bad:'✕', info:'i'};
+    var list = r.checks.length ? r.checks : [['ok','لم تظهر الكلمات والأساليب المعتادة في رسائل النصب. ومع ذلك، لا تعطِ رموزاً أو بيانات لأي أحد عبر الرسائل.']];
+    $('checks').innerHTML = list.map(function(c){ return '<li><span class="ic ' + c[0] + '" aria-hidden="true">' + icon[c[0]] + '</span><span>' + esc(c[1]) + '</span></li>'; }).join('');
+    $('advice').innerHTML = ADVICE[lv[3]];
+  }
+  $('form').addEventListener('submit', run);
+  $('demo').addEventListener('click', function(){
+    $('msg').value = 'عميلنا العزيز، تم إيقاف حسابك البنكي مؤقتاً لأسباب أمنية. يرجى تحديث بياناتك خلال 24 ساعة عبر الرابط: http://bank-secure-update.xyz/login وإرسال رمز التحقق الذي سيصلك لتفعيل الحساب.';
+    run();
+  });
+  $('clear').addEventListener('click', function(){ $('msg').value = ''; $('result').hidden = true; $('msg').focus(); });
+})();
+</script>
+<script src="../tools.js"></script>
+</body>
+</html>

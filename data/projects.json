@@ -1,5 +1,25 @@
 [
   {
+    "id": "scam-message-checker",
+    "url": "https://alzbymndhr7-lab.github.io/technofact1/tools/scam-message-checker/",
+    "repo": "",
+    "cover": "images/projects/scam-message-checker.webp",
+    "tags": [
+      "أمان",
+      "JavaScript",
+      "احتيال"
+    ],
+    "featured": true,
+    "ar": {
+      "title": "فاحص رسائل الاحتيال",
+      "desc": "الصق أي رسالة SMS أو واتساب وصلتك لتكشف علامات النصب: طلب رمز التحقق، والاستعجال، والجوائز الوهمية، وحيلة «هذا رقمي الجديد». يفهم الفصحى واللهجة."
+    },
+    "en": {
+      "title": "Scam Message Checker",
+      "desc": "Paste any SMS or WhatsApp message to spot scam signs — OTP requests, urgency, fake prizes and suspicious links. Understands Arabic and English."
+    }
+  },
+  {
     "id": "link-checker",
     "url": "https://alzbymndhr7-lab.github.io/technofact1/tools/link-checker/",
     "repo": "",
@@ -9,7 +29,7 @@
       "JavaScript",
       "تصيد"
     ],
-    "featured": true,
+    "featured": false,
     "ar": {
       "title": "هل هذا الرابط مشبوه؟",
       "desc": "الصق أي رابط وصلك في رسالة لتكشف علامات التصيد: تقليد المواقع المشهورة، والحروف المتشابهة، والروابط المختصرة. يعمل داخل متصفحك ولا يفتح الرابط."
@@ -17,6 +37,26 @@
     "en": {
       "title": "Is this link suspicious?",
       "desc": "Paste any link to spot phishing signs — look-alike domains, homoglyphs and shorteners. Runs in your browser and never opens the link."
+    }
+  },
+  {
+    "id": "password-leak-checker",
+    "url": "https://alzbymndhr7-lab.github.io/technofact1/tools/password-leak-checker/",
+    "repo": "",
+    "cover": "images/projects/password-leak-checker.webp",
+    "tags": [
+      "أمان",
+      "JavaScript",
+      "تسريبات"
+    ],
+    "featured": false,
+    "ar": {
+      "title": "هل تسرّبت كلمة سري؟",
+      "desc": "تخبرك إن ظهرت كلمة سرك في تسريبات البيانات، باستخدام قاعدة Have I Been Pwned، بطريقة آمنة لا ترسل كلمة السر نفسها."
+    },
+    "en": {
+      "title": "Has my password leaked?",
+      "desc": "Check if a password appears in known data breaches via Have I Been Pwned — safely, without sending the password itself."
     }
   },
   {
@@ -57,6 +97,26 @@
     "en": {
       "title": "Strong Password Generator",
       "desc": "Random passwords or easy-to-remember passphrases in one click, using the browser's secure random generator."
+    }
+  },
+  {
+    "id": "qr-generator",
+    "url": "https://alzbymndhr7-lab.github.io/technofact1/tools/qr-generator/",
+    "repo": "",
+    "cover": "images/projects/qr-generator.webp",
+    "tags": [
+      "أدوات",
+      "JavaScript",
+      "QR"
+    ],
+    "featured": false,
+    "ar": {
+      "title": "مولّد رمز QR مجاني",
+      "desc": "رمز QR لرابط أو نص أو شبكة واي فاي، يتصل به الضيف بمسح الرمز. تحميل كصورة أو طباعة، ولا ينتهي أبداً."
+    },
+    "en": {
+      "title": "Free QR Code Generator",
+      "desc": "QR codes for links, text or Wi-Fi networks. Download or print — they never expire."
     }
   }
 ]

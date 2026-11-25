@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>مولّد رمز QR مجاني | تكنو فاكت</title>
+<meta name="description" content="أنشئ رمز QR مجاناً لرابط أو نص أو شبكة واي فاي، وحمّله كصورة أو اطبعه. يعمل داخل متصفحك ولا ينتهي.">
+<link rel="canonical" href="https://alzbymndhr7-lab.github.io/technofact1/tools/qr-generator/">
+<meta property="og:title" content="مولّد رمز QR مجاني | تكنو فاكت">
+<meta property="og:description" content="رمز QR مجاني لرابط أو نص أو شبكة الواي فاي، بدون تسجيل.">
+<meta property="og:image" content="https://alzbymndhr7-lab.github.io/technofact1/images/projects/qr-generator.webp">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../tools.css">
+<script src="../vendor/qrcode.js"></script>
+</head>
+<body>
+<header class="top"><div class="in">
+  <a class="logo" href="../../"><i>TF</i>تكنو فاكت</a>
+  <nav aria-label="الأدوات" id="tnav"></nav>
+</div></header>
+<main>
+  <span class="kick">// أداة مجانية</span>
+  <h1>مولّد رمز QR</h1>
+  <p class="lead">أنشئ رمز QR لرابط أو نص، أو لشبكة الواي فاي في بيتك أو محلك، فيتصل الضيف بمسح الرمز بدون ما يكتب كلمة السر.</p>
+
+  <div class="card">
+    <div class="seg" role="group" aria-label="نوع الرمز">
+      <button type="button" data-m="url" aria-pressed="true">رابط</button>
+      <button type="button" data-m="wifi" aria-pressed="false">واي فاي</button>
+      <button type="button" data-m="text" aria-pressed="false">نص</button>
+    </div>
+
+    <div id="pUrl" style="margin-top:18px">
+      <label for="url">الرابط</label>
+      <input class="inp" id="url" type="url" dir="ltr" value="https://alzbymndhr7-lab.github.io/technofact1/" placeholder="https://">
+    </div>
+    <div id="pWifi" hidden style="margin-top:18px">
+      <div class="grid2">
+        <div><label for="ssid">اسم الشبكة</label><input class="inp" id="ssid" type="text" dir="auto" placeholder="مثلاً: Home-WiFi"></div>
+        <div><label for="wpass">كلمة سر الشبكة</label><input class="inp" id="wpass" type="text" dir="ltr" autocomplete="off"></div>
+        <div><label for="wsec">نوع الحماية</label>
+          <select class="inp" id="wsec"><option value="WPA">WPA/WPA2/WPA3 (الأشهر)</option><option value="WEP">WEP</option><option value="nopass">بدون كلمة سر</option></select></div>
+      </div>
+      <label class="opt" style="margin-top:12px"><input type="checkbox" id="whid"> الشبكة مخفية</label>
+    </div>
+    <div id="pText" hidden style="margin-top:18px">
+      <label for="txt">النص</label>
+      <textarea id="txt" style="min-height:100px" placeholder="اكتب أي نص…"></textarea>
+    </div>
+
+    <div class="grid2" style="margin-top:18px;align-items:end">
+      <div><label for="fg">لون الرمز</label><input class="inp" id="fg" type="color" value="#0b1120" style="padding:4px;height:46px"></div>
+      <div><label for="size">الحجم: <span id="sizeV">512</span> بكسل</label><input id="size" type="range" min="256" max="1024" step="128" value="512"></div>
+    </div>
+
+    <div style="display:grid;place-items:center;margin-top:22px">
+      <div style="background:#fff;padding:14px;border-radius:14px;border:1px solid var(--line)"><canvas id="cv" width="512" height="512" role="img" aria-label="رمز QR" style="width:min(280px,70vw);height:auto;display:block"></canvas></div>
+      <p id="err" class="warn-t" hidden style="margin:12px 0 0"></p>
+      <div class="row" style="margin-top:14px;justify-content:center">
+        <button class="btn pri" type="button" id="dl">تحميل الصورة (PNG)</button>
+        <button class="btn" type="button" id="print">طباعة</button>
+      </div>
+    </div>
+    <div class="note">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+      <span>الرمز يُصنع داخل متصفحك، فلا يُرسل اسم الشبكة أو كلمة سرها لأي مكان. ورمزك لا ينتهي ولا يتوقف، لأنه لا يمر عبر أي موقع وسيط.</span>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2>نصائح للاستخدام</h2>
+    <ul>
+      <li><strong>رمز الواي فاي:</strong> اطبعه وضعه في الصالون أو على طاولة المحل، فيمسحه الضيف بكاميرا الهاتف ويتصل مباشرة. وإذا غيّرت كلمة سر الشبكة، اصنع رمزاً جديداً.</li>
+      <li><strong>اجعل اللون غامقاً:</strong> الألوان الفاتحة قد تمنع الكاميرا من قراءة الرمز.</li>
+      <li><strong>انتبه لرموز QR في الأماكن العامة:</strong> المحتالون يلصقون رموزاً مزيفة فوق الحقيقية. قبل أن تفتح الرابط، انظر إلى اسم الموقع الذي يظهر لك.</li>
+    </ul>
+    <h2>أدوات أخرى</h2>
+    <div class="more" id="tmore"></div>
+  </section>
+</main>
+<footer>© تكنو فاكت</footer>
+<script>
+(function(){
+  var $ = function(id){ return document.getElementById(id); };
+  var mode = 'url';
+  qrcode.stringToBytes = qrcode.stringToBytesFuncs['UTF-8'];
+  function wesc(s){ return s.replace(/([\;,:"])/g, '\\$1'); }
+  function data(){
+    if (mode === 'url') { var u = $('url').value.trim(); return u && !/^[a-z]+:/i.test(u) ? 'https://' + u : u; }
+    if (mode === 'text') return $('txt').value;
+    var ssid = $('ssid').value; if (!ssid) return '';
+    var sec = $('wsec').value, s = 'WIFI:T:' + sec + ';S:' + wesc(ssid) + ';';
+    if (sec !== 'nopass') s += 'P:' + wesc($('wpass').value) + ';';
+    if ($('whid').checked) s += 'H:true;';
+    return s + ';';
+  }
+  function draw(){
+    var d = data(), cv = $('cv'), size = +$('size').value, ctx = cv.getContext('2d');
+    cv.width = cv.height = size; ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, size, size);
+    $('err').hidden = true;
+    if (!d) { $('dl').disabled = true; return; }
+    try {
+      var q = qrcode(0, mode === 'wifi' ? 'H' : 'M'); q.addData(d); q.make();
+      var n = q.getModuleCount(), quiet = 4, cell = size / (n + quiet * 2);
+      ctx.fillStyle = $('fg').value;
+      for (var r = 0; r < n; r++) for (var c = 0; c < n; c++) if (q.isDark(r, c))
+        ctx.fillRect(Math.floor((c + quiet) * cell), Math.floor((r + quiet) * cell), Math.ceil(cell), Math.ceil(cell));
+      $('dl').disabled = false;
+    } catch (e) { $('err').textContent = 'النص طويل جداً على رمز QR. اختصره وحاول مرة أخرى.'; $('err').hidden = false; $('dl').disabled = true; }
+  }
+  document.querySelectorAll('[data-m]').forEach(function(b){
+    b.addEventListener('click', function(){
+      mode = b.dataset.m;
+      document.querySelectorAll('[data-m]').forEach(function(x){ x.setAttribute('aria-pressed', x === b); });
+      $('pUrl').hidden = mode !== 'url'; $('pWifi').hidden = mode !== 'wifi'; $('pText').hidden = mode !== 'text';
+      draw();
+    });
+  });
+  ['url','ssid','wpass','txt','fg'].forEach(function(id){ $(id).addEventListener('input', draw); });
+  ['wsec','whid'].forEach(function(id){ $(id).addEventListener('change', draw); });
+  $('size').addEventListener('input', function(){ $('sizeV').textContent = this.value; draw(); });
+  $('dl').addEventListener('click', function(){
+    var a = document.createElement('a'); a.download = mode === 'wifi' ? 'wifi-qr.png' : 'qr-code.png';
+    a.href = $('cv').toDataURL('image/png'); a.click();
+  });
+  $('print').addEventListener('click', function(){
+    var w = window.open(''); if (!w) return;
+    var cap = mode === 'wifi' ? '<p style="font:20px sans-serif">امسح الرمز للاتصال بشبكة: ' + $('ssid').value.replace(/[<>&]/g, '') + '</p>' : '';
+    w.document.write('<html dir="rtl"><body style="text-align:center;padding:40px"><img src="' + $('cv').toDataURL() + '" style="width:300px">' + cap + '<script>onload=function(){print()}<\/script></body></html>');
+    w.document.close();
+  });
+  draw();
+})();
+</script>
+<script src="../tools.js"></script>
+</body>
+</html>

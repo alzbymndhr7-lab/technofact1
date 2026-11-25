@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>هل تسرّبت كلمة سري؟ | تكنو فاكت</title>
+<meta name="description" content="افحص إن كانت كلمة سرك ظهرت في تسريبات البيانات، بطريقة آمنة لا ترسل كلمة السر نفسها. تعتمد على قاعدة بيانات Have I Been Pwned.">
+<link rel="canonical" href="https://alzbymndhr7-lab.github.io/technofact1/tools/password-leak-checker/">
+<meta property="og:title" content="هل تسرّبت كلمة سري؟ | تكنو فاكت">
+<meta property="og:description" content="اعرف خلال ثانية إن كانت كلمة سرك ظهرت في تسريبات سابقة.">
+<meta property="og:image" content="https://alzbymndhr7-lab.github.io/technofact1/images/projects/password-leak-checker.webp">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../tools.css">
+</head>
+<body>
+<header class="top"><div class="in">
+  <a class="logo" href="../../"><i>TF</i>تكنو فاكت</a>
+  <nav aria-label="الأدوات" id="tnav"></nav>
+</div></header>
+<main>
+  <span class="kick">// أداة مجانية</span>
+  <h1>هل تسرّبت كلمة سري؟</h1>
+  <p class="lead">كلمة السر قد تكون طويلة ومعقدة، لكن إذا ظهرت في تسريب سابق فهي موجودة في قوائم يجرّبها المخترقون أولاً. افحصها هنا خلال ثانية.</p>
+
+  <form class="card" id="form" autocomplete="off">
+    <label for="pw">كلمة السر</label>
+    <div class="field">
+      <input id="pw" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" dir="ltr" placeholder="اكتب كلمة السر">
+      <button class="btn sm in-btn" id="toggle" type="button" aria-pressed="false">إظهار</button>
+    </div>
+    <div class="row" style="margin-top:12px"><button class="btn pri" type="submit" id="go">افحص الآن</button></div>
+    <div class="note">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+      <span>كلمة سرك <strong>لا تغادر جهازك</strong>. متصفحك يحوّلها إلى بصمة مشفرة (SHA-1)، ويرسل <strong>أول 5 رموز فقط</strong> من البصمة إلى قاعدة بيانات Have I Been Pwned. تعيد القاعدة مئات البصمات التي تبدأ بنفس الرموز، ومتصفحك يقارن بينها بنفسه، فلا تعرف القاعدة ما هي كلمتك.</span>
+    </div>
+    <div id="result" aria-live="polite" hidden>
+      <div class="verdict" style="margin-top:20px"><strong id="label"></strong></div>
+      <ul class="checks" id="checks"></ul>
+    </div>
+  </form>
+
+  <section class="prose">
+    <h2>ماذا أفعل إذا كانت كلمتي مسرّبة؟</h2>
+    <ol>
+      <li><strong>غيّرها فوراً</strong> في كل حساب تستخدمها فيه، وابدأ بالبريد الإلكتروني والبنك.</li>
+      <li><strong>لا تعد استخدامها أبداً</strong>، حتى مع تعديل بسيط مثل إضافة رقم في آخرها.</li>
+      <li><strong>فعّل التحقق بخطوتين</strong>، فيبقى حسابك محمياً حتى لو عُرفت كلمة السر.</li>
+      <li>استخدم <strong>مولّد كلمات السر</strong> لإنشاء كلمة جديدة، و<strong>مدير كلمات سر</strong> لحفظها.</li>
+    </ol>
+    <p>وإذا لم تظهر في التسريبات، فهذا لا يعني أنها قوية. افحص قوتها أيضاً بأداة «فاحص قوة كلمة السر».</p>
+    <h2>أدوات أخرى</h2>
+    <div class="more" id="tmore"></div>
+  </section>
+</main>
+<footer>© تكنو فاكت</footer>
+<script>
+(function(){
+  var $ = function(id){ return document.getElementById(id); };
+  function fmt(n){ try { return n.toLocaleString('ar-EG'); } catch (e) { return String(n); } }
+  async function sha1(s){
+    var buf = await crypto.subtle.digest('SHA-1', new TextEncoder().encode(s));
+    return Array.from(new Uint8Array(buf)).map(function(b){ return b.toString(16).padStart(2,'0'); }).join('').toUpperCase();
+  }
+  function show(level, label, items){
+    var icon = {ok:'✓', warn:'!', bad:'✕', info:'i'};
+    $('result').hidden = false;
+    $('label').textContent = label; $('label').className = level === 'bad' ? 'bad-t' : level === 'ok' ? 'ok-t' : 'warn-t';
+    $('checks').innerHTML = items.map(function(c){ return '<li><span class="ic ' + c[0] + '" aria-hidden="true">' + icon[c[0]] + '</span><span>' + c[1] + '</span></li>'; }).join('');
+  }
+  $('form').addEventListener('submit', async function(e){
+    e.preventDefault();
+    var v = $('pw').value; if (!v) return $('pw').focus();
+    if (!window.crypto || !crypto.subtle) return show('warn','متصفحك لا يدعم هذا الفحص',[['info','جرّب متصفحاً حديثاً مثل Chrome أو Safari أو Firefox.']]);
+    $('go').disabled = true; $('go').textContent = 'جارٍ الفحص…';
+    try {
+      var h = await sha1(v), pre = h.slice(0,5), suf = h.slice(5);
+      var res = await fetch('https://api.pwnedpasswords.com/range/' + pre, { headers: { 'Add-Padding': 'true' } });
+      if (!res.ok) throw new Error(res.status);
+      var txt = await res.text(), count = 0;
+      txt.split('\n').some(function(line){ var p = line.trim().split(':'); if (p[0] === suf) { count = parseInt(p[1], 10) || 0; return true; } });
+      if (count > 0) {
+        show('bad', 'تحذير: كلمة السر هذه مسرّبة!', [
+          ['bad','ظهرت في التسريبات <strong>' + fmt(count) + '</strong> ' + (count === 1 ? 'مرة' : count === 2 ? 'مرتين' : 'مرة') + '. المخترقون يجرّبونها تلقائياً على الحسابات.'],
+          ['warn','غيّرها الآن في كل حساب تستخدمها فيه، ولا تستخدمها مرة أخرى.']
+        ]);
+      } else {
+        show('ok', 'لم تظهر في أي تسريب معروف', [
+          ['ok','كلمة السر هذه ليست في قاعدة بيانات التسريبات التي تضم مئات الملايين من كلمات السر المسرّبة.'],
+          ['info','هذا لا يضمن أنها قوية، ولا تستخدمها في أكثر من حساب.']
+        ]);
+      }
+    } catch (err) {
+      show('warn', 'تعذّر الفحص الآن', [['info','تأكد من اتصالك بالإنترنت وحاول مرة أخرى بعد قليل.']]);
+    } finally { $('go').disabled = false; $('go').textContent = 'افحص الآن'; }
+  });
+  $('toggle').addEventListener('click', function(){
+    var show = $('pw').type === 'password'; $('pw').type = show ? 'text' : 'password';
+    this.textContent = show ? 'إخفاء' : 'إظهار'; this.setAttribute('aria-pressed', show);
+  });
+})();
+</script>
+<script src="../tools.js"></script>
+</body>
+</html>

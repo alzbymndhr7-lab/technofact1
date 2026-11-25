@@ -17,7 +17,7 @@
 <body>
 <header class="top"><div class="in">
   <a class="logo" href="../../"><i>TF</i>تكنو فاكت</a>
-  <nav aria-label="الأدوات"><a href="./" aria-current="page">فاحص كلمة السر</a><a href="../password-generator/">مولّد كلمات السر</a><a href="../link-checker/">فاحص الروابط</a><a href="../../#projects">كل المشاريع</a></nav>
+  <nav aria-label="الأدوات" id="tnav"></nav>
 </div></header>
 <main>
   <span class="kick">// أداة مجانية</span>
@@ -58,10 +58,7 @@
       <li><strong>فعّل التحقق بخطوتين:</strong> فهو يحميك حتى لو عُرفت كلمة السر.</li>
     </ul>
     <h2>أدوات أخرى</h2>
-    <div class="more">
-      <a href="../password-generator/"><b>مولّد كلمات السر</b><small>كلمات سر قوية وعشوائية بضغطة زر</small></a>
-      <a href="../link-checker/"><b>هل هذا الرابط مشبوه؟</b><small>اكشف علامات التصيد قبل أن تضغط</small></a>
-    </div>
+    <div class="more" id="tmore"></div>
   </section>
 </main>
 <footer>© تكنو فاكت · أداة تعليمية تعطي تقديراً تقريبياً</footer>
@@ -175,5 +172,6 @@
   });
 })();
 </script>
+<script src="../tools.js"></script>
 </body>
 </html>
