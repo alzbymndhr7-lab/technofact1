@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="تكنو فاكت — مواقع احترافية للمطاعم والعيادات والصالونات والمحلات بالأردن والخليج. جرّب نماذج حقيقية واطلب موقعك.">
+<meta property="og:title" content="تكنو فاكت — اطلب موقعك">
+<meta property="og:description" content="مواقع احترافية فيها حجز وواتساب وبتشتغل ممتاز على الموبايل.">
+<title>تكنو فاكت — اطلب موقعك</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* VOICE: واثق، واضح، قريب — صاحب محل لازم يفهم العرض بثانيتين
+   IDEA: واجهة محل زجاجية: ثلاث شاشات معروضة بالفترينة = نماذج حقيقية بتقدر تجربها
+   PICTURE: ثلاث موبايلات متراكبة (مطعم، عيادة، صالون) على أرضية كوبالت بشبكة
+   COLOUR and TYPE: كوبالت مسيطر، أبيض، برتقالي للأزرار؛ Readex Pro
+   LAYOUT: هيرو بعمودين، نماذج، شو بتاخد، الخطوات، نموذج الطلب، أسئلة، فوتر */
+:root{color-scheme:light dark;--bg:light-dark(#ffffff,#0b1024);--ink:light-dark(#0f1a3d,#eef1fb);--soft:light-dark(#56607a,#a7b0cc);--brand:#1238ff;--brandInk:#ffffff;--acc:#ff5a36;--tint:light-dark(#f2f4ff,#121a3a);--line:light-dark(#e1e5f3,#26305a);--card:light-dark(#ffffff,#121935)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.7 "Readex Pro",Tahoma,sans-serif;overflow-x:clip}
+h1,h2,h3{line-height:1.15;margin:0;text-wrap:balance}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto}
+.band{padding:clamp(40px,6vw,88px) max(5vw,16px)}
+nav{position:sticky;top:0;z-index:9;background:var(--brand);color:#fff;padding:10px max(5vw,16px)}
+nav .wrap{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:20px;text-decoration:none}
+.mk{width:38px;height:38px;border-radius:11px;background:#fff;display:grid;place-items:center;flex:none}
+nav .links{display:flex;gap:2px;margin-inline-start:auto;flex-wrap:wrap}
+nav .links a{text-decoration:none;padding:8px 12px;border-radius:999px;font-size:15px}
+nav .links a:hover,nav .links a:focus-visible{background:rgba(255,255,255,.14);outline:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:50px;padding:0 26px;border-radius:14px;border:0;font:700 17px "Readex Pro",sans-serif;cursor:pointer;text-decoration:none}
+.btn.acc{background:var(--acc);color:#fff}
+.btn.ghost{background:rgba(255,255,255,.12);color:#fff;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.45)}
+.btn.line{background:transparent;color:var(--brand);box-shadow:inset 0 0 0 1.5px var(--brand)}
+.btn:focus-visible{outline:3px solid #ffd3c7;outline-offset:3px}
+.btn svg{width:20px;height:20px}
+.hero{background:var(--brand);color:#fff;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px);background-size:52px 52px}
+.hero .wrap{position:relative;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(24px,4vw,56px);align-items:center}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.13);font-size:14px;margin-bottom:18px}
+.badge i{width:9px;height:9px;border-radius:50%;background:#38e08c}
+.hero h1{font-size:clamp(36px,5.2vw,58px)}
+.hero h1 span{color:#ffc2b3}
+.hero p{font-size:19px;opacity:.92;margin:18px 0 26px;max-width:40ch}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.trust{display:flex;gap:20px;flex-wrap:wrap;margin-top:26px;font-size:14.5px;opacity:.9}
+.trust span{display:flex;align-items:center;gap:7px}
+.trust svg{width:18px;height:18px;color:#38e08c}
+.phones{position:relative;height:clamp(380px,42vw,500px)}
+.ph{position:absolute;width:clamp(150px,15vw,200px);aspect-ratio:9/18.5;border-radius:30px;background:#0b1240;padding:8px;box-shadow:0 40px 70px -25px rgba(0,0,30,.75)}
+.ph .sc{width:100%;height:100%;border-radius:23px;overflow:hidden;background:#fff;display:flex;flex-direction:column}
+.ph.a{right:2%;top:12%;transform:rotate(6deg)}.ph.b{right:33%;top:0;z-index:2}.ph.c{right:63%;top:16%;transform:rotate(-6deg)}
+.sk{border-radius:6px;display:block}
+@media(prefers-reduced-motion:no-preference){.ph.b{animation:fl 5s ease-in-out infinite}@keyframes fl{50%{transform:translateY(-10px)}}}
+.sec-h{max-width:640px;margin-bottom:30px}
+.sec-h h2{font-size:clamp(28px,3.6vw,42px)}
+.sec-h p{color:var(--soft);margin:10px 0 0;font-size:17px}
+.demos{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:18px}
+.demo{border:1px solid var(--line);border-radius:22px;overflow:hidden;background:var(--card);display:flex;flex-direction:column}
+.demo .art{height:170px;display:grid;place-items:center;position:relative}
+.demo .art .win{width:72%;height:120px;border-radius:12px;background:#fff;box-shadow:0 18px 30px -16px rgba(0,0,0,.5);overflow:hidden;display:flex;flex-direction:column}
+.demo .tx{padding:18px 20px 22px;display:flex;flex-direction:column;gap:8px;flex:1}
+.demo h3{font-size:21px}
+.demo ul{margin:0;padding:0 18px 0 0;color:var(--soft);font-size:15px}
+.demo .btn{margin-top:auto;min-height:46px;font-size:16px}
+.feats{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:14px}
+.ft{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;display:grid;gap:8px;align-content:start}
+.ft .ic{width:46px;height:46px;border-radius:13px;background:var(--brand);display:grid;place-items:center}
+.ft .ic svg{width:24px;height:24px;color:#fff}
+.ft h3{font-size:18px}.ft p{margin:0;color:var(--soft);font-size:15px}
+.tint{background:var(--tint)}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:18px;counter-reset:s}
+.st{position:relative;padding:22px 22px 22px 22px;border-radius:20px;background:var(--card);border:1px solid var(--line)}
+.st b{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--acc);color:#fff;font-size:20px;margin-bottom:12px}
+.st h3{font-size:19px}.st p{margin:6px 0 0;color:var(--soft);font-size:15.5px}
+.order .wrap{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(24px,4vw,56px);align-items:start}
+.contact{display:grid;gap:12px;margin-top:22px}
+.contact a,.contact div{display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:16px;background:var(--card);border:1px solid var(--line);text-decoration:none}
+.contact svg{width:22px;height:22px;color:var(--brand);flex:none}
+.contact small{display:block;color:var(--soft);font-size:13px}
+.contact b{direction:ltr;unicode-bidi:embed}
+form{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:clamp(20px,3vw,32px);display:grid;gap:16px;box-shadow:0 30px 60px -40px rgba(18,56,255,.45)}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:14px}
+label{display:grid;gap:6px;font-weight:500;font-size:15px}
+input,select,textarea{font:16px "Readex Pro",sans-serif;min-height:50px;padding:10px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);width:100%}
+textarea{min-height:100px;resize:vertical}
+input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid color-mix(in srgb,var(--brand) 40%,transparent);border-color:var(--brand)}
+fieldset{border:0;padding:0;margin:0}
+legend{font-weight:500;font-size:15px;margin-bottom:8px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips label{display:flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;border-radius:999px;border:1.5px solid var(--line);cursor:pointer;font-weight:400;font-size:15px}
+.chips input{width:18px;height:18px;min-height:0;accent-color:var(--brand)}
+.chips label:has(input:checked){border-color:var(--brand);background:color-mix(in srgb,var(--brand) 10%,transparent)}
+.chips label:has(input:focus-visible){outline:3px solid color-mix(in srgb,var(--brand) 40%,transparent)}
+.err{color:#d93636;font-size:14px;min-height:1.2em}
+.sendrow{display:flex;gap:10px;flex-wrap:wrap}
+.sendrow .btn{flex:1 1 220px}
+.wa{background:#1faa59;color:#fff}
+.done{display:none;border-radius:16px;padding:16px;background:color-mix(in srgb,#1faa59 12%,transparent);border:1px solid color-mix(in srgb,#1faa59 40%,transparent);font-size:15px}
+.done.show{display:block}
+details{border-bottom:1px solid var(--line)}
+summary{cursor:pointer;min-height:58px;display:flex;align-items:center;justify-content:space-between;gap:12px;font-weight:500;font-size:17px;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-size:26px;color:var(--brand);flex:none}
+details[open] summary::after{content:"−"}
+summary:focus-visible{outline:3px solid color-mix(in srgb,var(--brand) 40%,transparent)}
+details p{margin:0 0 16px;color:var(--soft)}
+.faq{max-width:820px}
+footer{background:var(--brand);color:#fff;padding:30px max(5vw,16px);font-size:15px}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}
+.float{position:fixed;bottom:18px;left:18px;z-index:10;width:60px;height:60px;border-radius:50%;background:#1faa59;display:grid;place-items:center;box-shadow:0 10px 24px rgba(0,0,0,.25)}
+.float svg{width:30px;height:30px}
+@media(max-width:860px){.hero .wrap,.order .wrap{grid-template-columns:minmax(0,1fr)}.phones{height:340px;max-width:460px;width:100%;margin-inline:auto}.ph{width:140px}}
+@media(max-width:600px){nav .links{display:none}.phones{height:300px}.ph{width:122px}}
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <a class="logo" href="#top"><span class="mk"><svg width="26" height="26" viewBox="0 0 120 120" fill="none" aria-hidden="true"><path d="M42 34L16 60l26 26M78 34l26 26-26 26" stroke="#1238ff" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/><path d="M68 26L52 94" stroke="#ff5a36" stroke-width="12" stroke-linecap="round"/></svg></span>تكنو فاكت</a>
+  <div class="links"><a href="../">المدونة</a><a href="#work">نماذج من شغلنا</a><a href="#how">كيف بنشتغل</a><a href="#faq">أسئلة</a><a href="#order">اطلب موقعك</a></div>
+</div></nav>
+
+<header class="hero band" id="top"><div class="wrap">
+  <div>
+    <span class="badge"><i></i>متاحين لمشاريع جديدة بالأردن والخليج</span>
+    <h1>موقع احترافي لمشروعك <span>بيجيبلك زباين</span></h1>
+    <p>مطعم، عيادة، صالون أو محل؟ بنصمملك موقع سريع وأنيق، فيه حجز وطلبات وواتساب، وبيشتغل ممتاز على الموبايل.</p>
+    <div class="cta"><a class="btn acc" href="#order">اطلب موقعك الآن</a><a class="btn ghost" href="#work">شوف نماذج حقيقية</a></div>
+    <div class="trust">
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>تصميم مخصص لنشاطك</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>عرض سعر واضح قبل البدء</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>بالعربي والإنجليزي</span>
+    </div>
+  </div>
+  <div class="phones" aria-hidden="true">
+    <div class="ph a"><div class="sc"><div style="height:38%;background:#8e2b1c;padding:22px 12px 10px;display:flex;flex-direction:column;gap:7px"><span class="sk" style="width:55%;height:8px;background:#f2b134"></span><span class="sk" style="width:85%;height:11px;background:#fff"></span><span class="sk" style="width:70%;height:11px;background:#fff"></span><span class="sk" style="width:40%;height:20px;border-radius:10px;background:#f2b134;margin-top:4px"></span></div><div style="padding:12px;display:flex;flex-direction:column;gap:10px"><span class="sk" style="height:8px;background:#2a1712;width:70%"></span><span class="sk" style="height:6px;background:#ecd9d1"></span><span class="sk" style="height:8px;background:#2a1712;width:60%"></span><span class="sk" style="height:6px;background:#ecd9d1"></span><span class="sk" style="height:8px;background:#2a1712;width:75%"></span></div></div></div>
+    <div class="ph b"><div class="sc" style="background:#e8f3fc"><div style="padding:24px 12px 0;display:flex;flex-direction:column;gap:7px"><span class="sk" style="width:80%;height:11px;background:#0f2747"></span><span class="sk" style="width:60%;height:7px;background:#9fb4cb"></span></div><div style="margin:12px;background:#fff;border-radius:12px;padding:10px;display:flex;flex-direction:column;gap:8px"><span class="sk" style="width:45%;height:8px;background:#0f2747"></span><div style="display:flex;gap:5px"><span class="sk" style="flex:1;height:30px;background:#e8f3fc"></span><span class="sk" style="flex:1;height:30px;background:#1450a3"></span><span class="sk" style="flex:1;height:30px;background:#e8f3fc"></span><span class="sk" style="flex:1;height:30px;background:#e8f3fc"></span></div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px"><span class="sk" style="height:16px;background:#e8f3fc"></span><span class="sk" style="height:16px;background:#e8f3fc"></span><span class="sk" style="height:16px;background:#ffe0dc"></span><span class="sk" style="height:16px;background:#e8f3fc"></span><span class="sk" style="height:16px;background:#e8f3fc"></span><span class="sk" style="height:16px;background:#e8f3fc"></span></div><span class="sk" style="height:22px;background:#1450a3"></span></div></div></div>
+    <div class="ph c"><div class="sc" style="background:#3a1b3c"><div style="padding:26px 12px 10px;display:flex;flex-direction:column;align-items:center;gap:8px"><span class="sk" style="width:46px;height:60px;border-radius:23px 23px 4px 4px;background:#e7bfc8"></span><span class="sk" style="width:70%;height:10px;background:#fff"></span><span class="sk" style="width:45%;height:18px;border-radius:9px;background:#e0577a"></span></div><div style="margin:8px 12px;background:#f7e3e0;border-radius:12px;padding:10px;display:flex;flex-direction:column;gap:7px"><span class="sk" style="height:7px;background:#3a1b3c;width:60%"></span><span class="sk" style="height:7px;background:#3a1b3c;width:75%"></span><span class="sk" style="height:7px;background:#3a1b3c;width:50%"></span></div></div></div>
+  </div>
+</div></header>
+
+<section class="band" id="work"><div class="wrap">
+  <div class="sec-h"><h2>نماذج حقيقية، جرّبها بنفسك</h2><p>مش صور: مواقع شغّالة. افتح أي واحد من موبايلك وجرّب الحجز والمنيو.</p></div>
+  <div class="demos">
+    <article class="demo"><div class="art" style="background:#8e2b1c"><div class="win"><div style="height:46%;background:#a8402c;padding:12px;display:flex;flex-direction:column;gap:6px"><span class="sk" style="width:50%;height:9px;background:#fff"></span><span class="sk" style="width:30%;height:14px;border-radius:7px;background:#f2b134"></span></div><div style="padding:10px;display:flex;flex-direction:column;gap:7px"><span class="sk" style="height:6px;background:#ecd9d1"></span><span class="sk" style="height:6px;background:#ecd9d1;width:70%"></span></div></div></div>
+      <div class="tx"><h3>مطعم</h3><ul><li>منيو بأقسام وأسعار</li><li>حجز طاولة من الموبايل</li><li>ساعات الدوام والموقع وواتساب</li></ul><a class="btn line" href="demos/restaurant.html" >جرّب نموذج المطعم</a></div></article>
+    <article class="demo"><div class="art" style="background:#1450a3"><div class="win" style="background:#e8f3fc"><div style="padding:12px;display:flex;flex-direction:column;gap:7px"><span class="sk" style="width:55%;height:9px;background:#0f2747"></span><div style="display:flex;gap:5px"><span class="sk" style="flex:1;height:26px;background:#fff"></span><span class="sk" style="flex:1;height:26px;background:#1450a3"></span><span class="sk" style="flex:1;height:26px;background:#fff"></span></div><span class="sk" style="height:18px;background:#ff6b5a;width:45%"></span></div></div></div>
+      <div class="tx"><h3>عيادة</h3><ul><li>حجز موعد بيوم ووقت</li><li>خدمات وأسعار واضحة</li><li>قبل وبعد وأسئلة شائعة</li></ul><a class="btn line" href="demos/clinic.html" >جرّب نموذج العيادة</a></div></article>
+    <article class="demo"><div class="art" style="background:#3a1b3c"><div class="win" style="background:#f7e3e0"><div style="padding:12px;display:grid;grid-template-columns:1fr 1fr;gap:6px"><span class="sk" style="height:34px;background:#fff"></span><span class="sk" style="height:34px;background:#fff;outline:2px solid #e0577a"></span><span class="sk" style="height:34px;background:#fff;outline:2px solid #e0577a"></span><span class="sk" style="height:34px;background:#3a1b3c"></span></div></div></div>
+      <div class="tx"><h3>صالون وسبا</h3><ul><li>عرض الخدمات بشكل أنيق</li><li>"صمّمي باقتك" بسعر مباشر</li><li>دوام وتواصل سريع</li></ul><a class="btn line" href="demos/salon.html" >جرّب نموذج الصالون</a></div></article>
+  </div>
+</div></section>
+
+<section class="band tint"><div class="wrap">
+  <div class="sec-h"><h2>شو بياخد مشروعك</h2><p>كل موقع بنبنيه على مقاس نشاطك، وبنختار معك اللي بتحتاجه فعلاً.</p></div>
+  <div class="feats">
+    <div class="ft"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span><h3>حجز ومواعيد</h3><p>الزبون بيحجز طاولة أو موعد من موبايله، بدون تلفونات.</p></div>
+    <div class="ft"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 1-13.4 7.9L3 21l1.1-4.6A9 9 0 1 1 21 12z"/></svg></span><h3>ربط مع واتساب</h3><p>كل طلب أو سؤال بيوصلك مباشرة على الواتساب.</p></div>
+    <div class="ft"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg></span><h3>ممتاز على الموبايل</h3><p>أغلب زباينك بيفتحوا من الموبايل، فبنصمم إله أول.</p></div>
+    <div class="ft"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l-1 13H7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg></span><h3>متاجر إلكترونية</h3><p>عرض منتجاتك بأسعارها، والطلب بضغطة.</p></div>
+    <div class="ft"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l3-3h5l2 2h8v14H3z"/><path d="M8 13h8M8 17h5"/></svg></span><h3>أنظمة إدارة وأرشفة</h3><p>للشركات والمكاتب: ترتيب الملفات والمشاريع والبحث فيها.</p></div>
+    <div class="ft"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></span><h3>تعديل سهل</h3><p>الأسعار والمنيو والخدمات بتتعدل بسهولة لما يتغير شي.</p></div>
+  </div>
+</div></section>
+
+<section class="band" id="how"><div class="wrap">
+  <div class="sec-h"><h2>كيف بنشتغل</h2><p>ثلاث خطوات، وبتعرف كل شي قبل ما تدفع.</p></div>
+  <div class="steps">
+    <div class="st"><b>1</b><h3>احكيلنا عن مشروعك</h3><p>عبّي النموذج تحت، أو ابعتلنا على الواتساب مباشرة.</p></div>
+    <div class="st"><b>2</b><h3>بنعطيك فكرة وعرض سعر</h3><p>بنقترح شكل الموقع واللي بيحتاجه نشاطك، مع سعر ومدة واضحين.</p></div>
+    <div class="st"><b>3</b><h3>بنبني وبنطلق</h3><p>بتشوف الموقع وبتطلب تعديلاتك، وبعدها بنطلقه لزباينك.</p></div>
+  </div>
+</div></section>
+
+<section class="band tint order" id="order"><div class="wrap">
+  <div>
+    <div class="sec-h" style="margin-bottom:0"><h2>اطلب موقعك</h2><p>عبّي التفاصيل، ورح تنفتح عندك رسالة واتساب جاهزة. اضغط إرسال وبنرد عليك.</p></div>
+    <div class="contact">
+      <a href="https://wa.me/962791587603" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 1-13.4 7.9L3 21l1.1-4.6A9 9 0 1 1 21 12z"/></svg><span><small>واتساب واتصال</small><b>+962 79 158 7603</b></span></a>
+      <a href="mailto:Ahmedzouib065@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span><small>البريد الإلكتروني</small><b>Ahmedzouib065@gmail.com</b></span></a>
+    </div>
+  </div>
+  <form id="f" novalidate>
+    <div class="row">
+      <label>اسمك<input id="n" autocomplete="name" required></label>
+      <label>اسم النشاط<input id="b" placeholder="مثلاً: مطعم الياسمين" required></label>
+    </div>
+    <div class="row">
+      <label>نوع النشاط<select id="t"><option>مطعم / كافيه</option><option>عيادة / مركز طبي</option><option>صالون / سبا</option><option>محل / متجر</option><option>شركة / مكتب</option><option>غير ذلك</option></select></label>
+      <label>الدولة<select id="c"><option>الأردن</option><option>السعودية</option><option>الإمارات</option><option>الكويت</option><option>قطر</option><option>البحرين</option><option>عُمان</option><option>دولة أخرى</option></select></label>
+      <label>المدينة<input id="city" placeholder="عمّان"></label>
+    </div>
+    <label>رقم واتساب للتواصل<input id="p" inputmode="tel" dir="ltr" autocomplete="tel" placeholder="+962 7x xxx xxxx"></label>
+    <fieldset><legend>شو بدك يكون بالموقع؟</legend><div class="chips" id="needs">
+      <label><input type="checkbox" value="حجز مواعيد أو طاولات">حجز مواعيد / طاولات</label>
+      <label><input type="checkbox" value="منيو أو قائمة أسعار">منيو / أسعار</label>
+      <label><input type="checkbox" value="متجر وطلبات">متجر وطلبات</label>
+      <label><input type="checkbox" value="ربط واتساب">ربط واتساب</label>
+      <label><input type="checkbox" value="عربي وإنجليزي">عربي وإنجليزي</label>
+      <label><input type="checkbox" value="نظام إدارة">نظام إدارة</label>
+    </div></fieldset>
+    <label>تفاصيل إضافية (اختياري)<textarea id="m" placeholder="عندك صفحة فيسبوك؟ موقع قديم؟ موعد معيّن؟"></textarea></label>
+    <div class="err" id="err" role="alert"></div>
+    <div class="sendrow">
+      <button class="btn wa" type="submit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 1-13.4 7.9L3 21l1.1-4.6A9 9 0 1 1 21 12z"/></svg>أرسل عبر واتساب</button>
+      <a class="btn line" id="mailB" href="mailto:Ahmedzouib065@gmail.com">أو أرسل إيميل</a>
+    </div>
+    <div class="done" id="done" role="status">جهزنا رسالتك ✓ إذا ما انفتح واتساب، افتح الرابط من هون: <a id="waLink" href="https://wa.me/962791587603" target="_blank" rel="noopener">فتح واتساب</a>، أو ابعتلنا على الرقم مباشرة.</div>
+  </form>
+</div></section>
+
+<section class="band" id="faq"><div class="wrap faq">
+  <div class="sec-h"><h2>أسئلة شائعة</h2></div>
+  <details><summary>كم بكلّف الموقع؟</summary><p>حسب نشاطك والخصائص اللي بتحتاجها. بعد ما تحكيلنا عن مشروعك، بنعطيك عرض سعر واضح ومكتوب قبل ما نبلّش، بدون مفاجآت.</p></details>
+  <details><summary>كم بياخد وقت؟</summary><p>بتختلف حسب حجم الموقع. بنحددلك المدة بالعرض، وبتشوف الموقع خلال الشغل حتى تطلب تعديلاتك.</p></details>
+  <details><summary>بتشتغلوا مع دول الخليج؟</summary><p>أكيد. الشغل كله أونلاين، والتواصل على الواتساب أو الإيميل بالوقت اللي بناسبك.</p></details>
+  <details><summary>بقدر أعدل المحتوى بنفسي؟</summary><p>بنتفق معك على هاد من البداية. إذا بدك تعدّل الأسعار أو المنيو بنفسك، بنصمم الموقع بطريقة بتسمحلك بهيك.</p></details>
+  <details><summary>عندي صفحة فيسبوك، ليش بحتاج موقع؟</summary><p>الموقع بيظهر بجوجل، وبيعطي زباينك مكان مرتب للحجز والأسعار والتواصل بعيداً عن زحمة المنشورات. والصفحة والموقع بيشتغلوا مع بعض.</p></details>
+</div></section>
+
+<footer><div class="wrap"><span>© 2026 <a href="../" style="color:#fff">تكنو فاكت</a> — مواقع وأنظمة للمشاريع الصغيرة</span><span dir="ltr">+962 79 158 7603</span></div></footer>
+<a class="float" href="https://wa.me/962791587603" target="_blank" rel="noopener" aria-label="تواصل على واتساب"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 1-13.4 7.9L3 21l1.1-4.6A9 9 0 1 1 21 12z"/></svg></a>
+
+<script>
+{
+const NUM='962791587603',MAIL='Ahmedzouib065@gmail.com';
+const $=id=>document.getElementById(id);
+const f=$('f'),err=$('err'),done=$('done'),mailB=$('mailB');
+function build(){
+  const needs=[...document.querySelectorAll('#needs input:checked')].map(i=>i.value);
+  const lines=['مرحبا تكنو فاكت 👋 بدي موقع لمشروعي:',
+    '• الاسم: '+$('n').value.trim(),
+    '• النشاط: '+$('b').value.trim()+' ('+$('t').value+')',
+    '• المكان: '+[$('city').value.trim(),$('c').value].filter(Boolean).join('، ')];
+  if($('p').value.trim())lines.push('• رقمي: '+$('p').value.trim());
+  if(needs.length)lines.push('• بدي: '+needs.join('، '));
+  if($('m').value.trim())lines.push('• تفاصيل: '+$('m').value.trim());
+  return lines.join('\n');
+}
+function valid(){
+  if(!$('n').value.trim()){err.textContent='اكتب اسمك لو سمحت.';$('n').focus();return false}
+  if(!$('b').value.trim()){err.textContent='اكتب اسم النشاط لو سمحت.';$('b').focus();return false}
+  err.textContent='';return true;
+}
+function draft(){try{localStorage.setItem('tf-order',JSON.stringify({n:$('n').value,b:$('b').value,city:$('city').value,p:$('p').value,m:$('m').value}))}catch(e){}}
+try{const d=JSON.parse(localStorage.getItem('tf-order')||'{}');for(const k in d)if($(k)&&typeof d[k]==='string')$(k).value=d[k]}catch(e){}
+f.addEventListener('input',()=>{draft();mailB.href='mailto:'+MAIL+'?subject='+encodeURIComponent('طلب موقع — '+$('b').value.trim())+'&body='+encodeURIComponent(build())});
+f.addEventListener('submit',e=>{
+  e.preventDefault();if(!valid())return;
+  const url='https://wa.me/'+NUM+'?text='+encodeURIComponent(build());
+  $('waLink').href=url;done.classList.add('show');
+  const a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener';document.body.appendChild(a);a.click();a.remove();
+});
+mailB.addEventListener('click',e=>{if(!valid()){e.preventDefault()}});
+}
+</script>
+</body>
+</html>
