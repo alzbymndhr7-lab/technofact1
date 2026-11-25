@@ -1,5 +1,27 @@
 [
   {
+    "slug": "protect-x-account",
+    "date": "2026-11-25",
+    "tags": [
+      "x",
+      "twitter",
+      "security"
+    ],
+    "cover": "images/2026/cover-protect-x-account.webp",
+    "status": "published",
+    "featured": false,
+    "ar": {
+      "title": "كيف تحمي حسابك على إكس (تويتر) من الاختراق: دليل شامل",
+      "excerpt": "خطوات عملية لتأمين حسابك على إكس: كلمة مرور قوية، المصادقة الثنائية، مفاتيح المرور، ومراجعة التطبيقات والجلسات."
+    },
+    "en": {
+      "title": "",
+      "excerpt": ""
+    },
+    "readMin": 5,
+    "updated": "2026-11-25"
+  },
+  {
     "slug": "protect-snapchat-account",
     "date": "2026-11-24",
     "tags": [
