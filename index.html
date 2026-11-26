@@ -19,7 +19,7 @@
 <!--/OG-->
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="images/og/icon-192.png">
-<meta name="theme-color" content="#0b1120">
+<meta name="theme-color" content="#05070b">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%233b82f6'/%3E%3Ctext x='32' y='42' font-family='monospace' font-size='26' font-weight='700' text-anchor='middle' fill='%23ffffff'%3ETF%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -435,7 +435,202 @@ footer .fs a:hover{color:var(--a);border-color:var(--a)}
 .toast{position:fixed;bottom:calc(24px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);
   padding:10px 18px;border-radius:12px;font-size:14px;opacity:0;transition:.3s;z-index:200;pointer-events:none}
 .toast.show{opacity:1;transform:translateX(-50%)}
+/* ═══ 2026 refresh — particle hero + deeper dark theme ═══ */
+[data-theme=dark]{--bg:#05070b;--bg2:#090c12;--card:#0b0f16;--card2:#10151e;--line:#161b25;--line2:#242b38;--code:#070a10}
+[data-theme=dark] .glow{opacity:.10}
+.hero3{position:relative;isolation:isolate;min-height:min(820px,calc(100svh - 122px));padding:64px 0 56px;grid-template-columns:minmax(0,1fr) minmax(0,.82fr);gap:56px}
+.hero3>.pfx{position:absolute;z-index:-1;top:0;bottom:0;left:50%;width:100vw;height:100%;transform:translateX(-50%);display:block;pointer-events:none;
+  -webkit-mask-image:linear-gradient(to bottom,transparent,#000 6%,#000 82%,transparent);mask-image:linear-gradient(to bottom,transparent,#000 6%,#000 82%,transparent)}
+.hero3>.fade:first-of-type{position:relative}
+.hero3>.fade:first-of-type::before{content:"";position:absolute;inset:-60px -20px;z-index:-1;pointer-events:none;
+  background:radial-gradient(ellipse 62% 58% at 50% 50%,color-mix(in srgb,var(--bg) 82%,transparent),color-mix(in srgb,var(--bg) 40%,transparent) 60%,transparent 78%)}
+.hero3 h1{font-size:clamp(54px,8.2vw,118px);line-height:1;letter-spacing:-.02em;margin:22px 0 20px}
+.hero3 h1 span{display:block;color:transparent;-webkit-text-stroke:1.5px var(--ink)}
+.hero3 .eyebrow{backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.hero3 .lead-card{background:color-mix(in srgb,var(--card) 48%,transparent);backdrop-filter:blur(14px) saturate(1.2);-webkit-backdrop-filter:blur(18px) saturate(1.2);
+  border-color:color-mix(in srgb,var(--ink) 12%,transparent);transform:translateY(0);transition:transform .7s cubic-bezier(.22,1,.36,1),border-color .25s}
+.hero3 .lead-card:hover{transform:translateY(-6px)}
+.hero3 .lead-card .cover img{transition:transform 1s cubic-bezier(.22,1,.36,1)}
+.hero3 .lead-card:hover .cover img{transform:scale(1.05)}
+.hero3 .hstats{border-top-color:color-mix(in srgb,var(--ink) 12%,transparent)}
+.hero3 .hstats b{font-weight:500}
+.fx-hint{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);font-family:var(--ffm);font-size:11px;letter-spacing:.06em;color:var(--mut);opacity:.7;pointer-events:none;white-space:nowrap}
+@media(max-width:900px){
+  .hero3{grid-template-columns:1fr;min-height:0;padding:28px 0 40px;gap:28px}
+  .hero3>.fade:first-of-type{padding-top:min(70vw,360px)}
+  .hero3>.fade:first-of-type::before{inset:min(48vw,260px) -20px -30px}
+  .hero3 h1{font-size:clamp(52px,15vw,84px)}
+  .hero3>.pfx{height:min(110vw,620px);bottom:auto;-webkit-mask-image:linear-gradient(to bottom,transparent,#000 8%,#000 70%,transparent);mask-image:linear-gradient(to bottom,transparent,#000 8%,#000 70%,transparent)}
+  .fx-hint{display:none}
+}
+@media (prefers-reduced-motion:reduce){.hero3 .lead-card,.hero3 .lead-card .cover img{transition:none}}
 </style>
+<script>
+/* ═══ Particle hero: GPU particle ring stirred by the cursor/finger (three.js, lazy-loaded on the home page) ═══ */
+window.TFX=(function(){
+  let three=null, cur=null;
+  function loadThree(){
+    if(window.THREE) return Promise.resolve();
+    if(three) return three;
+    three=new Promise((res,rej)=>{const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/three@0.150.1/build/three.min.js';s.onload=res;s.onerror=rej;document.head.appendChild(s);});
+    return three;
+  }
+  function unmount(){ if(cur){ cur(); cur=null; } }
+  function mount(){
+    unmount();
+    const canvas=document.querySelector('.hero3>.pfx'); if(!canvas) return;
+    loadThree().then(()=>{ if(document.body.contains(canvas)) cur=start(canvas); }).catch(()=>{});
+  }
+  function start(canvas){
+    const T=THREE; let renderer;
+    try{ renderer=new T.WebGLRenderer({canvas,antialias:false,alpha:true,powerPreference:'high-performance'}); }catch(e){ return null; }
+    if(!renderer.capabilities.isWebGL2){ renderer.dispose(); return null; }
+    const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const mobile=matchMedia('(max-width: 760px)').matches||/Mobi|Android/i.test(navigator.userAgent);
+    const SIZE=mobile?160:300, COUNT=SIZE*SIZE;
+    const type=renderer.extensions.get('EXT_color_buffer_float')?T.FloatType:T.HalfFloatType;
+    const DPR=Math.min(devicePixelRatio||1,2);
+    renderer.setPixelRatio(DPR); renderer.setClearColor(0x000000,0);
+
+    const orig=new Float32Array(COUNT*4), uvs=new Float32Array(COUNT*3), rnd=new Float32Array(COUNT*4);
+    for(let i=0;i<COUNT;i++){
+      orig[i*4]=Math.random()*2-1; orig[i*4+1]=Math.random()*2-1; orig[i*4+2]=Math.random()*2-1; orig[i*4+3]=1;
+      uvs[i*3]=((i%SIZE)+.5)/SIZE; uvs[i*3+1]=(Math.floor(i/SIZE)+.5)/SIZE;
+      rnd[i*4]=Math.random(); rnd[i*4+1]=Math.random(); rnd[i*4+2]=Math.random(); rnd[i*4+3]=Math.random();
+    }
+    const originTex=new T.DataTexture(orig,SIZE,SIZE,T.RGBAFormat,T.FloatType); originTex.needsUpdate=true;
+    const mkRT=()=>new T.WebGLRenderTarget(SIZE,SIZE,{type,format:T.RGBAFormat,minFilter:T.NearestFilter,magFilter:T.NearestFilter,depthBuffer:false,stencilBuffer:false});
+    let rtA=mkRT(), rtB=mkRT();
+
+    const scene=new T.Scene(), camera=new T.PerspectiveCamera(30,1,.1,100);
+    const camBase=new T.Vector3(0,.1,8.2); camera.position.copy(camBase);
+    const group=new T.Group();
+    group.position.set(0,.05,-1);
+    group.rotation.set(T.MathUtils.degToRad(-24),T.MathUtils.degToRad(28),T.MathUtils.degToRad(8));
+    const gs=innerWidth<900?2.6:3.7; group.scale.set(gs,gs,gs*1.16);
+    scene.add(group);
+
+    const TRAIL=12, trail=Array.from({length:TRAIL},()=>new T.Vector4(-9,-9,0,0)), trailS=new Float32Array(TRAIL);
+    const simMat=new T.ShaderMaterial({
+      uniforms:{uPos:{value:originTex},uOrigin:{value:originTex},uTime:{value:0},uHz:{value:1},uMVP:{value:new T.Matrix4()},uViewToLocal:{value:new T.Matrix3()},uAspect:{value:1},uViewH:{value:4},uTrail:{value:trail},uTrailS:{value:trailS}},
+      vertexShader:'varying vec2 vUv;void main(){vUv=uv;gl_Position=vec4(position.xy,0.,1.);}',
+      fragmentShader:`precision highp float;varying vec2 vUv;
+        uniform sampler2D uPos,uOrigin;uniform float uTime,uHz,uAspect,uViewH;uniform mat4 uMVP;uniform mat3 uViewToLocal;
+        uniform vec4 uTrail[${TRAIL}];uniform float uTrailS[${TRAIL}];
+        vec3 pot(vec3 p,float t){return vec3(sin(p.y*1.7+p.z*.9+t)+.5*sin(p.z*3.1-p.x*2.3+t*1.7),sin(p.z*1.3+p.x*1.1+t*1.3)+.5*sin(p.x*2.9+p.y*2.1-t*1.1),sin(p.x*1.5+p.y*.8+t*.7)+.5*sin(p.y*3.3-p.z*1.9+t*1.5));}
+        vec3 curl(vec3 p,float t){const float e=.02;vec3 dx=vec3(e,0,0),dy=vec3(0,e,0),dz=vec3(0,0,e);
+          vec3 c=vec3((pot(p+dy,t).z-pot(p-dy,t).z)-(pot(p+dz,t).y-pot(p-dz,t).y),(pot(p+dz,t).x-pot(p-dz,t).x)-(pot(p+dx,t).z-pot(p-dx,t).z),(pot(p+dx,t).y-pot(p-dx,t).y)-(pot(p+dy,t).x-pot(p-dy,t).x));
+          return normalize(c+1e-5);}
+        float sdf(vec3 p){float L=length(p);if(L>.85)return L-.7;float a=atan(p.y,p.x);float R=.40+.05*sin(a*2.+.6);float r=.15+.055*sin(a*3.+1.2);
+          vec2 q=vec2(length(p.xy)-R,p.z);float c=cos(a*1.5),s=sin(a*1.5);q=mat2(c,-s,s,c)*q;q.x*=.78;return length(q)-r;}
+        vec3 grad(vec3 p){const float h=.001;return normalize(vec3(sdf(p+vec3(h,0,0))-sdf(p-vec3(h,0,0)),sdf(p+vec3(0,h,0))-sdf(p-vec3(0,h,0)),sdf(p+vec3(0,0,h))-sdf(p-vec3(0,0,h)))+1e-6);}
+        void main(){vec3 pos=texture2D(uPos,vUv).xyz,o=texture2D(uOrigin,vUv).xyz;
+          if(length(pos)>.75)pos/=1.6;
+          float ax=length(pos.xy);if(ax<.12)pos.xy+=normalize(o.xy+1e-4)*(.12-ax)*.25;
+          pos+=curl(pos*.9+uTime*.05,uTime*.25)*.0006*uHz;
+          vec3 g=grad(pos);float d=sdf(pos);
+          pos+=cross(normalize(pos),g)*.0007*uHz;pos+=-g*d*.09*uHz;pos+=(o-pos)*.0002*uHz;
+          vec4 clip=uMVP*vec4(pos,1.);vec2 suv=clip.xy/clip.w*.5+.5;vec2 flow=vec2(0.);
+          for(int i=0;i<${TRAIL};i++){vec2 dd=suv-uTrail[i].xy;dd.x*=uAspect;float w=exp(-dot(dd,dd)/.006)*uTrailS[i];
+            flow+=uTrail[i].zw*w;flow+=vec2(-dd.y,dd.x)*w*.9*length(uTrail[i].zw)*14.;}
+          pos+=uViewToLocal*(vec3(flow.x*uAspect,flow.y,0.)*uViewH)*1.1;
+          gl_FragColor=vec4(pos,1.);}`,
+      depthTest:false,depthWrite:false});
+    const simScene=new T.Scene(), simCam=new T.OrthographicCamera(-1,1,1,-1,0,1);
+    const quad=new T.Mesh(new T.PlaneGeometry(2,2),simMat); simScene.add(quad);
+
+    const geo=new T.BufferGeometry();
+    geo.setAttribute('position',new T.BufferAttribute(uvs,3)); geo.setAttribute('rnd',new T.BufferAttribute(rnd,4));
+    const accent=new T.Color(getComputedStyle(document.documentElement).getPropertyValue('--a').trim()||'#3b82f6');
+    const ptMat=new T.ShaderMaterial({
+      uniforms:{uPos:{value:originTex},uTime:{value:0},uDPR:{value:DPR},uSize:{value:mobile?1.35:1.3},uLight:{value:0},uAcc:{value:new T.Vector3(accent.r,accent.g,accent.b)}},
+      vertexShader:`uniform sampler2D uPos;uniform float uDPR,uSize;attribute vec4 rnd;varying vec4 vR;varying float vS;
+        void main(){vec3 p=texture2D(uPos,position.xy).xyz;p*=mix(1.,1.5,pow(rnd.y,150.));vec4 mv=modelViewMatrix*vec4(p,1.);float dist=-mv.z;
+          float sc=smoothstep(3.,15.,dist)*mix(.5,1.,rnd.z);vS=sc;vR=rnd;gl_PointSize=.08*uDPR*sc*(1000./dist)*uSize;gl_Position=projectionMatrix*mv;}`,
+      fragmentShader:`uniform float uTime,uLight;uniform vec3 uAcc;varying vec4 vR;varying float vS;
+        void main(){vec2 c=gl_PointCoord*2.-1.;float r2=dot(c,c);if(r2>1.||vS<.1)discard;
+          vec3 n=vec3(c,sqrt(1.-r2));float l=.35+.65*max(dot(n,normalize(vec3(-.4,.55,.75))),0.);
+          float acc=pow(vR.z,28.);float sp=.5+(.4+sin(uTime*4.+vR.y*20.))*pow(vR.z,10.)*2.5;
+          vec3 dark=mix(vec3(mix(.03,.30,vR.x)),uAcc*1.35,acc)*l*sp;
+          vec3 light=mix(vec3(mix(.10,.42,vR.x)),uAcc*.85,acc)*(1.25-l*.4);
+          gl_FragColor=uLight>.5?vec4(light,mix(.3,.7,vR.x)):vec4(dark,1.);}`,
+      transparent:true,depthTest:true,depthWrite:false,blending:T.AdditiveBlending});
+    const points=new T.Points(geo,ptMat); points.frustumCulled=false; group.add(points);
+
+    const target=new T.Vector2(0,0); const mouse={px:null,py:null,last:0};
+    function move(x,y){
+      const r=canvas.getBoundingClientRect(); if(y<r.top-40||y>r.bottom+40) return;
+      const u=(x-r.left)/r.width, v=1-(y-r.top)/r.height; target.set(u*2-1,v*2-1);
+      const now=performance.now();
+      if(mouse.px!==null&&now-mouse.last<60){
+        const du=u-mouse.px, dv=v-mouse.py, len=Math.hypot(du*r.width,dv*r.height);
+        if(len>.5){ trail.pop(); trail.unshift(new T.Vector4(u,v,Math.max(-.04,Math.min(.04,du)),Math.max(-.04,Math.min(.04,dv))));
+          for(let i=TRAIL-1;i>0;i--) trailS[i]=trailS[i-1]; trailS[0]=Math.min(1,len/12); simMat.uniforms.uTrail.value=trail; }
+      }
+      mouse.px=u; mouse.py=v; mouse.last=now;
+    }
+    const onMove=e=>move(e.clientX,e.clientY);
+    const onTouch=e=>{const t=e.touches[0]; if(t) move(t.clientX,t.clientY);};
+    addEventListener('pointermove',onMove,{passive:true}); addEventListener('touchmove',onTouch,{passive:true});
+
+    let tall=false;
+    function resize(){
+      const w=canvas.clientWidth||innerWidth, h=canvas.clientHeight||600; if(!w||!h) return;
+      renderer.setSize(w,h,false); camera.aspect=w/h;
+      const narrow=w<900; tall=narrow;
+      const rtl=document.documentElement.dir==='rtl';
+      camera.fov=narrow?36:30;
+      // desktop: the ring sits between the headline and the lead card; phones: top of the hero
+      camBase.set(0, narrow?0:.1, narrow?(w/h<.8?10.5:8.6):8.6);
+      const lc=!narrow&&document.querySelector('.hero3 .lead-card');
+      if(lc){ const cr=canvas.getBoundingClientRect(), r=lc.getBoundingClientRect();
+        const visH=2*Math.tan(T.MathUtils.degToRad(camera.fov/2))*(camBase.z+1), visW=visH*(w/h);
+        camBase.x=-((r.left+r.width/2-cr.left)/w-.5)*visW*.62; }
+      group.position.y=narrow?.75:.05;
+      camera.updateProjectionMatrix();
+      simMat.uniforms.uAspect.value=w/h;
+      simMat.uniforms.uViewH.value=2*Math.tan(T.MathUtils.degToRad(camera.fov/2))*9.2;
+    }
+    const ro=new ResizeObserver(resize); ro.observe(canvas); resize();
+
+    let visible=true; const io=new IntersectionObserver(es=>visible=es[0].isIntersecting); io.observe(canvas);
+    const clock=new T.Clock(); let t=0, first=true, raf=0, alive=true;
+    const m4=new T.Matrix4(), m3a=new T.Matrix3(), m3b=new T.Matrix3();
+    function frame(){
+      if(!alive) return; raf=requestAnimationFrame(frame);
+      const dt=Math.min(clock.getDelta(),1/20);
+      if(!visible||document.hidden) return;
+      t+=dt; const hz=dt*60*(reduce?.5:1);
+      const light=document.documentElement.dataset.theme==='light';
+      ptMat.uniforms.uLight.value=light?1:0; ptMat.blending=light?T.NormalBlending:T.AdditiveBlending;
+      camera.position.x+=((camBase.x-target.x*.6)-camera.position.x)*.05;
+      camera.position.y+=((camBase.y+target.y*.9)-camera.position.y)*.05;
+      camera.position.z=camBase.z; camera.lookAt(camBase.x,camBase.y*.5,0);
+      if(!reduce) group.rotation.z=T.MathUtils.degToRad(8)+t*.04;
+      scene.updateMatrixWorld(); camera.updateMatrixWorld();
+      m4.multiplyMatrices(camera.projectionMatrix,camera.matrixWorldInverse).multiply(group.matrixWorld);
+      simMat.uniforms.uMVP.value.copy(m4);
+      m3a.setFromMatrix4(group.matrixWorld).invert(); m3b.setFromMatrix4(camera.matrixWorld);
+      simMat.uniforms.uViewToLocal.value.copy(m3a).multiply(m3b);
+      for(let i=0;i<TRAIL;i++) trailS[i]*=.9;
+      simMat.uniforms.uTime.value=t; simMat.uniforms.uHz.value=hz;
+      simMat.uniforms.uPos.value=first?originTex:rtA.texture; first=false;
+      renderer.setRenderTarget(rtB); renderer.render(simScene,simCam); renderer.setRenderTarget(null);
+      [rtA,rtB]=[rtB,rtA];
+      ptMat.uniforms.uPos.value=rtA.texture; ptMat.uniforms.uTime.value=t;
+      renderer.render(scene,camera);
+    }
+    frame();
+    return function stop(){
+      alive=false; cancelAnimationFrame(raf); ro.disconnect(); io.disconnect();
+      removeEventListener('pointermove',onMove); removeEventListener('touchmove',onTouch);
+      rtA.dispose(); rtB.dispose(); originTex.dispose(); geo.dispose(); ptMat.dispose(); simMat.dispose(); quad.geometry.dispose();
+      renderer.dispose(); try{renderer.forceContextLoss();}catch(e){}
+    };
+  }
+  return {mount,unmount};
+})();
+</script>
 </head>
 <body>
 <div id="progress"></div>
@@ -918,6 +1113,7 @@ function home(){
   const ar=S.lang==='ar', arr=ar?'←':'→';
   return `<div class="wrap">
   <section class="hero3">
+    <canvas class="pfx" aria-hidden="true"></canvas>
     <div class="fade">
       <span class="eyebrow"><i></i>${t('hero_eb')}</span>
       <h1>${esc(parts[0])} <span>${esc(parts.slice(1).join(' '))}</span></h1>
@@ -1089,13 +1285,14 @@ function route(){
   let r=h; $('#links').classList.remove('open');
   document.title=S.settings['name_'+S.lang]? S.settings['name_'+S.lang]+' | '+(S.lang==='ar'?'مقالات تقنية وبرمجة':'Tech & programming'):'Techno Fact';
   const app=$('#app');
+  if(window.TFX) TFX.unmount();
   if(h.startsWith('post-')){ r='blog'; post(h.slice(5)); }
   else if(h.startsWith('tag-')){ r='blog'; S.tag=h.slice(4); S.q=''; app.innerHTML=blog(); bindBlog(); }
   else if(h==='blog'){ app.innerHTML=blog(); bindBlog(); }
   else if(h==='projects') app.innerHTML=projects();
   else if(h==='about') app.innerHTML=about();
   else if(h==='office'){ app.innerHTML=office(); startOffice(); }
-  else if(h==='home'){ app.innerHTML=home(); loadPopular(); }
+  else if(h==='home'){ app.innerHTML=home(); loadPopular(); if(window.TFX) TFX.mount(); }
   else notFound();
   document.querySelectorAll('.links a').forEach(a=>a.classList.toggle('on',a.dataset.r===r));
   if(!h.startsWith('post-')) window.scrollTo(0,0);
