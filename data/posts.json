@@ -1,5 +1,28 @@
 [
   {
+    "slug": "extend-phone-battery-life",
+    "date": "2026-11-26",
+    "tags": [
+      "battery",
+      "android",
+      "iphone",
+      "tips"
+    ],
+    "cover": "images/2026/cover-extend-phone-battery-life.webp",
+    "status": "published",
+    "featured": false,
+    "ar": {
+      "title": "بطارية هاتفك تنفد بسرعة؟ دليل عملي لإطالة عمرها",
+      "excerpt": "إعدادات وعادات بسيطة تجعل شحنة هاتفك تدوم أطول وتحمي البطارية من الضعف، لآيفون وأندرويد."
+    },
+    "en": {
+      "title": "",
+      "excerpt": ""
+    },
+    "readMin": 5,
+    "updated": "2026-11-26"
+  },
+  {
     "slug": "1password-breach-github",
     "date": "2026-11-26",
     "tags": [
