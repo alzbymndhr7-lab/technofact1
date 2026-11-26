@@ -82,11 +82,13 @@ ${post.tags.map((t) => `<meta property="article:tag" content="${xesc(t)}">`).joi
 </head><body><p><a href="${xesc(target)}">${xesc(spec.title)}</a></p></body></html>
 `);
 
+// static pages always listed in the sitemap (keep in sync with admin.html)
+const EXTRA_PAGES = ['order/','order/pricing.html','order/demos/restaurant.html','order/demos/clinic.html','order/demos/salon.html','tools/scam-message-checker/','tools/link-checker/','tools/password-leak-checker/','tools/password-checker/','tools/password-generator/','tools/qr-generator/','tools/prompt-generator/'];
 // feeds (same as admin.html siteFeeds)
 const pubs = list.filter((p) => p.status !== 'draft' && p.date <= date).sort((a, b) => b.date.localeCompare(a.date));
 const items = pubs.slice(0, 30).map((p) => `  <item><title>${xesc(p.ar?.title || p.en?.title)}</title><link>${BASE}p/${p.slug}/</link><guid>${BASE}p/${p.slug}/</guid><pubDate>${new Date(p.date + 'T09:00:00Z').toUTCString()}</pubDate><description>${xesc(p.ar?.excerpt || p.en?.excerpt)}</description></item>`).join('\n');
 writeFileSync(R('rss.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0"><channel>\n  <title>${xesc(settings.name_ar || settings.name_en)}</title><link>${BASE}</link><description>${xesc(settings.tagline_ar)}</description><language>ar</language>\n${items}\n</channel></rss>\n`);
-writeFileSync(R('sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url><loc>${BASE}</loc></url>\n${pubs.map((p) => `  <url><loc>${BASE}p/${p.slug}/</loc><lastmod>${p.updated || p.date}</lastmod></url>`).join('\n')}\n</urlset>\n`);
+writeFileSync(R('sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url><loc>${BASE}</loc></url>\n${EXTRA_PAGES.map((u) => `  <url><loc>${BASE}${u}</loc></url>`).join('\n')}\n${pubs.map((p) => `  <url><loc>${BASE}p/${p.slug}/</loc><lastmod>${p.updated || p.date}</lastmod></url>`).join('\n')}\n</urlset>\n`);
 
 // history log used to avoid repeating topics
 const hFile = R('automation/history.json');
