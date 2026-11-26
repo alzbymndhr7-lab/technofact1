@@ -1,5 +1,27 @@
 [
   {
+    "slug": "protect-telegram-account",
+    "date": "2026-11-26",
+    "tags": [
+      "telegram",
+      "security",
+      "privacy"
+    ],
+    "cover": "images/2026/cover-protect-telegram-account.webp",
+    "status": "published",
+    "featured": false,
+    "ar": {
+      "title": "كيف تحمي حسابك على تيليجرام من الاختراق: دليل خطوة بخطوة",
+      "excerpt": "فعّل التحقق بخطوتين ومفاتيح المرور وراجع الأجهزة المتصلة لتحمي حسابك على تيليجرام من السرقة والاحتيال."
+    },
+    "en": {
+      "title": "",
+      "excerpt": ""
+    },
+    "readMin": 5,
+    "updated": "2026-11-26"
+  },
+  {
     "slug": "extend-phone-battery-life",
     "date": "2026-11-26",
     "tags": [
