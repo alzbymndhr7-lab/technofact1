@@ -1,5 +1,28 @@
 [
   {
+    "slug": "1password-breach-github",
+    "date": "2026-11-26",
+    "tags": [
+      "1password",
+      "security",
+      "data-breach",
+      "phishing"
+    ],
+    "cover": "images/2026/cover-1password-breach-github.webp",
+    "status": "published",
+    "featured": false,
+    "ar": {
+      "title": "اختراق 1Password عبر حساب موظف: هل كلمات سرك في خطر؟",
+      "excerpt": "مخترق دخل أنظمة 1Password عبر حساب موظف على GitHub وسرق بيانات عملاء. ما الذي تأثر، وما الذي يجب أن تفعله الآن؟"
+    },
+    "en": {
+      "title": "",
+      "excerpt": ""
+    },
+    "readMin": 5,
+    "updated": "2026-11-26"
+  },
+  {
     "slug": "password-manager-guide",
     "date": "2026-11-25",
     "tags": [
