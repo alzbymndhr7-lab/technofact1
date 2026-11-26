@@ -542,6 +542,63 @@ section.blk{padding:clamp(56px,8vw,110px) 0 0}
   .mq-t{animation:none}
   .rv{opacity:1;transform:none}
 }
+
+/* ═══ premium cards ═══ */
+.grid{counter-reset:cn}
+.card{counter-increment:cn;padding:7px;border:1px solid transparent;border-radius:24px;
+  background:linear-gradient(var(--card),var(--card)) padding-box,
+    linear-gradient(155deg,color-mix(in srgb,var(--ink) 16%,transparent),color-mix(in srgb,var(--ink) 4%,transparent) 38%,color-mix(in srgb,var(--a) 34%,transparent)) border-box;
+  box-shadow:0 1px 0 color-mix(in srgb,var(--ink) 6%,transparent) inset,0 30px 60px -30px rgba(0,0,0,.55);
+  transform:perspective(1000px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(var(--ty,0px));
+  transition:transform .7s var(--ease),box-shadow .5s,background .5s;will-change:transform}
+.card:hover{--ty:-6px;transform:perspective(1000px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(-6px);border-color:transparent;
+  background:linear-gradient(var(--card),var(--card)) padding-box,
+    linear-gradient(155deg,color-mix(in srgb,var(--a) 70%,transparent),color-mix(in srgb,var(--ink) 8%,transparent) 45%,color-mix(in srgb,var(--a) 55%,transparent)) border-box;
+  box-shadow:0 1px 0 color-mix(in srgb,var(--ink) 8%,transparent) inset,0 40px 80px -30px color-mix(in srgb,var(--a) 40%,rgba(0,0,0,.6))}
+.card.tilt{transition:transform .12s linear,box-shadow .5s,background .5s}
+.card .cover{border-radius:17px;isolation:isolate}
+.card .cover::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;border-radius:inherit;
+  background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.16) 50%,transparent 65%);transform:translateX(-120%);transition:transform 1.1s var(--ease)}
+.card:hover .cover::before{transform:translateX(120%)}
+.card .cover::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;border-radius:inherit;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
+.card .cat{top:12px;inset-inline-start:auto;inset-inline-end:12px;display:inline-flex;align-items:center;gap:7px;padding:7px 12px;border-radius:999px;
+  font-size:11.5px;font-weight:600;color:#fff;background:rgba(6,9,14,.55);backdrop-filter:blur(10px) saturate(1.4);-webkit-backdrop-filter:blur(10px) saturate(1.4);
+  border:1px solid rgba(255,255,255,.14);box-shadow:none}
+.card .cat::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--a);box-shadow:0 0 10px var(--a)}
+.card .cat.new::before{background:#ef4444;box-shadow:0 0 10px #ef4444}
+.card .cbody{padding:20px 14px 12px;gap:10px;position:relative}
+.card h3{font-size:18px;font-weight:600;line-height:1.6;letter-spacing:-.005em}
+.card:hover h3{color:var(--ink)}
+.card p{font-size:14.5px;line-height:1.8;color:color-mix(in srgb,var(--ink) 55%,transparent)}
+.card .cmeta{border-top:1px dashed color-mix(in srgb,var(--ink) 12%,transparent);padding-top:14px;margin-top:auto;font-size:12.5px}
+.card .cmeta .go{width:38px;height:38px;border-radius:50%;justify-content:center;font-size:0;gap:0;flex:none;
+  border:1px solid color-mix(in srgb,var(--ink) 16%,transparent);color:var(--ink);transition:background .4s,border-color .4s,transform .6s var(--ease)}
+.card .cmeta .go::after{content:"";width:15px;height:15px;background:currentColor;
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17L17 7M8 7h9v9'/%3E%3C/svg%3E") center/contain no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17L17 7M8 7h9v9'/%3E%3C/svg%3E") center/contain no-repeat}
+[dir=rtl] .card .cmeta .go::after{transform:scaleX(-1)}
+.card:hover .cmeta .go{background:var(--a);border-color:var(--a);color:#fff;transform:rotate(45deg)}
+[dir=rtl] .card:hover .cmeta .go{transform:rotate(-45deg)}
+/* project cards */
+.card:has(.plinks) .cbody::before{display:none}
+.card .tags{gap:6px}
+.card .tag{border-radius:999px;padding:4px 11px;font-size:11.5px;background:color-mix(in srgb,var(--ink) 5%,transparent);border-color:color-mix(in srgb,var(--ink) 10%,transparent);color:color-mix(in srgb,var(--ink) 70%,transparent)}
+.card .plinks{margin-top:auto;padding-top:14px;border-top:1px dashed color-mix(in srgb,var(--ink) 12%,transparent);display:flex;gap:8px}
+.card .plinks a{display:inline-flex;align-items:center;gap:6px;height:38px;padding:0 16px;border-radius:999px;font-size:13.5px;font-weight:600;
+  background:color-mix(in srgb,var(--a) 14%,transparent);color:var(--a2);border:1px solid color-mix(in srgb,var(--a) 28%,transparent);transition:background .3s,color .3s}
+.card .plinks a:hover{background:var(--a);color:#fff}
+/* featured (bento) card keeps its frame */
+.hl .card:first-child{padding:7px}
+.hl .card:first-child .cover{margin:0;border-radius:17px}
+.hl .card:first-child .cbody::before{display:none}
+.hl .card:first-child h3{padding-inline-end:0}
+/* hero lead card in the same language */
+.hx .lead-card{padding:6px;border-radius:22px}
+.hx .lead-card .cover{border-radius:16px}
+.hx .lead-card .cat{border-radius:999px;font-size:11px}
+[data-theme=light] .card{box-shadow:0 1px 0 rgba(255,255,255,.8) inset,0 24px 48px -28px rgba(15,23,42,.28)}
+[data-theme=light] .card .cat{background:rgba(255,255,255,.7);color:#0f172a;border-color:rgba(15,23,42,.1)}
+@media (hover:none),(prefers-reduced-motion:reduce){.card{transform:none!important}.card .cover::before{display:none}}
 </style>
 <script>
 /* ═══ Particle hero: GPU particle ring stirred by the cursor/finger (three.js, lazy-loaded on the home page) ═══ */
@@ -707,7 +764,12 @@ window.TFX=(function(){
   function enhance(){
     if(!spot){ spot=true;
       document.addEventListener('pointermove',e=>{const c=e.target.closest&&e.target.closest('.card,.lead-card'); if(!c) return;
-        const r=c.getBoundingClientRect(); c.style.setProperty('--mx',(e.clientX-r.left)+'px'); c.style.setProperty('--my',(e.clientY-r.top)+'px');},{passive:true});
+        const r=c.getBoundingClientRect(); c.style.setProperty('--mx',(e.clientX-r.left)+'px'); c.style.setProperty('--my',(e.clientY-r.top)+'px');
+        if(c.classList.contains('card')&&e.pointerType==='mouse'&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
+          const x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
+          c.classList.add('tilt'); c.style.setProperty('--rx',(-y*7).toFixed(2)+'deg'); c.style.setProperty('--ry',(x*9).toFixed(2)+'deg'); }},{passive:true});
+      document.addEventListener('pointerout',e=>{const c=e.target.closest&&e.target.closest('.card'); if(!c||c.contains(e.relatedTarget)) return;
+        c.classList.remove('tilt'); c.style.setProperty('--rx','0deg'); c.style.setProperty('--ry','0deg');},{passive:true});
       const f=document.querySelector('footer');
       if(f&&!document.querySelector('.fbig')){ const d=document.createElement('div'); d.className='fbig'; d.setAttribute('aria-hidden','true'); f.prepend(d); }
     }
