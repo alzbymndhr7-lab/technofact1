@@ -1,5 +1,27 @@
 [
   {
+    "slug": "protect-youtube-channel",
+    "date": "2026-11-27",
+    "tags": [
+      "youtube",
+      "security",
+      "google"
+    ],
+    "cover": "images/2026/cover-protect-youtube-channel.webp",
+    "status": "published",
+    "featured": false,
+    "ar": {
+      "title": "كيف تحمي قناتك على يوتيوب من الاختراق: دليل خطوة بخطوة",
+      "excerpt": "خطوات عملية من إرشادات يوتيوب الرسمية لتأمين قناتك: مفتاح المرور، كشف رسائل الرعاية المزيفة، وأذونات الفريق."
+    },
+    "en": {
+      "title": "",
+      "excerpt": ""
+    },
+    "readMin": 5,
+    "updated": "2026-11-27"
+  },
+  {
     "slug": "protect-telegram-account",
     "date": "2026-11-26",
     "tags": [
