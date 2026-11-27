@@ -1,5 +1,27 @@
 [
   {
+    "slug": "passkeys-guide",
+    "date": "2026-11-27",
+    "tags": [
+      "passkeys",
+      "security",
+      "passwords"
+    ],
+    "cover": "images/2026/cover-passkeys-guide.webp",
+    "status": "published",
+    "featured": false,
+    "ar": {
+      "title": "مفاتيح المرور (Passkeys): ودّع كلمات السر بأمان",
+      "excerpt": "دليل مبسّط لمفاتيح المرور: ما هي، ولماذا هي أكثر أمانًا من كلمة السر، وكيف تفعّلها على حساب غوغل خطوة بخطوة."
+    },
+    "en": {
+      "title": "",
+      "excerpt": ""
+    },
+    "readMin": 5,
+    "updated": "2026-11-27"
+  },
+  {
     "slug": "nvidia-halts-southeast-asia-shipments",
     "date": "2026-11-27",
     "tags": [
