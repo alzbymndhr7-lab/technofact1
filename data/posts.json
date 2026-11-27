@@ -1,5 +1,28 @@
 [
   {
+    "slug": "nvidia-halts-southeast-asia-shipments",
+    "date": "2026-11-27",
+    "tags": [
+      "nvidia",
+      "ai",
+      "chips",
+      "export-controls"
+    ],
+    "cover": "images/2026/cover-nvidia-halts-southeast-asia-shipments.webp",
+    "status": "published",
+    "featured": false,
+    "ar": {
+      "title": "إنفيديا توقف شحن خوادمها إلى 4 دول آسيوية: ماذا يعني ذلك؟",
+      "excerpt": "إنفيديا تطلب من شركائها وقف شحن خوادم الذكاء الاصطناعي إلى ماليزيا وسنغافورة وتايلاند وإندونيسيا بعد قواعد أمريكية جديدة."
+    },
+    "en": {
+      "title": "",
+      "excerpt": ""
+    },
+    "readMin": 5,
+    "updated": "2026-11-27"
+  },
+  {
     "slug": "protect-youtube-channel",
     "date": "2026-11-27",
     "tags": [
