@@ -1,5 +1,27 @@
 [
   {
+    "slug": "fifa-cyberattack-data-breach",
+    "date": "2026-11-28",
+    "tags": [
+      "fifa",
+      "data-breach",
+      "security"
+    ],
+    "cover": "images/2026/cover-fifa-cyberattack-data-breach.webp",
+    "status": "published",
+    "featured": false,
+    "ar": {
+      "title": "اختراق فيفا: ماذا سُرق وهل بياناتك كمشجع في خطر؟",
+      "excerpt": "فيفا يؤكد هجومًا إلكترونيًا طال بيانات شخصية وبيانات أعمال، ومجموعة قرصنة تدّعي سرقة 12 غيغابايت. ما نعرفه وما يجب أن تفعله."
+    },
+    "en": {
+      "title": "",
+      "excerpt": ""
+    },
+    "readMin": 5,
+    "updated": "2026-11-28"
+  },
+  {
     "slug": "passkeys-guide",
     "date": "2026-11-27",
     "tags": [
